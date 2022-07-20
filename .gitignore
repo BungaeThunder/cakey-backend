@@ -68,3 +68,6 @@ atlassian-ide-plugin.xml
 
 # VS Code
 .vscode/
+
+data
+.env
