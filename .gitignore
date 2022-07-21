@@ -71,3 +71,4 @@ atlassian-ide-plugin.xml
 
 data
 .env
+!gradle/wrapper/gradle-wrapper.jar

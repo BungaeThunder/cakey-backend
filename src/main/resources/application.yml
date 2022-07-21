@@ -1,0 +1,8 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:${MARIADB_PORT}/${MARIADB_DATABASE}?characterEncoding=UTF-8
+    username: ${MARIADB_USER}
+    password: ${MARIADB_PASSWORD}

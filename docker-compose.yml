@@ -2,6 +2,8 @@ version: '3.9'
 services:
   mariadb:
     image: mariadb:10.7.4
+    ports:
+      - "${MARIADB_PORT:-3306}:3306"
     volumes:
       - ./data/mariadb:/var/lib/mysql
       - ./data/log/mariadb:/var/log/mariadb
@@ -10,3 +12,12 @@ services:
       MARIADB_DATABASE: ${MARIADB_DATABASE}
       MARIADB_USER: ${MARIADB_USER}
       MARIADB_PASSWORD: ${MARIADB_PASSWORD}
+  app:
+    build:
+      context: .
+    depends_on:
+      - mariadb
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mariadb://${MARIADB_HOST}/${MARIADB_DATABASE}?characterEncoding=UTF-8
+      SPRING_DATASOURCE_USERNAME: ${MARIADB_USER}
+      SPRING_DATASOURCE_PASSWORD: ${MARIADB_PASSWORD}
