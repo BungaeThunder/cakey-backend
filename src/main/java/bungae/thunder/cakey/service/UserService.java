@@ -10,6 +10,7 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository = new
             MemoryUserRepository();
+
     /**
      * 회원가입
      */
@@ -17,12 +18,14 @@ public class UserService {
         userRepository.save(user);
         return user.getId();
     }
+
     /**
      * 전체 회원 조회
      */
     public List<User> findMembers() {
         return userRepository.findAll();
     }
+
     public Optional<User> findOne(Long userId) {
         return userRepository.findById(userId);
     }
