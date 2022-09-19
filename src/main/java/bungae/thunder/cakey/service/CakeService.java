@@ -3,14 +3,17 @@ package bungae.thunder.cakey.service;
 import bungae.thunder.cakey.domain.Cake;
 import bungae.thunder.cakey.domain.User;
 import bungae.thunder.cakey.repository.CakeRepository;
-import bungae.thunder.cakey.repository.MemoryCakeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
 public class CakeService {
-    private final CakeRepository cakeRepository = new MemoryCakeRepository();
+    private final CakeRepository cakeRepository;
+
+    public CakeService(CakeRepository cakeRepository) {
+        this.cakeRepository = cakeRepository;
+    }
 
     /**
      * 케이크 만들기
@@ -19,8 +22,19 @@ public class CakeService {
         cake.setUserId(user.getId());
 
         Calendar calendar = new GregorianCalendar();
-        calendar.setTime(user.getBirthday());
+        calendar.setTime(new Date());
         cake.setYear(calendar.get(Calendar.YEAR));
+
+        cakeRepository.save(cake);
+        return cake.getId();
+    }
+
+    /**
+     * 특정 케이크 만들기
+     */
+    public Long makeCake(Cake cake, User user, Integer year) {
+        cake.setUserId(user.getId());
+        cake.setYear(year);
 
         cakeRepository.save(cake);
         return cake.getId();
