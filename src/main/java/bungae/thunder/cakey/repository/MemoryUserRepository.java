@@ -1,6 +1,7 @@
 package bungae.thunder.cakey.repository;
 
 import bungae.thunder.cakey.domain.User;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
