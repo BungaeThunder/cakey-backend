@@ -11,11 +11,13 @@ import static org.junit.jupiter.api.Assertions.*;
 class UserServiceTest {
     UserService userService;
     MemoryUserRepository userRepository;
+
     @BeforeEach
     public void beforeEach() {
         userRepository = new MemoryUserRepository();
         userService = new UserService(userRepository);
     }
+
     @AfterEach
     public void afterEach() {
         userRepository.clearStore();
