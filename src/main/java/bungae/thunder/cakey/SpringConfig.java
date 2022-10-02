@@ -8,6 +8,8 @@ import bungae.thunder.cakey.service.MessageService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.HashMap;
+
 @Configuration
 public class SpringConfig {
     @Bean
@@ -19,7 +21,7 @@ public class SpringConfig {
     @Bean
     public MessageRepository messageRepository() {
         // TODO: DB Repository
-        return new MemoryMessageRepository();
+        return new MemoryMessageRepository(new HashMap<>());
     }
 
     @Bean

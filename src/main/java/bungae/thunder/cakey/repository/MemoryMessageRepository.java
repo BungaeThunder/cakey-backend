@@ -6,8 +6,12 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class MemoryMessageRepository implements MessageRepository {
-    private static Map<Long, Message> store = new HashMap<>();
+    private static Map<Long, Message> store;
     private static Long sequence = 0L;
+
+    public MemoryMessageRepository (Map<Long, Message> store) {
+        this.store = store;
+    }
 
     @Override
     public Message save(Message message) {
