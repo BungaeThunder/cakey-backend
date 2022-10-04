@@ -30,9 +30,8 @@ public class MemoryMessageRepository implements MessageRepository {
         return store
                 .values()
                 .stream()
-                .filter(message ->
-                        message.getCakeId().equals(cakeId)
-                ).collect(Collectors.toList());
+                .filter(message -> message.getCakeId().equals(cakeId))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -40,9 +39,8 @@ public class MemoryMessageRepository implements MessageRepository {
         return store
                 .values()
                 .stream()
-                .filter(message ->
-                        message.getSenderId().equals(senderId)
-                ).collect(Collectors.toList());
+                .filter(message -> message.getSenderId().equals(senderId))
+                .collect(Collectors.toList());
     }
 
     @Override
