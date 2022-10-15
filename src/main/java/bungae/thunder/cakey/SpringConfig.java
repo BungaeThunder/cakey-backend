@@ -25,9 +25,4 @@ public class SpringConfig {
         // TODO: DB Repository
         return new MemoryMessageRepository(new HashMap<>());
     }
-
-    @Bean
-    public MessageService messageService() {
-        return new MessageService(messageRepository());
-    }
 }
