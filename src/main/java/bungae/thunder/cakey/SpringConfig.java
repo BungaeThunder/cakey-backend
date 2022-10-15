@@ -1,9 +1,10 @@
 package bungae.thunder.cakey;
 
-import bungae.thunder.cakey.repository.MemoryUserRepository;
-import bungae.thunder.cakey.repository.UserRepository;
+import bungae.thunder.cakey.repository.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.HashMap;
 
 @Configuration
 public class SpringConfig {
@@ -12,4 +13,11 @@ public class SpringConfig {
         // 추후에 해당 부분은 PostgresqlUserRepository로 교체
         return new MemoryUserRepository();
     }
+
+    @Bean
+    public ReportRepository reportRepository() {
+        return new MemoryReportRepository();
+    }
+
 }
+
