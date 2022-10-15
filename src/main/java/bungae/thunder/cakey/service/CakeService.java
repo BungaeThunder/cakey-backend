@@ -3,6 +3,7 @@ package bungae.thunder.cakey.service;
 import bungae.thunder.cakey.domain.Cake;
 import bungae.thunder.cakey.domain.User;
 import bungae.thunder.cakey.repository.CakeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -11,6 +12,7 @@ import java.util.*;
 public class CakeService {
     private final CakeRepository cakeRepository;
 
+    @Autowired
     public CakeService(CakeRepository cakeRepository) {
         this.cakeRepository = cakeRepository;
     }
