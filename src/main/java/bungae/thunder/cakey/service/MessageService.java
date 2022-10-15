@@ -36,13 +36,11 @@ public class MessageService {
         return messageRepository.findAll();
     }
 
-    public List<Message> findAllMessages(Long id, FindMessageOption option) {
-        if (option == FindMessageOption.BY_CAKE_ID) {
-            return messageRepository.findAllByCakeId(id);
-        } else if (option == FindMessageOption.BY_SENDER_ID) {
-            return messageRepository.findAllBySenderId(id);
-        }
+    public List<Message> findAllMessagesByCakeId(Long cakeId) {
+        return messageRepository.findAllByCakeId(cakeId);
+    }
 
-        throw new RuntimeException("No such find option");
+    public List<Message> findAllMessagesBySenderId(Long senderId) {
+        return messageRepository.findAllBySenderId(senderId);
     }
 }

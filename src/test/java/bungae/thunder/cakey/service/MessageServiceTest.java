@@ -71,7 +71,7 @@ public class MessageServiceTest {
         Message message2 = new Message();
         when(mockedMessageRepository.findAllByCakeId(anyLong())).thenReturn(Arrays.asList(message, message2));
 
-        List<Message> result = messageService.findAllMessages(0L, FindMessageOption.BY_CAKE_ID);
+        List<Message> result = messageService.findAllMessagesByCakeId(0L);
 
         assertThat(result).isEqualTo(Arrays.asList(message, message2));
         verify(mockedMessageRepository, never()).findAllBySenderId(anyLong());
@@ -83,7 +83,7 @@ public class MessageServiceTest {
         Message message2 = new Message();
         when(mockedMessageRepository.findAllBySenderId(anyLong())).thenReturn(Arrays.asList(message, message2));
 
-        List<Message> result = messageService.findAllMessages(0L, FindMessageOption.BY_SENDER_ID);
+        List<Message> result = messageService.findAllMessagesBySenderId(0L);
 
         assertThat(result).isEqualTo(Arrays.asList(message, message2));
         verify(mockedMessageRepository, never()).findAllByCakeId(anyLong());
