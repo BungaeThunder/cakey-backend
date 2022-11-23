@@ -1,12 +1,10 @@
 package bungae.thunder.cakey.domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.Date;
 
-@Getter
-@Setter
+@Data
 public class User {
     private Long id;
     private String email;
