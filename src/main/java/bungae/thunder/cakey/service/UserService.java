@@ -17,11 +17,17 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    /**
+     * 회원가입
+     */
     public Long signUp(User user) {
         userRepository.save(user);
         return user.getId();
     }
 
+    /**
+     * 전체 회원 조회
+     */
     public List<User> findMembers() {
         return userRepository.findAll();
     }
