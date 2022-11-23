@@ -17,9 +17,29 @@ public class CakeService {
         this.cakeRepository = cakeRepository;
     }
 
+
     /**
      * 케이크 만들기
      */
+    public Long makeCake(User user) {
+        Calendar current = new GregorianCalendar();
+        current.setTime(new Date());
+        Integer currentYear = current.get(Calendar.YEAR);
+
+        // TODO: 생일 비교
+
+        Cake newCake = Cake.builder()
+                .userId(user.getId())
+                .year(currentYear)
+                .build();
+
+        return cakeRepository.save(newCake).getId();
+    }
+
+    /**
+     * 케이크 만들기
+     */
+    @Deprecated
     public Long makeCake(Cake cake, User user) {
         cake.setUserId(user.getId());
 
@@ -34,6 +54,7 @@ public class CakeService {
     /**
      * 특정 케이크 만들기
      */
+    @Deprecated
     public Long makeCake(Cake cake, User user, Integer year) {
         cake.setUserId(user.getId());
         cake.setYear(year);
