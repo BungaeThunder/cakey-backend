@@ -34,7 +34,7 @@ public class UserController {
     }
 
     // ref : https://github.com/in28minutes/spring-boot-examples/blob/8964cf1346c21b1f8d05f126222e3b5e08d8d558/spring-boot-rest-services/src/main/java/com/in28minutes/springboot/controller/StudentController.java#L31-L46
-    @PostMapping("signUp")
+    @PostMapping("/signUp")
     public ResponseEntity<Void> signUpUser(@RequestBody User newUser) {
 
         Long userId = userService.signUp(newUser);
