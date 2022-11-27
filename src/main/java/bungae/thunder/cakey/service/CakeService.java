@@ -6,6 +6,7 @@ import bungae.thunder.cakey.repository.CakeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -22,15 +23,13 @@ public class CakeService {
      * 케이크 만들기
      */
     public Long makeCake(User user) {
-        Calendar current = new GregorianCalendar();
-        current.setTime(new Date());
-        Integer currentYear = current.get(Calendar.YEAR);
-
-        // TODO: 생일 비교
+        // TODO: 정확한 시간 비교를 위해서는 request time으로 계산 필요
+        LocalDate today = LocalDate.now();
+        LocalDate birthday = user.getBirthday().withYear(today.getYear());
 
         Cake newCake = Cake.builder()
                 .userId(user.getId())
-                .year(currentYear)
+                .year(today.isAfter(birthday) ? today.getYear() + 1 : today.getYear())
                 .build();
 
         return cakeRepository.save(newCake).getId();
