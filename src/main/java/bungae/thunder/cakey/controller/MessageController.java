@@ -8,6 +8,7 @@ import bungae.thunder.cakey.dto.CreateMessageDto;
 import bungae.thunder.cakey.service.CakeService;
 import bungae.thunder.cakey.service.MessageService;
 import bungae.thunder.cakey.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @RequestMapping("/messages")
 public class MessageController {
     private MessageService messageService;
