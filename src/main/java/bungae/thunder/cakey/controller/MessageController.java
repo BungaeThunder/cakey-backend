@@ -1,7 +1,7 @@
 package bungae.thunder.cakey.controller;
 
-import bungae.thunder.cakey.controller.exception.BadRequestException;
-import bungae.thunder.cakey.controller.exception.NotFoundException;
+import bungae.thunder.cakey.exception.BadRequestException;
+import bungae.thunder.cakey.exception.NotFoundException;
 import bungae.thunder.cakey.domain.Cake;
 import bungae.thunder.cakey.domain.Message;
 import bungae.thunder.cakey.domain.User;
@@ -11,7 +11,6 @@ import bungae.thunder.cakey.service.MessageService;
 import bungae.thunder.cakey.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

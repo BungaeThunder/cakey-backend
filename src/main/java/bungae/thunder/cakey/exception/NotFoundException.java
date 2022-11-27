@@ -1,4 +1,4 @@
-package bungae.thunder.cakey.controller.exception;
+package bungae.thunder.cakey.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
