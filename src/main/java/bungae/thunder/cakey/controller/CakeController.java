@@ -1,8 +1,8 @@
 package bungae.thunder.cakey.controller;
 
-import bungae.thunder.cakey.controller.exception.DataNotFoundException;
 import bungae.thunder.cakey.domain.Cake;
 import bungae.thunder.cakey.domain.User;
+import bungae.thunder.cakey.exception.NotFoundException;
 import bungae.thunder.cakey.service.CakeService;
 import bungae.thunder.cakey.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -34,7 +34,7 @@ public class CakeController {
 
     @GetMapping("/{cakeId}")
     public ResponseEntity<Cake> getCake(@PathVariable Long cakeId) {
-        return ResponseEntity.ok(cakeService.getCake(cakeId).orElseThrow(() -> new DataNotFoundException()));
+        return ResponseEntity.ok(cakeService.getCake(cakeId).orElseThrow(() -> new NotFoundException()));
     }
 
     @GetMapping
@@ -47,7 +47,7 @@ public class CakeController {
     private void validateUserId(Long userId) {
         Optional<User> user = userService.getUser(userId);
         if (user.isEmpty()) {
-            throw new DataNotFoundException();
+            throw new NotFoundException();
         }
     }
 }
