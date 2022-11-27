@@ -1,5 +1,6 @@
 package bungae.thunder.cakey.controller;
 
+import bungae.thunder.cakey.controller.exception.BadRequestException;
 import bungae.thunder.cakey.controller.exception.NotFoundException;
 import bungae.thunder.cakey.domain.Cake;
 import bungae.thunder.cakey.domain.Message;
@@ -55,9 +56,7 @@ public class MessageController {
 
         Long messageId = messageService.createMessage(message, user.get(), cake.get());
 
-        return ResponseEntity
-                .created(URI.create("/messages" + messageId))
-                .body(messageId);
+        return ResponseEntity.created(URI.create("/messages" + messageId)).body(messageId);
     }
 
     @GetMapping("/{messageId}")
@@ -72,6 +71,10 @@ public class MessageController {
 
     @GetMapping()
     public ResponseEntity<List<Message>> getMessagesByCakeId(@RequestParam Optional<Long> cakeId) {
-        return cakeId.map(id -> ResponseEntity.ok(messageService.findAllMessagesByCakeId(id))).orElseGet(() -> ResponseEntity.ok(messageService.findAllMessages()));
+        if (cakeId.isEmpty()) {
+            throw new BadRequestException("cakeId must be provided.");
+        }
+
+        return ResponseEntity.ok(messageService.findAllMessagesByCakeId(cakeId.get()));
     }
 }
