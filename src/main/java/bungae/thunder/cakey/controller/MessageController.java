@@ -17,7 +17,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@RequestMapping("/messages")
 public class MessageController {
     private MessageService messageService;
     private UserService userService;
@@ -30,7 +30,7 @@ public class MessageController {
         this.cakeService = cakeService;
     }
 
-    @PostMapping("/messages")
+    @PostMapping()
     public ResponseEntity<Long> createMessage(@RequestBody CreateMessageDto createMessageDto) {
         Message message = new Message();
         message.setContents(createMessageDto.getContents());
@@ -59,7 +59,7 @@ public class MessageController {
         return ResponseEntity.internalServerError().build();
     }
 
-    @GetMapping("/messages/{messageId}")
+    @GetMapping("/{messageId}")
     public ResponseEntity<Message> getMessage(@PathVariable Long messageId) {
         Optional<Message> message = messageService.findMessage(messageId);
         if (message.isEmpty()) {
@@ -69,7 +69,7 @@ public class MessageController {
         return ResponseEntity.ok(message.get());
     }
 
-    @GetMapping("/messages")
+    @GetMapping()
     public ResponseEntity<List<Message>> getMessagesByCakeId(@RequestParam Optional<Long> cakeId) {
         return cakeId.map(id -> ResponseEntity.ok(messageService.findAllMessagesByCakeId(id))).orElseGet(() -> ResponseEntity.ok(messageService.findAllMessages()));
     }
