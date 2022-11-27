@@ -28,11 +28,9 @@ public class CakeController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> createCake(@RequestBody User user) {
-
-        checkValidateUserId(user.getId());
-        cakeService.makeCake(user);
-        return ResponseEntity.ok(HttpStatus.CREATED);
+    public ResponseEntity<Long> createCake(@RequestBody User user) {
+        validateUserId(user.getId());
+        return ResponseEntity.ok(cakeService.makeCake(user));
     }
 
     @GetMapping("/{cakeId}")
@@ -42,11 +40,12 @@ public class CakeController {
 
     @GetMapping
     public ResponseEntity<List<Cake>> getAllCakes(@RequestParam Long userId) {
-        checkValidateUserId(userId);
+        validateUserId(userId);
         return ResponseEntity.ok(cakeService.getAllCake(userId));
     }
 
-    private void checkValidateUserId(Long userId) {
+    // TODO: 공통 validate 로직으로 빼기
+    private void validateUserId(Long userId) {
         Optional<User> user = userService.findOne(userId);
         if (user.isEmpty()) {
             throw new DataNotFoundException();
