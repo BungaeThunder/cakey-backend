@@ -6,6 +6,7 @@ import bungae.thunder.cakey.repository.CakeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -17,9 +18,27 @@ public class CakeService {
         this.cakeRepository = cakeRepository;
     }
 
+
     /**
      * 케이크 만들기
      */
+    public Long makeCake(User user) {
+        // TODO: 정확한 시간 비교를 위해서는 request time으로 계산 필요
+        LocalDate today = LocalDate.now();
+        LocalDate birthday = user.getBirthday().withYear(today.getYear());
+
+        Cake newCake = Cake.builder()
+                .userId(user.getId())
+                .year(today.isAfter(birthday) ? today.getYear() + 1 : today.getYear())
+                .build();
+
+        return cakeRepository.save(newCake).getId();
+    }
+
+    /**
+     * 케이크 만들기
+     */
+    @Deprecated
     public Long makeCake(Cake cake, User user) {
         cake.setUserId(user.getId());
 
@@ -34,6 +53,7 @@ public class CakeService {
     /**
      * 특정 케이크 만들기
      */
+    @Deprecated
     public Long makeCake(Cake cake, User user, Integer year) {
         cake.setUserId(user.getId());
         cake.setYear(year);
