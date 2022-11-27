@@ -41,24 +41,23 @@ public class MessageController {
         Optional<User> user = userService.findOne(createMessageDto.getSenderId());
         Optional<Cake> cake = cakeService.getCake(createMessageDto.getCakeId());
 
-        if (user.isPresent() && cake.isPresent()) {
-            Long messageId = messageService.createMessage(message, user.get(), cake.get());
-            return ResponseEntity.created(URI.create("/messages" + messageId))
-                    .body(messageId);
-        } else {
-            if (user.isEmpty()) {
-                String reason = String.format("No such user %d\n", createMessageDto.getSenderId());
-                System.out.println(reason);
-                throw new NotFoundException(reason);
-            }
-            if (cake.isEmpty()) {
-                String reason = String.format("No such cake %d\n", createMessageDto.getCakeId());
-                System.out.println(reason);
-                throw new NotFoundException(reason);
-            }
+        if (user.isEmpty()) {
+            String reason = String.format("No such user %d\n", createMessageDto.getSenderId());
+            System.out.println(reason);
+            throw new NotFoundException(reason);
         }
 
-        return ResponseEntity.internalServerError().build();
+        if (cake.isEmpty()) {
+            String reason = String.format("No such cake %d\n", createMessageDto.getCakeId());
+            System.out.println(reason);
+            throw new NotFoundException(reason);
+        }
+
+        Long messageId = messageService.createMessage(message, user.get(), cake.get());
+
+        return ResponseEntity
+                .created(URI.create("/messages" + messageId))
+                .body(messageId);
     }
 
     @GetMapping("/{messageId}")
