@@ -36,8 +36,8 @@ public class ReportService {
     /**
      * 특정 메세지 신고 내역 조회
      */
-    public List<Report> getAllReportsByMessage(Message message) {
-        return reportRepository.findAllByMessageId(message.getId());
+    public List<Report> getAllReportsByMessageId(Long messageId) {
+        return reportRepository.findAllByMessageId(messageId);
     }
 
 
