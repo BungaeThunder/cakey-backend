@@ -1,6 +1,8 @@
 package bungae.thunder.cakey.controller;
 
+import bungae.thunder.cakey.domain.Message;
 import bungae.thunder.cakey.domain.Report;
+import bungae.thunder.cakey.dto.ReportDto;
 import bungae.thunder.cakey.exception.NotFoundException;
 import bungae.thunder.cakey.service.MessageService;
 import bungae.thunder.cakey.service.ReportService;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +25,13 @@ public class ReportController {
     @Autowired //bean 연결
     public ReportController(ReportService reportService, MessageService messageService) {
         this.reportService = reportService;
+    }
+
+    @PostMapping
+    public ResponseEntity<Long> createReport(@RequestBody Message message, String contexts) {
+        Report report = Report.builder().build();
+        Long reportId = reportService.makeReport(report, message, contexts);
+        return ResponseEntity.created(URI.create("/reports" + reportId)).body(reportId);
     }
 
     @GetMapping("/{reportId}")

@@ -57,7 +57,7 @@ public class ReportServiceTest {
         reportService.makeReport(report2, message, "hiiiiii");
 
         // when
-        List<Report> result =  reportService.getAllReportsByMessage(message);
+        List<Report> result = reportService.getAllReportsByMessageId(message.getId());
 
         // then
         assertThat(result.size()).isEqualTo(2);
