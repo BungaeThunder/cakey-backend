@@ -29,10 +29,9 @@ public class MessageServiceTest {
 
     @Test
     public void createMessage() {
-        Message message = new Message();
-        message.setId(0L);
-        User user = new User();
-        Cake cake = new Cake();
+        Message message = Message.builder().id(0L).build();
+        User user = User.builder().build();
+        Cake cake = Cake.builder().build();
         when(mockedMessageRepository.save(any())).thenReturn(message);
 
         Long result = messageService.createMessage(message, user, cake);
@@ -42,8 +41,7 @@ public class MessageServiceTest {
 
     @Test
     public void findMessage() {
-        Message message = new Message();
-        message.setId(0L);
+        Message message = Message.builder().id(0L).build();
         when(mockedMessageRepository.findOneById(0L)).thenReturn(Optional.ofNullable(message));
         when(mockedMessageRepository.findOneById(1L)).thenReturn(Optional.ofNullable(null));
 
@@ -56,8 +54,8 @@ public class MessageServiceTest {
 
     @Test
     public void findAllMessages() {
-        Message message = new Message();
-        Message message2 = new Message();
+        Message message = Message.builder().build();
+        Message message2 = Message.builder().build();
         when(mockedMessageRepository.findAll()).thenReturn(Arrays.asList(message, message2));
 
         List<Message> result = messageService.findAllMessages();
@@ -67,8 +65,8 @@ public class MessageServiceTest {
 
     @Test
     public void findAllMessagesByCakeId() {
-        Message message = new Message();
-        Message message2 = new Message();
+        Message message = Message.builder().build();
+        Message message2 = Message.builder().build();
         when(mockedMessageRepository.findAllByCakeId(anyLong())).thenReturn(Arrays.asList(message, message2));
 
         List<Message> result = messageService.findAllMessagesByCakeId(0L);
@@ -79,8 +77,8 @@ public class MessageServiceTest {
 
     @Test
     public void findAllMessagesBySenderId() {
-        Message message = new Message();
-        Message message2 = new Message();
+        Message message = Message.builder().build();
+        Message message2 = Message.builder().build();
         when(mockedMessageRepository.findAllBySenderId(anyLong())).thenReturn(Arrays.asList(message, message2));
 
         List<Message> result = messageService.findAllMessagesBySenderId(0L);

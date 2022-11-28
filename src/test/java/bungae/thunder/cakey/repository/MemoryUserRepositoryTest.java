@@ -19,8 +19,7 @@ public class MemoryUserRepositoryTest {
     @Test
     public void save() {
         //given
-        User user = new User();
-        user.setName("spring");
+        User user = User.builder().name("spring").build();
         //when
         repository.save(user);
         //then
@@ -31,11 +30,9 @@ public class MemoryUserRepositoryTest {
     @Test
     public void findByName() {
         //given
-        User user1 = new User();
-        user1.setName("spring1");
+        User user1 = User.builder().name("spring1").build();
         repository.save(user1);
-        User user2 = new User();
-        user2.setName("spring2");
+        User user2 = User.builder().name("spring2").build();
         repository.save(user2);
         //when
         User result = repository.findByName("spring1").get();
@@ -46,11 +43,9 @@ public class MemoryUserRepositoryTest {
     @Test
     public void findAll() {
         //given
-        User user1 = new User();
-        user1.setName("spring1");
+        User user1 = User.builder().name("spring1").build();
         repository.save(user1);
-        User user2 = new User();
-        user2.setName("spring2");
+        User user2 = User.builder().name("spring2").build();
         repository.save(user2);
         //when
         List<User> result = repository.findAll();

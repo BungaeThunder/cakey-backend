@@ -30,9 +30,8 @@ public class ReportServiceTest {
     @Test
     void makeReport() {
         //given
-        Report report = new Report();
-        Message message = new Message();
-        message.setId(123L);
+        Report report = Report.builder().build();
+        Message message = Message.builder().id(123L).build();
         String content = "hello dear";
 
         //when
@@ -48,14 +47,11 @@ public class ReportServiceTest {
     @Test
     void getAllReportsByMessage(){
         // given
-        Message message = new Message();
-        message.setId(123L);
+        Message message = Message.builder().id(123L).build();
 
-        Report report1 = new Report();
-        report1.setMessageId(message.getId());
+        Report report1 = Report.builder().messageId(message.getId()).build();
         reportService.makeReport(report1, message, "hellooooo");
-        Report report2 = new Report();
-        report2.setMessageId(message.getId());
+        Report report2 = Report.builder().messageId(message.getId()).build();
         reportService.makeReport(report2, message, "hiiiiii");
 
         // when

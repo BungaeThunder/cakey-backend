@@ -1,11 +1,11 @@
 package bungae.thunder.cakey.controller;
 
-import bungae.thunder.cakey.exception.BadRequestException;
-import bungae.thunder.cakey.exception.NotFoundException;
 import bungae.thunder.cakey.domain.Cake;
 import bungae.thunder.cakey.domain.Message;
 import bungae.thunder.cakey.domain.User;
 import bungae.thunder.cakey.dto.CreateMessageDto;
+import bungae.thunder.cakey.exception.BadRequestException;
+import bungae.thunder.cakey.exception.NotFoundException;
 import bungae.thunder.cakey.service.CakeService;
 import bungae.thunder.cakey.service.MessageService;
 import bungae.thunder.cakey.service.UserService;
@@ -34,9 +34,7 @@ public class MessageController {
 
     @PostMapping()
     public ResponseEntity<Long> createMessage(@RequestBody CreateMessageDto createMessageDto) {
-        Message message = new Message();
-        message.setContents(createMessageDto.getContents());
-        message.setAudioUrl(createMessageDto.getAudioUrl());
+        Message message = Message.builder().contents(createMessageDto.getContents()).audioUrl(createMessageDto.getAudioUrl()).build();
 
         Optional<User> user = userService.findOne(createMessageDto.getSenderId());
         Optional<Cake> cake = cakeService.getCake(createMessageDto.getCakeId());
