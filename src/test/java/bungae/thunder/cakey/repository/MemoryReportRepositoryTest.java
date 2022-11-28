@@ -19,9 +19,7 @@ public class MemoryReportRepositoryTest {
     @Test
     public void save() {
         // given
-        Report report = new Report();
-        report.setMessageId(111L);
-        report.setContents("this is VERY bad");
+        Report report = Report.builder().messageId(111L).contents("this is VERY bad").build();
 
         // when
         reportRepository.save(report);
@@ -35,31 +33,21 @@ public class MemoryReportRepositoryTest {
     @Test
     public void findAllByMessageId() {
         // given
-        Report report1 = new Report();
-        report1.setMessageId(111L);
-        report1.setContents("this is VERY bad");
+        Report report1 = Report.builder().messageId(111L).contents("this is VERY bad").build();
         reportRepository.save(report1);
 
-        Report report2 = new Report();
-        report2.setMessageId(222L);
-        report2.setContents("this is VERYVERY bad");
+        Report report2 = Report.builder().messageId(222L).contents("this is VERYVERY bad").build();
         reportRepository.save(report2);
 
 
-        Report report3 = new Report();
-        report3.setMessageId(111L);
-        report3.setContents("this is VERYVERYVERY bad");
+        Report report3 = Report.builder().messageId(111L).contents("this is VERYVERYVERY bad").build();
         reportRepository.save(report3);
 
 
-        Report report4 = new Report();
-        report4.setMessageId(11L);
-        report4.setContents("this is bad. you could DIE");
+        Report report4 = Report.builder().messageId(11L).contents("this is bad. you could DIE").build();
         reportRepository.save(report4);
 
-        Report report5 = new Report();
-        report5.setMessageId(11L);
-        report5.setContents("NOPE");
+        Report report5 = Report.builder().messageId(11L).contents("NOPE").build();
         reportRepository.save(report5);
 
         // when
@@ -78,31 +66,21 @@ public class MemoryReportRepositoryTest {
     @Test
     public void findAll() {
         // given
-        Report report1 = new Report();
-        report1.setMessageId(111L);
-        report1.setContents("this is VERY bad");
+        Report report1 = Report.builder().messageId(111L).contents("this is VERY bad").build();
         reportRepository.save(report1);
 
-        Report report2 = new Report();
-        report2.setMessageId(222L);
-        report2.setContents("this is VERYVERY bad");
+        Report report2 = Report.builder().messageId(222L).contents("this is VERYVERY bad").build();
         reportRepository.save(report2);
 
 
-        Report report3 = new Report();
-        report3.setMessageId(111L);
-        report3.setContents("this is VERYVERYVERY bad");
+        Report report3 = Report.builder().messageId(111L).contents("this is VERYVERYVERY bad").build();
         reportRepository.save(report3);
 
 
-        Report report4 = new Report();
-        report4.setMessageId(11L);
-        report4.setContents("this is bad. you could DIE");
+        Report report4 = Report.builder().messageId(11L).contents("this is bad. you could DIE").build();
         reportRepository.save(report4);
 
-        Report report5 = new Report();
-        report5.setMessageId(11L);
-        report5.setContents("NOPE");
+        Report report5 = Report.builder().messageId(11L).contents("NOPE").build();
         reportRepository.save(report5);
 
         List<Report> result = reportRepository.findAll();

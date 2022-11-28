@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class MemoryMessageRepositoryTest {
     MemoryMessageRepository messageRepository;
@@ -22,12 +22,13 @@ public class MemoryMessageRepositoryTest {
     public void save() {
         messageRepository = new MemoryMessageRepository(new HashMap<>());
 
-        Message message = new Message();
-        message.setContents("contents");
-        message.setReply("reply");
-        message.setAudioUrl("http://audio.url");
-        message.setCakeId(0L);
-        message.setSenderId(0L);
+        Message message = Message.builder()
+                .contents("contents")
+                .reply("reply")
+                .audioUrl("http://audio.url")
+                .cakeId(0L)
+                .senderId(0L)
+                .build();
 
         Message result = messageRepository.save(message);
 
@@ -39,13 +40,14 @@ public class MemoryMessageRepositoryTest {
     @Test
     public void findOneById() {
 
-        Message message = new Message();
-        message.setId(0L);
-        message.setContents("contents");
-        message.setReply("reply");
-        message.setAudioUrl("http://audio.url");
-        message.setCakeId(0L);
-        message.setSenderId(0L);
+        Message message = Message.builder()
+                .id(0L)
+                .contents("contents")
+                .reply("reply")
+                .audioUrl("http://audio.url")
+                .cakeId(0L)
+                .senderId(0L)
+                .build();
 
         store.put(0L, message);
         messageRepository = new MemoryMessageRepository(store);
@@ -59,19 +61,21 @@ public class MemoryMessageRepositoryTest {
 
     @Test
     public void findAllByCakeId() {
-        Message message = new Message();
-        message.setContents("contents");
-        message.setReply("reply");
-        message.setAudioUrl("http://audio.url");
-        message.setCakeId(0L);
-        message.setSenderId(0L);
+        Message message = Message.builder()
+                .contents("contents")
+                .reply("reply")
+                .audioUrl("http://audio.url")
+                .cakeId(0L)
+                .senderId(0L)
+                .build();
 
-        Message message2 = new Message();
-        message2.setContents("contents2");
-        message2.setReply("reply2");
-        message2.setAudioUrl("http://audio.url2");
-        message2.setCakeId(0L);
-        message2.setSenderId(1L);
+        Message message2 = Message.builder()
+                .contents("contents2")
+                .reply("reply2")
+                .audioUrl("http://audio.url2")
+                .cakeId(0L)
+                .senderId(1L)
+                .build();
 
         store.put(0L, message);
         store.put(1L, message2);
@@ -84,19 +88,21 @@ public class MemoryMessageRepositoryTest {
 
     @Test
     public void findAllBySenderId() {
-        Message message = new Message();
-        message.setContents("contents");
-        message.setReply("reply");
-        message.setAudioUrl("http://audio.url");
-        message.setCakeId(0L);
-        message.setSenderId(0L);
+        Message message = Message.builder()
+                .contents("contents")
+                .reply("reply")
+                .audioUrl("http://audio.url")
+                .cakeId(0L)
+                .senderId(0L)
+                .build();
 
-        Message message2 = new Message();
-        message2.setContents("contents2");
-        message2.setReply("reply2");
-        message2.setAudioUrl("http://audio.url2");
-        message2.setCakeId(1L);
-        message2.setSenderId(0L);
+        Message message2 = Message.builder()
+                .contents("contents2")
+                .reply("reply2")
+                .audioUrl("http://audio.url2")
+                .cakeId(1L)
+                .senderId(0L)
+                .build();
 
         store.put(0L, message);
         store.put(1L, message2);
@@ -109,26 +115,29 @@ public class MemoryMessageRepositoryTest {
 
     @Test
     public void findAll() {
-        Message message = new Message();
-        message.setContents("contents");
-        message.setReply("reply");
-        message.setAudioUrl("http://audio.url");
-        message.setCakeId(0L);
-        message.setSenderId(0L);
+        Message message = Message.builder()
+                .contents("contents")
+                .reply("reply")
+                .audioUrl("http://audio.url")
+                .cakeId(0L)
+                .senderId(0L)
+                .build();
 
-        Message message2 = new Message();
-        message2.setContents("contents2");
-        message2.setReply("reply2");
-        message2.setAudioUrl("http://audio.url2");
-        message2.setCakeId(1L);
-        message2.setSenderId(0L);
+        Message message2 = Message.builder()
+                .contents("contents2")
+                .reply("reply2")
+                .audioUrl("http://audio.url2")
+                .cakeId(1L)
+                .senderId(0L)
+                .build();
 
-        Message message3 = new Message();
-        message3.setContents("contents3");
-        message3.setReply("reply3");
-        message3.setAudioUrl("http://audio.url3");
-        message3.setCakeId(0L);
-        message3.setSenderId(1L);
+        Message message3 = Message.builder()
+                .contents("contents3")
+                .reply("reply3")
+                .audioUrl("http://audio.url3")
+                .cakeId(0L)
+                .senderId(1L)
+                .build();
 
         store.put(0L, message);
         store.put(1L, message2);
@@ -142,12 +151,13 @@ public class MemoryMessageRepositoryTest {
 
     @Test
     public void destroyAll() {
-        Message message = new Message();
-        message.setContents("contents");
-        message.setReply("reply");
-        message.setAudioUrl("http://audio.url");
-        message.setCakeId(0L);
-        message.setSenderId(0L);
+        Message message = Message.builder()
+                .contents("contents")
+                .reply("reply")
+                .audioUrl("http://audio.url")
+                .cakeId(0L)
+                .senderId(0L)
+                .build();
 
         store.put(0L, message);
         messageRepository = new MemoryMessageRepository(store);

@@ -26,8 +26,7 @@ class UserServiceTest {
     @Test
     void signUp() {
         //Given
-        User user = new User();
-        user.setName("hello");
+        User user = User.builder().name("hello").build();
         //When
         Long saveId = userService.signUp(user);
         //Then
