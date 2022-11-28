@@ -22,17 +22,17 @@ public class UserController {
     }
 
     @GetMapping
-    public List<User> getUsers() {
-        return userService.findMembers();
+    public ResponseEntity<List<User>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
     }
 
     @GetMapping("/{userId}")
     public ResponseEntity<User> getUser(@PathVariable Long userId) {
-        return ResponseEntity.ok(userService.findOne(userId).orElseThrow(() -> new DataNotFoundException()));
+        return ResponseEntity.ok(userService.getUser(userId).orElseThrow(() -> new DataNotFoundException()));
     }
 
     @PostMapping("/signUp")
     public ResponseEntity<Long> signUpUser(@RequestBody User user) {
-        return ResponseEntity.ok(userService.signUp(user));
+        return ResponseEntity.ok(userService.createUser(user));
     }
 }

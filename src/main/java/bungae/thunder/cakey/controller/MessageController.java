@@ -36,7 +36,7 @@ public class MessageController {
     public ResponseEntity<Long> createMessage(@RequestBody CreateMessageDto createMessageDto) {
         Message message = Message.builder().contents(createMessageDto.getContents()).audioUrl(createMessageDto.getAudioUrl()).build();
 
-        Optional<User> user = userService.findOne(createMessageDto.getSenderId());
+        Optional<User> user = userService.getUser(createMessageDto.getSenderId());
         Optional<Cake> cake = cakeService.getCake(createMessageDto.getCakeId());
 
         if (user.isEmpty()) {
@@ -58,7 +58,7 @@ public class MessageController {
 
     @GetMapping("/{messageId}")
     public ResponseEntity<Message> getMessage(@PathVariable Long messageId) {
-        Optional<Message> message = messageService.findMessage(messageId);
+        Optional<Message> message = messageService.getMessage(messageId);
         if (message.isEmpty()) {
             throw new NotFoundException();
         }
@@ -72,6 +72,6 @@ public class MessageController {
             throw new BadRequestException("cakeId must be provided.");
         }
 
-        return ResponseEntity.ok(messageService.findAllMessagesByCakeId(cakeId.get()));
+        return ResponseEntity.ok(messageService.getAllMessagesByCakeId(cakeId.get()));
     }
 }

@@ -41,12 +41,12 @@ public class CakeController {
     @GetMapping
     public ResponseEntity<List<Cake>> getAllCakes(@RequestParam Long userId) {
         validateUserId(userId);
-        return ResponseEntity.ok(cakeService.getAllCake(userId));
+        return ResponseEntity.ok(cakeService.getAllCakes(userId));
     }
 
     // TODO: 공통 validate 로직으로 빼기
     private void validateUserId(Long userId) {
-        Optional<User> user = userService.findOne(userId);
+        Optional<User> user = userService.getUser(userId);
         if (user.isEmpty()) {
             throw new DataNotFoundException();
         }

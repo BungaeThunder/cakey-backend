@@ -39,7 +39,7 @@ public class CakeService {
      * 케이크 만들기
      */
     @Deprecated
-    public Long makeCake(Cake cake, User user) {
+    public Long createCake(Cake cake, User user) {
         cake.setUserId(user.getId());
 
         Calendar calendar = new GregorianCalendar();
@@ -54,7 +54,7 @@ public class CakeService {
      * 특정 케이크 만들기
      */
     @Deprecated
-    public Long makeCake(Cake cake, User user, Integer year) {
+    public Long createCake(Cake cake, User user, Integer year) {
         cake.setUserId(user.getId());
         cake.setYear(year);
 
@@ -99,7 +99,7 @@ public class CakeService {
     /**
      * 유저의 모든 케이크 가져오기
      */
-    public List<Cake> getAllCake(Long userId) {
+    public List<Cake> getAllCakes(Long userId) {
         return cakeRepository.findAllByUserId(userId);
     }
 }

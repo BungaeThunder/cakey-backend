@@ -21,7 +21,7 @@ public class ReportService {
     /**
      * message 신고
      */
-    public Long makeReport(Report report, Message message, String content) {
+    public Long createReport(Report report, Message message, String content) {
         report.setMessageId(message.getId());
         report.setContents(content);
 

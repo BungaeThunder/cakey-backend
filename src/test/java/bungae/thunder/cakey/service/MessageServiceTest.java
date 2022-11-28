@@ -40,48 +40,48 @@ public class MessageServiceTest {
     }
 
     @Test
-    public void findMessage() {
+    public void getMessage() {
         Message message = Message.builder().id(0L).build();
         when(mockedMessageRepository.findOneById(0L)).thenReturn(Optional.ofNullable(message));
         when(mockedMessageRepository.findOneById(1L)).thenReturn(Optional.ofNullable(null));
 
-        Optional<Message> shouldExist = messageService.findMessage(0L);
-        Optional<Message> shouldNotExist = messageService.findMessage(1L);
+        Optional<Message> shouldExist = messageService.getMessage(0L);
+        Optional<Message> shouldNotExist = messageService.getMessage(1L);
 
         assertThat(shouldExist).isEqualTo(Optional.ofNullable(message));
         assertThat(shouldNotExist).isEmpty();
     }
 
     @Test
-    public void findAllMessages() {
+    public void getAllMessages() {
         Message message = Message.builder().build();
         Message message2 = Message.builder().build();
         when(mockedMessageRepository.findAll()).thenReturn(Arrays.asList(message, message2));
 
-        List<Message> result = messageService.findAllMessages();
+        List<Message> result = messageService.getAllMessages();
 
         assertThat(result).isEqualTo(Arrays.asList(message, message2));
     }
 
     @Test
-    public void findAllMessagesByCakeId() {
+    public void getAllMessagesByCakeId() {
         Message message = Message.builder().build();
         Message message2 = Message.builder().build();
         when(mockedMessageRepository.findAllByCakeId(anyLong())).thenReturn(Arrays.asList(message, message2));
 
-        List<Message> result = messageService.findAllMessagesByCakeId(0L);
+        List<Message> result = messageService.getAllMessagesByCakeId(0L);
 
         assertThat(result).isEqualTo(Arrays.asList(message, message2));
         verify(mockedMessageRepository, never()).findAllBySenderId(anyLong());
     }
 
     @Test
-    public void findAllMessagesBySenderId() {
+    public void getAllMessagesBySenderId() {
         Message message = Message.builder().build();
         Message message2 = Message.builder().build();
         when(mockedMessageRepository.findAllBySenderId(anyLong())).thenReturn(Arrays.asList(message, message2));
 
-        List<Message> result = messageService.findAllMessagesBySenderId(0L);
+        List<Message> result = messageService.getAllMessagesBySenderId(0L);
 
         assertThat(result).isEqualTo(Arrays.asList(message, message2));
         verify(mockedMessageRepository, never()).findAllByCakeId(anyLong());
