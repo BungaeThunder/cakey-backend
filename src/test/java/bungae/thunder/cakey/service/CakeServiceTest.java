@@ -32,10 +32,9 @@ public class CakeServiceTest {
     @Test
     void makeCake() {
         // given
-        User user = new User();
-        user.setId(123L);
+        User user = User.builder().id(123L).build();
 
-        Cake cake = new Cake();
+        Cake cake = Cake.builder().build();
 
         // when
         cakeService.makeCake(cake, user);
@@ -52,15 +51,12 @@ public class CakeServiceTest {
     @Test
     void getRecentCake() {
         // given
-        User user = new User();
-        user.setId(123L);
+        User user = User.builder().id(123L).build();
 
-        Cake cake1 = new Cake();
-        cake1.setUserId(user.getId());
+        Cake cake1 = Cake.builder().userId(user.getId()).build();
         cakeService.makeCake(cake1, user, 2021);
 
-        Cake cake2 = new Cake();
-        cake2.setUserId(user.getId());
+        Cake cake2 = Cake.builder().userId(user.getId()).build();
         cakeService.makeCake(cake2, user, 2022);
 
         // when
@@ -73,17 +69,14 @@ public class CakeServiceTest {
     @Test
     void getThisYearCake() {
         // given
-        User user1 = new User();
-        user1.setId(123L);
+        User user1 = User.builder().id(123L).build();
 
-        User user2 = new User();
-        user2.setId(456L);
+        User user2 = User.builder().id(456L).build();
 
-        Cake cake1 = new Cake();
-        cake1.setUserId(user1.getId());
+        Cake cake1 = Cake.builder().userId(user1.getId()).build();
         cakeService.makeCake(cake1, user1, 2021);
 
-        Cake cake2 = new Cake();
+        Cake cake2 = Cake.builder().userId(user1.getId()).build();
         cake2.setUserId(user1.getId());
         cakeService.makeCake(cake2, user1, 2022);
 
@@ -99,15 +92,12 @@ public class CakeServiceTest {
     @Test
     void getSpecificYearCake() {
         // given
-        User user = new User();
-        user.setId(123L);
+        User user = User.builder().id(123L).build();
 
-        Cake cake1 = new Cake();
-        cake1.setUserId(user.getId());
+        Cake cake1 = Cake.builder().userId(user.getId()).build();
         cakeService.makeCake(cake1, user, 2021);
 
-        Cake cake2 = new Cake();
-        cake2.setUserId(user.getId());
+        Cake cake2 = Cake.builder().userId(user.getId()).build();
         cakeService.makeCake(cake2, user, 2022);
 
         // when
@@ -122,15 +112,12 @@ public class CakeServiceTest {
     @Test
     void getAllCake() {
         // given
-        User user = new User();
-        user.setId(123L);
+        User user = User.builder().id(123L).build();
 
-        Cake cake1 = new Cake();
-        cake1.setUserId(user.getId());
+        Cake cake1 = Cake.builder().userId(user.getId()).build();
         cakeService.makeCake(cake1, user, 2021);
 
-        Cake cake2 = new Cake();
-        cake2.setUserId(user.getId());
+        Cake cake2 = Cake.builder().userId(user.getId()).build();
         cakeService.makeCake(cake2, user, 2022);
 
         // when

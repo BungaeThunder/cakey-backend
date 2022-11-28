@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class MemoryCakeRepositoryTest {
     MemoryCakeRepository cakeRepository = new MemoryCakeRepository();
@@ -19,9 +19,10 @@ public class MemoryCakeRepositoryTest {
     @Test
     public void save() {
         // given
-        Cake cake = new Cake();
-        cake.setUserId(123L);
-        cake.setYear(2022);
+        Cake cake = Cake.builder()
+                .userId(123L)
+                .year(2022)
+                .build();
 
         // when
         cakeRepository.save(cake);
@@ -34,19 +35,22 @@ public class MemoryCakeRepositoryTest {
     @Test
     public void findOneByUserId() {
         // given
-        Cake cake1 = new Cake();
-        cake1.setUserId(123L);
-        cake1.setYear(2021);
+        Cake cake1 = Cake.builder()
+                .userId(123L)
+                .year(2021)
+                .build();
         cakeRepository.save(cake1);
 
-        Cake cake2 = new Cake();
-        cake2.setUserId(123L);
-        cake2.setYear(2022);
+        Cake cake2 = Cake.builder()
+                .userId(123L)
+                .year(2022)
+                .build();
         cakeRepository.save(cake2);
 
-        Cake cake3 = new Cake();
-        cake3.setUserId(456L);
-        cake3.setYear(2019);
+        Cake cake3 = Cake.builder()
+                .userId(456L)
+                .year(2019)
+                .build();
         cakeRepository.save(cake3);
 
         // when
@@ -61,19 +65,22 @@ public class MemoryCakeRepositoryTest {
     @Test
     public void findAllByUserId() {
         // given
-        Cake cake1 = new Cake();
-        cake1.setUserId(123L);
-        cake1.setYear(2022);
+        Cake cake1 = Cake.builder()
+                .userId(123L)
+                .year(2022)
+                .build();
         cakeRepository.save(cake1);
 
-        Cake cake2 = new Cake();
-        cake2.setUserId(123L);
-        cake2.setYear(2021);
+        Cake cake2 = Cake.builder()
+                .userId(123L)
+                .year(2021)
+                .build();
         cakeRepository.save(cake2);
 
-        Cake cake3 = new Cake();
-        cake3.setUserId(456L);
-        cake3.setYear(2022);
+        Cake cake3 = Cake.builder()
+                .userId(456L)
+                .year(2022)
+                .build();
         cakeRepository.save(cake3);
 
         // when
@@ -90,14 +97,16 @@ public class MemoryCakeRepositoryTest {
     @Test
     public void findByUserIdAndYear() {
         // given
-        Cake cake1 = new Cake();
-        cake1.setUserId(123L);
-        cake1.setYear(2022);
+        Cake cake1 = Cake.builder()
+                .userId(123L)
+                .year(2022)
+                .build();
         cakeRepository.save(cake1);
 
-        Cake cake2 = new Cake();
-        cake2.setUserId(123L);
-        cake2.setYear(2021);
+        Cake cake2 = Cake.builder()
+                .userId(123L)
+                .year(2021)
+                .build();
         cakeRepository.save(cake2);
 
         // when
@@ -112,19 +121,22 @@ public class MemoryCakeRepositoryTest {
     @Test
     public void findAll() {
         // given
-        Cake cake1 = new Cake();
-        cake1.setUserId(123L);
-        cake1.setYear(2022);
+        Cake cake1 = Cake.builder()
+                .userId(123L)
+                .year(2022)
+                .build();
         cakeRepository.save(cake1);
 
-        Cake cake2 = new Cake();
-        cake2.setUserId(123L);
-        cake2.setYear(2021);
+        Cake cake2 = Cake.builder()
+                .userId(123L)
+                .year(2021)
+                .build();
         cakeRepository.save(cake2);
 
-        Cake cake3 = new Cake();
-        cake3.setUserId(456L);
-        cake3.setYear(2022);
+        Cake cake3 = Cake.builder()
+                .userId(456L)
+                .year(2022)
+                .build();
         cakeRepository.save(cake3);
 
         // when
