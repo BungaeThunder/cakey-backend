@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-enum FindMessageOption { BY_CAKE_ID, BY_SENDER_ID }
-
 @Service
 public class MessageService {
     MessageRepository messageRepository;
