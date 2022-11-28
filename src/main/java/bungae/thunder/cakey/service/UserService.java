@@ -32,6 +32,9 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    /**
+     * 특정 회원 조회
+     */
     public Optional<User> findOne(Long userId) {
         return userRepository.findById(userId);
     }
