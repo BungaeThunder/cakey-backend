@@ -1,7 +1,6 @@
 package bungae.thunder.cakey.service;
 
 import bungae.thunder.cakey.domain.User;
-import bungae.thunder.cakey.repository.MemoryUserRepository;
 import bungae.thunder.cakey.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,7 @@ public class UserService {
     /**
      * 회원가입
      */
-    public Long signUp(User user) {
+    public Long createUser(User user) {
         userRepository.save(user);
         return user.getId();
     }
@@ -28,11 +27,14 @@ public class UserService {
     /**
      * 전체 회원 조회
      */
-    public List<User> findMembers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
-    public Optional<User> findOne(Long userId) {
+    /**
+     * 특정 회원 조회
+     */
+    public Optional<User> getUser(Long userId) {
         return userRepository.findById(userId);
     }
 }

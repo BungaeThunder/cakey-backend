@@ -30,14 +30,14 @@ public class CakeServiceTest {
     }
 
     @Test
-    void makeCake() {
+    void createCake() {
         // given
         User user = User.builder().id(123L).build();
 
         Cake cake = Cake.builder().build();
 
         // when
-        cakeService.makeCake(cake, user);
+        cakeService.createCake(cake, user);
 
         // then
         Cake result = cakeService.getCake(cake.getId()).get();
@@ -54,10 +54,10 @@ public class CakeServiceTest {
         User user = User.builder().id(123L).build();
 
         Cake cake1 = Cake.builder().userId(user.getId()).build();
-        cakeService.makeCake(cake1, user, 2021);
+        cakeService.createCake(cake1, user, 2021);
 
         Cake cake2 = Cake.builder().userId(user.getId()).build();
-        cakeService.makeCake(cake2, user, 2022);
+        cakeService.createCake(cake2, user, 2022);
 
         // when
         Cake result = cakeService.getRecentCake(user.getId()).get();
@@ -74,11 +74,11 @@ public class CakeServiceTest {
         User user2 = User.builder().id(456L).build();
 
         Cake cake1 = Cake.builder().userId(user1.getId()).build();
-        cakeService.makeCake(cake1, user1, 2021);
+        cakeService.createCake(cake1, user1, 2021);
 
         Cake cake2 = Cake.builder().userId(user1.getId()).build();
         cake2.setUserId(user1.getId());
-        cakeService.makeCake(cake2, user1, 2022);
+        cakeService.createCake(cake2, user1, 2022);
 
         // when
         Cake result1 = cakeService.getThisYearCake(user1.getId()).get();
@@ -95,10 +95,10 @@ public class CakeServiceTest {
         User user = User.builder().id(123L).build();
 
         Cake cake1 = Cake.builder().userId(user.getId()).build();
-        cakeService.makeCake(cake1, user, 2021);
+        cakeService.createCake(cake1, user, 2021);
 
         Cake cake2 = Cake.builder().userId(user.getId()).build();
-        cakeService.makeCake(cake2, user, 2022);
+        cakeService.createCake(cake2, user, 2022);
 
         // when
         Cake result1 = cakeService.getSpecificYearCake(user.getId(), 2021).get();
@@ -110,18 +110,18 @@ public class CakeServiceTest {
     }
 
     @Test
-    void getAllCake() {
+    void getAllCakes() {
         // given
         User user = User.builder().id(123L).build();
 
         Cake cake1 = Cake.builder().userId(user.getId()).build();
-        cakeService.makeCake(cake1, user, 2021);
+        cakeService.createCake(cake1, user, 2021);
 
         Cake cake2 = Cake.builder().userId(user.getId()).build();
-        cakeService.makeCake(cake2, user, 2022);
+        cakeService.createCake(cake2, user, 2022);
 
         // when
-        List<Cake> result = cakeService.getAllCake(user.getId());
+        List<Cake> result = cakeService.getAllCakes(user.getId());
 
         // then
         assertThat(result.size()).isEqualTo(2);
