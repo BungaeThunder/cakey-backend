@@ -26,19 +26,19 @@ public class MessageService {
         return messageRepository.save(message).getId();
     }
 
-    public Optional<Message> findMessage(Long id) {
+    public Optional<Message> getMessage(Long id) {
         return messageRepository.findOneById(id);
     }
 
-    public List<Message> findAllMessages() {
+    public List<Message> getAllMessages() {
         return messageRepository.findAll();
     }
 
-    public List<Message> findAllMessagesByCakeId(Long cakeId) {
+    public List<Message> getAllMessagesByCakeId(Long cakeId) {
         return messageRepository.findAllByCakeId(cakeId);
     }
 
-    public List<Message> findAllMessagesBySenderId(Long senderId) {
+    public List<Message> getAllMessagesBySenderId(Long senderId) {
         return messageRepository.findAllBySenderId(senderId);
     }
 }

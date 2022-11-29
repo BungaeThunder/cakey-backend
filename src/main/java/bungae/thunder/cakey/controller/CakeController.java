@@ -7,7 +7,6 @@ import bungae.thunder.cakey.service.CakeService;
 import bungae.thunder.cakey.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +29,7 @@ public class CakeController {
     @PostMapping
     public ResponseEntity<Long> createCake(@RequestBody User user) {
         validateUserId(user.getId());
-        return ResponseEntity.ok(cakeService.makeCake(user));
+        return ResponseEntity.ok(cakeService.createCake(user));
     }
 
     @GetMapping("/{cakeId}")
@@ -41,12 +40,12 @@ public class CakeController {
     @GetMapping
     public ResponseEntity<List<Cake>> getAllCakes(@RequestParam Long userId) {
         validateUserId(userId);
-        return ResponseEntity.ok(cakeService.getAllCake(userId));
+        return ResponseEntity.ok(cakeService.getAllCakes(userId));
     }
 
     // TODO: 공통 validate 로직으로 빼기
     private void validateUserId(Long userId) {
-        Optional<User> user = userService.findOne(userId);
+        Optional<User> user = userService.getUser(userId);
         if (user.isEmpty()) {
             throw new DataNotFoundException();
         }
