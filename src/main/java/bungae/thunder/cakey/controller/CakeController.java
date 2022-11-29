@@ -7,7 +7,6 @@ import bungae.thunder.cakey.service.CakeService;
 import bungae.thunder.cakey.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +29,7 @@ public class CakeController {
     @PostMapping
     public ResponseEntity<Long> createCake(@RequestBody User user) {
         validateUserId(user.getId());
-        return ResponseEntity.ok(cakeService.makeCake(user));
+        return ResponseEntity.ok(cakeService.createCake(user));
     }
 
     @GetMapping("/{cakeId}")

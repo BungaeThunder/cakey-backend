@@ -22,7 +22,7 @@ public class CakeService {
     /**
      * 케이크 만들기
      */
-    public Long makeCake(User user) {
+    public Long createCake(User user) {
         // TODO: 정확한 시간 비교를 위해서는 request time으로 계산 필요
         LocalDate today = LocalDate.now();
         LocalDate birthday = user.getBirthday().withYear(today.getYear());
