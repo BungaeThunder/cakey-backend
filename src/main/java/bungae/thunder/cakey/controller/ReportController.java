@@ -21,19 +21,30 @@ import java.util.Optional;
 @RequestMapping("/reports")
 public class ReportController {
     private final ReportService reportService;
+    private final MessageService messageService;
 
     @Autowired //bean 연결
     public ReportController(ReportService reportService, MessageService messageService) {
         this.reportService = reportService;
+        this.messageService = messageService;
     }
 
-    @PostMapping
-    public ResponseEntity<Long> createReport(@RequestBody Message message, String contexts) {
-        Report report = Report.builder().build();
-        Long reportId = reportService.makeReport(report, message, contexts);
+    @PostMapping()
+    public ResponseEntity<Long> createReport(@RequestBody ReportDto reportDto) {
+        Report report = Report.builder().messageId(reportDto.getMessageId()).contents(reportDto.getContents()).build();
+        Optional<Message> message = messageService.getMessage(reportDto.getMessageId());
+
+        if (message.isEmpty()) {
+            String err = String.format("No such message(%d)", reportDto.getMessageId());
+            throw new NotFoundException(err);
+        }
+        Long reportId = reportService.createReport(report, message.get());
         return ResponseEntity.created(URI.create("/reports" + reportId)).body(reportId);
     }
 
+    /*
+    report Id 로 report받아오기
+     */
     @GetMapping("/{reportId}")
     public ResponseEntity<Report> getReport(@PathVariable Long reportId) {
         Optional<Report> report = reportService.getReport(reportId);
@@ -43,6 +54,9 @@ public class ReportController {
         return ResponseEntity.ok(report.get());
     }
 
+    /*
+    해당 메세지가 받은 모든 신고내역 조회하기
+     */
     @GetMapping()
     public ResponseEntity<List<Report>> getAllReports(@RequestParam Long messageId) {
         return ResponseEntity.ok(reportService.getAllReportsByMessageId(messageId));
