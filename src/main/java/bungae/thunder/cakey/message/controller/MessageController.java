@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
+@RestController
 @RequestMapping("/messages")
 public class MessageController {
     private MessageService messageService;
@@ -32,7 +33,7 @@ public class MessageController {
         this.cakeService = cakeService;
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Long> createMessage(@RequestBody CreateMessageDto createMessageDto) {
         Message message = Message.builder().contents(createMessageDto.getContents()).audioUrl(createMessageDto.getAudioUrl()).build();
 
@@ -66,7 +67,7 @@ public class MessageController {
         return ResponseEntity.ok(message.get());
     }
 
-    @GetMapping()
+    @GetMapping
     public ResponseEntity<List<Message>> getMessagesByCakeId(@RequestParam Optional<Long> cakeId) {
         if (cakeId.isEmpty()) {
             throw new BadRequestException("cakeId must be provided.");
