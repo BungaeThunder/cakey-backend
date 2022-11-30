@@ -21,9 +21,8 @@ public class ReportService {
     /**
      * message 신고
      */
-    public Long createReport(Report report, Message message, String content) {
+    public Long createReport(Report report, Message message) {
         report.setMessageId(message.getId());
-        report.setContents(content);
 
         reportRepository.save(report);
         return report.getId();
