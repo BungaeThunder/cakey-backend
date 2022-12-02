@@ -1,130 +1,130 @@
 package bungae.thunder.cakey.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import bungae.thunder.cakey.domain.Cake;
 import bungae.thunder.cakey.domain.User;
 import bungae.thunder.cakey.repository.MemoryCakeRepository;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class CakeServiceTest {
-    CakeService cakeService;
-    MemoryCakeRepository cakeRepository;
 
-    @BeforeEach
-    void beforeEach() {
-        cakeRepository = new MemoryCakeRepository();
-        cakeService = new CakeService(cakeRepository);
-    }
+  CakeService cakeService;
+  MemoryCakeRepository cakeRepository;
 
-    @AfterEach
-    void afterEach() {
-        cakeRepository.clearStore();
-    }
+  @BeforeEach
+  void beforeEach() {
+    cakeRepository = new MemoryCakeRepository();
+    cakeService = new CakeService(cakeRepository);
+  }
 
-    @Test
-    void createCake() {
-        // given
-        User user = User.builder().id(123L).build();
+  @AfterEach
+  void afterEach() {
+    cakeRepository.clearStore();
+  }
 
-        Cake cake = Cake.builder().build();
+  @Test
+  void createCake() {
+    // given
+    User user = User.builder().id(123L).build();
 
-        // when
-        cakeService.createCake(cake, user);
+    Cake cake = Cake.builder().build();
 
-        // then
-        Cake result = cakeService.getCake(cake.getId()).get();
-        assertThat(result.getUserId()).isEqualTo(user.getId());
+    // when
+    cakeService.createCake(cake, user);
 
-        Calendar calendar = new GregorianCalendar();
-        calendar.setTime(new Date());
-        assertThat(result.getYear()).isEqualTo(calendar.get(Calendar.YEAR));
-    }
+    // then
+    Cake result = cakeService.getCake(cake.getId()).get();
+    assertThat(result.getUserId()).isEqualTo(user.getId());
 
-    @Test
-    void getRecentCake() {
-        // given
-        User user = User.builder().id(123L).build();
+    Calendar calendar = new GregorianCalendar();
+    calendar.setTime(new Date());
+    assertThat(result.getYear()).isEqualTo(calendar.get(Calendar.YEAR));
+  }
 
-        Cake cake1 = Cake.builder().userId(user.getId()).build();
-        cakeService.createCake(cake1, user, 2021);
+  @Test
+  void getRecentCake() {
+    // given
+    User user = User.builder().id(123L).build();
 
-        Cake cake2 = Cake.builder().userId(user.getId()).build();
-        cakeService.createCake(cake2, user, 2022);
+    Cake cake1 = Cake.builder().userId(user.getId()).build();
+    cakeService.createCake(cake1, user, 2021);
 
-        // when
-        Cake result = cakeService.getRecentCake(user.getId()).get();
+    Cake cake2 = Cake.builder().userId(user.getId()).build();
+    cakeService.createCake(cake2, user, 2022);
 
-        // then
-        assertThat(result).isEqualTo(cake2);
-    }
+    // when
+    Cake result = cakeService.getRecentCake(user.getId()).get();
 
-    @Test
-    void getThisYearCake() {
-        // given
-        User user1 = User.builder().id(123L).build();
+    // then
+    assertThat(result).isEqualTo(cake2);
+  }
 
-        User user2 = User.builder().id(456L).build();
+  @Test
+  void getThisYearCake() {
+    // given
+    User user1 = User.builder().id(123L).build();
 
-        Cake cake1 = Cake.builder().userId(user1.getId()).build();
-        cakeService.createCake(cake1, user1, 2021);
+    User user2 = User.builder().id(456L).build();
 
-        Cake cake2 = Cake.builder().userId(user1.getId()).build();
-        cake2.setUserId(user1.getId());
-        cakeService.createCake(cake2, user1, 2022);
+    Cake cake1 = Cake.builder().userId(user1.getId()).build();
+    cakeService.createCake(cake1, user1, 2021);
 
-        // when
-        Cake result1 = cakeService.getThisYearCake(user1.getId()).get();
-        Cake result2 = cakeService.getThisYearCake(user2.getId()).orElse(null);
+    Cake cake2 = Cake.builder().userId(user1.getId()).build();
+    cake2.setUserId(user1.getId());
+    cakeService.createCake(cake2, user1, 2022);
 
-        // then
-        assertThat(result1).isEqualTo(cake2);
-        assertThat(result2).isEqualTo(null);
-    }
+    // when
+    Cake result1 = cakeService.getThisYearCake(user1.getId()).get();
+    Cake result2 = cakeService.getThisYearCake(user2.getId()).orElse(null);
 
-    @Test
-    void getSpecificYearCake() {
-        // given
-        User user = User.builder().id(123L).build();
+    // then
+    assertThat(result1).isEqualTo(cake2);
+    assertThat(result2).isEqualTo(null);
+  }
 
-        Cake cake1 = Cake.builder().userId(user.getId()).build();
-        cakeService.createCake(cake1, user, 2021);
+  @Test
+  void getSpecificYearCake() {
+    // given
+    User user = User.builder().id(123L).build();
 
-        Cake cake2 = Cake.builder().userId(user.getId()).build();
-        cakeService.createCake(cake2, user, 2022);
+    Cake cake1 = Cake.builder().userId(user.getId()).build();
+    cakeService.createCake(cake1, user, 2021);
 
-        // when
-        Cake result1 = cakeService.getSpecificYearCake(user.getId(), 2021).get();
-        Cake result2 = cakeService.getSpecificYearCake(user.getId(), 2001).orElse(null);
+    Cake cake2 = Cake.builder().userId(user.getId()).build();
+    cakeService.createCake(cake2, user, 2022);
 
-        // then
-        assertThat(result1).isEqualTo(cake1);
-        assertThat(result2).isEqualTo(null);
-    }
+    // when
+    Cake result1 = cakeService.getSpecificYearCake(user.getId(), 2021).get();
+    Cake result2 = cakeService.getSpecificYearCake(user.getId(), 2001).orElse(null);
 
-    @Test
-    void getAllCakes() {
-        // given
-        User user = User.builder().id(123L).build();
+    // then
+    assertThat(result1).isEqualTo(cake1);
+    assertThat(result2).isEqualTo(null);
+  }
 
-        Cake cake1 = Cake.builder().userId(user.getId()).build();
-        cakeService.createCake(cake1, user, 2021);
+  @Test
+  void getAllCakes() {
+    // given
+    User user = User.builder().id(123L).build();
 
-        Cake cake2 = Cake.builder().userId(user.getId()).build();
-        cakeService.createCake(cake2, user, 2022);
+    Cake cake1 = Cake.builder().userId(user.getId()).build();
+    cakeService.createCake(cake1, user, 2021);
 
-        // when
-        List<Cake> result = cakeService.getAllCakes(user.getId());
+    Cake cake2 = Cake.builder().userId(user.getId()).build();
+    cakeService.createCake(cake2, user, 2022);
 
-        // then
-        assertThat(result.size()).isEqualTo(2);
-    }
+    // when
+    List<Cake> result = cakeService.getAllCakes(user.getId());
+
+    // then
+    assertThat(result.size()).isEqualTo(2);
+  }
 
 }

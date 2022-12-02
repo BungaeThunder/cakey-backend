@@ -4,41 +4,41 @@ import bungae.thunder.cakey.domain.Cake;
 import bungae.thunder.cakey.domain.Message;
 import bungae.thunder.cakey.domain.User;
 import bungae.thunder.cakey.repository.MessageRepository;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
 public class MessageService {
-    MessageRepository messageRepository;
 
-    @Autowired
-    public MessageService(MessageRepository messageRepository) {
-        this.messageRepository = messageRepository;
-    }
+  MessageRepository messageRepository;
 
-    public Long createMessage(Message message, User user, Cake cake) {
-        message.setCakeId(cake.getId());
-        message.setSenderId(user.getId());
+  @Autowired
+  public MessageService(MessageRepository messageRepository) {
+    this.messageRepository = messageRepository;
+  }
 
-        return messageRepository.save(message).getId();
-    }
+  public Long createMessage(Message message, User user, Cake cake) {
+    message.setCakeId(cake.getId());
+    message.setSenderId(user.getId());
 
-    public Optional<Message> getMessage(Long id) {
-        return messageRepository.findOneById(id);
-    }
+    return messageRepository.save(message).getId();
+  }
 
-    public List<Message> getAllMessages() {
-        return messageRepository.findAll();
-    }
+  public Optional<Message> getMessage(Long id) {
+    return messageRepository.findOneById(id);
+  }
 
-    public List<Message> getAllMessagesByCakeId(Long cakeId) {
-        return messageRepository.findAllByCakeId(cakeId);
-    }
+  public List<Message> getAllMessages() {
+    return messageRepository.findAll();
+  }
 
-    public List<Message> getAllMessagesBySenderId(Long senderId) {
-        return messageRepository.findAllBySenderId(senderId);
-    }
+  public List<Message> getAllMessagesByCakeId(Long cakeId) {
+    return messageRepository.findAllByCakeId(cakeId);
+  }
+
+  public List<Message> getAllMessagesBySenderId(Long senderId) {
+    return messageRepository.findAllBySenderId(senderId);
+  }
 }

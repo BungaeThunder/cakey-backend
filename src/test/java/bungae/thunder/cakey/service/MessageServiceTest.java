@@ -1,89 +1,93 @@
 package bungae.thunder.cakey.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import bungae.thunder.cakey.domain.Cake;
 import bungae.thunder.cakey.domain.Message;
 import bungae.thunder.cakey.domain.User;
 import bungae.thunder.cakey.repository.MessageRepository;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class MessageServiceTest {
-    MessageRepository mockedMessageRepository;
-    MessageService messageService;
 
-    @BeforeEach
-    void beforeEach() {
-        mockedMessageRepository = mock(MessageRepository.class);
-        messageService = new MessageService(mockedMessageRepository);
-    }
+  MessageRepository mockedMessageRepository;
+  MessageService messageService;
 
-    @Test
-    public void createMessage() {
-        Message message = Message.builder().id(0L).build();
-        User user = User.builder().build();
-        Cake cake = Cake.builder().build();
-        when(mockedMessageRepository.save(any())).thenReturn(message);
+  @BeforeEach
+  void beforeEach() {
+    mockedMessageRepository = mock(MessageRepository.class);
+    messageService = new MessageService(mockedMessageRepository);
+  }
 
-        Long result = messageService.createMessage(message, user, cake);
+  @Test
+  public void createMessage() {
+    Message message = Message.builder().id(0L).build();
+    User user = User.builder().build();
+    Cake cake = Cake.builder().build();
+    when(mockedMessageRepository.save(any())).thenReturn(message);
 
-        assertThat(result).isEqualTo(0L);
-    }
+    Long result = messageService.createMessage(message, user, cake);
 
-    @Test
-    public void getMessage() {
-        Message message = Message.builder().id(0L).build();
-        when(mockedMessageRepository.findOneById(0L)).thenReturn(Optional.ofNullable(message));
-        when(mockedMessageRepository.findOneById(1L)).thenReturn(Optional.ofNullable(null));
+    assertThat(result).isEqualTo(0L);
+  }
 
-        Optional<Message> shouldExist = messageService.getMessage(0L);
-        Optional<Message> shouldNotExist = messageService.getMessage(1L);
+  @Test
+  public void getMessage() {
+    Message message = Message.builder().id(0L).build();
+    when(mockedMessageRepository.findOneById(0L)).thenReturn(Optional.ofNullable(message));
+    when(mockedMessageRepository.findOneById(1L)).thenReturn(Optional.ofNullable(null));
 
-        assertThat(shouldExist).isEqualTo(Optional.ofNullable(message));
-        assertThat(shouldNotExist).isEmpty();
-    }
+    Optional<Message> shouldExist = messageService.getMessage(0L);
+    Optional<Message> shouldNotExist = messageService.getMessage(1L);
 
-    @Test
-    public void getAllMessages() {
-        Message message = Message.builder().build();
-        Message message2 = Message.builder().build();
-        when(mockedMessageRepository.findAll()).thenReturn(Arrays.asList(message, message2));
+    assertThat(shouldExist).isEqualTo(Optional.ofNullable(message));
+    assertThat(shouldNotExist).isEmpty();
+  }
 
-        List<Message> result = messageService.getAllMessages();
+  @Test
+  public void getAllMessages() {
+    Message message = Message.builder().build();
+    Message message2 = Message.builder().build();
+    when(mockedMessageRepository.findAll()).thenReturn(Arrays.asList(message, message2));
 
-        assertThat(result).isEqualTo(Arrays.asList(message, message2));
-    }
+    List<Message> result = messageService.getAllMessages();
 
-    @Test
-    public void getAllMessagesByCakeId() {
-        Message message = Message.builder().build();
-        Message message2 = Message.builder().build();
-        when(mockedMessageRepository.findAllByCakeId(anyLong())).thenReturn(Arrays.asList(message, message2));
+    assertThat(result).isEqualTo(Arrays.asList(message, message2));
+  }
 
-        List<Message> result = messageService.getAllMessagesByCakeId(0L);
+  @Test
+  public void getAllMessagesByCakeId() {
+    Message message = Message.builder().build();
+    Message message2 = Message.builder().build();
+    when(mockedMessageRepository.findAllByCakeId(anyLong())).thenReturn(
+        Arrays.asList(message, message2));
 
-        assertThat(result).isEqualTo(Arrays.asList(message, message2));
-        verify(mockedMessageRepository, never()).findAllBySenderId(anyLong());
-    }
+    List<Message> result = messageService.getAllMessagesByCakeId(0L);
 
-    @Test
-    public void getAllMessagesBySenderId() {
-        Message message = Message.builder().build();
-        Message message2 = Message.builder().build();
-        when(mockedMessageRepository.findAllBySenderId(anyLong())).thenReturn(Arrays.asList(message, message2));
+    assertThat(result).isEqualTo(Arrays.asList(message, message2));
+    verify(mockedMessageRepository, never()).findAllBySenderId(anyLong());
+  }
 
-        List<Message> result = messageService.getAllMessagesBySenderId(0L);
+  @Test
+  public void getAllMessagesBySenderId() {
+    Message message = Message.builder().build();
+    Message message2 = Message.builder().build();
+    when(mockedMessageRepository.findAllBySenderId(anyLong())).thenReturn(
+        Arrays.asList(message, message2));
 
-        assertThat(result).isEqualTo(Arrays.asList(message, message2));
-        verify(mockedMessageRepository, never()).findAllByCakeId(anyLong());
-    }
+    List<Message> result = messageService.getAllMessagesBySenderId(0L);
+
+    assertThat(result).isEqualTo(Arrays.asList(message, message2));
+    verify(mockedMessageRepository, never()).findAllByCakeId(anyLong());
+  }
 }

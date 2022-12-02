@@ -1,169 +1,173 @@
 package bungae.thunder.cakey.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import bungae.thunder.cakey.domain.Message;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 public class MemoryMessageRepositoryTest {
-    MemoryMessageRepository messageRepository;
 
-    Map<Long, Message> store = new HashMap<>();
+  MemoryMessageRepository messageRepository;
 
-    @BeforeEach
-    public void beforeEach() {
-        store.clear();
-    }
+  Map<Long, Message> store = new HashMap<>();
 
-    @Test
-    public void save() {
-        messageRepository = new MemoryMessageRepository(new HashMap<>());
+  @BeforeEach
+  public void beforeEach() {
+    store.clear();
+  }
 
-        Message message = Message.builder()
-                .contents("contents")
-                .reply("reply")
-                .audioUrl("http://audio.url")
-                .cakeId(0L)
-                .senderId(0L)
-                .build();
+  @Test
+  public void save() {
+    messageRepository = new MemoryMessageRepository(new HashMap<>());
 
-        Message result = messageRepository.save(message);
+    Message message = Message.builder()
+        .contents("contents")
+        .reply("reply")
+        .audioUrl("http://audio.url")
+        .cakeId(0L)
+        .senderId(0L)
+        .build();
 
-        message.setId(0L);
+    Message result = messageRepository.save(message);
 
-        assertThat(result).isEqualTo(message);
-    }
+    message.setId(0L);
 
-    @Test
-    public void findOneById() {
+    assertThat(result).isEqualTo(message);
+  }
 
-        Message message = Message.builder()
-                .id(0L)
-                .contents("contents")
-                .reply("reply")
-                .audioUrl("http://audio.url")
-                .cakeId(0L)
-                .senderId(0L)
-                .build();
+  @Test
+  public void findOneById() {
 
-        store.put(0L, message);
-        messageRepository = new MemoryMessageRepository(store);
+    Message message = Message.builder()
+        .id(0L)
+        .contents("contents")
+        .reply("reply")
+        .audioUrl("http://audio.url")
+        .cakeId(0L)
+        .senderId(0L)
+        .build();
 
-        Optional<Message> shouldExist = messageRepository.findOneById(0L);
-        Optional<Message> shouldNotExist = messageRepository.findOneById(1L);
+    store.put(0L, message);
+    messageRepository = new MemoryMessageRepository(store);
 
-        assertThat(shouldExist).isNotEmpty();
-        assertThat(shouldNotExist).isEmpty();
-    }
+    Optional<Message> shouldExist = messageRepository.findOneById(0L);
+    Optional<Message> shouldNotExist = messageRepository.findOneById(1L);
 
-    @Test
-    public void findAllByCakeId() {
-        Message message = Message.builder()
-                .contents("contents")
-                .reply("reply")
-                .audioUrl("http://audio.url")
-                .cakeId(0L)
-                .senderId(0L)
-                .build();
+    assertThat(shouldExist).isNotEmpty();
+    assertThat(shouldNotExist).isEmpty();
+  }
 
-        Message message2 = Message.builder()
-                .contents("contents2")
-                .reply("reply2")
-                .audioUrl("http://audio.url2")
-                .cakeId(0L)
-                .senderId(1L)
-                .build();
+  @Test
+  public void findAllByCakeId() {
+    Message message = Message.builder()
+        .contents("contents")
+        .reply("reply")
+        .audioUrl("http://audio.url")
+        .cakeId(0L)
+        .senderId(0L)
+        .build();
 
-        store.put(0L, message);
-        store.put(1L, message2);
-        messageRepository = new MemoryMessageRepository(store);
+    Message message2 = Message.builder()
+        .contents("contents2")
+        .reply("reply2")
+        .audioUrl("http://audio.url2")
+        .cakeId(0L)
+        .senderId(1L)
+        .build();
 
-        List<Message> result = messageRepository.findAllByCakeId(0L);
+    store.put(0L, message);
+    store.put(1L, message2);
+    messageRepository = new MemoryMessageRepository(store);
 
-        assertThat(result).isEqualTo(Arrays.asList(message, message2));
-    }
+    List<Message> result = messageRepository.findAllByCakeId(0L);
 
-    @Test
-    public void findAllBySenderId() {
-        Message message = Message.builder()
-                .contents("contents")
-                .reply("reply")
-                .audioUrl("http://audio.url")
-                .cakeId(0L)
-                .senderId(0L)
-                .build();
+    assertThat(result).isEqualTo(Arrays.asList(message, message2));
+  }
 
-        Message message2 = Message.builder()
-                .contents("contents2")
-                .reply("reply2")
-                .audioUrl("http://audio.url2")
-                .cakeId(1L)
-                .senderId(0L)
-                .build();
+  @Test
+  public void findAllBySenderId() {
+    Message message = Message.builder()
+        .contents("contents")
+        .reply("reply")
+        .audioUrl("http://audio.url")
+        .cakeId(0L)
+        .senderId(0L)
+        .build();
 
-        store.put(0L, message);
-        store.put(1L, message2);
-        messageRepository = new MemoryMessageRepository(store);
+    Message message2 = Message.builder()
+        .contents("contents2")
+        .reply("reply2")
+        .audioUrl("http://audio.url2")
+        .cakeId(1L)
+        .senderId(0L)
+        .build();
 
-        List<Message> result = messageRepository.findAllBySenderId(0L);
+    store.put(0L, message);
+    store.put(1L, message2);
+    messageRepository = new MemoryMessageRepository(store);
 
-        assertThat(result).isEqualTo(Arrays.asList(message, message2));
-    }
+    List<Message> result = messageRepository.findAllBySenderId(0L);
 
-    @Test
-    public void findAll() {
-        Message message = Message.builder()
-                .contents("contents")
-                .reply("reply")
-                .audioUrl("http://audio.url")
-                .cakeId(0L)
-                .senderId(0L)
-                .build();
+    assertThat(result).isEqualTo(Arrays.asList(message, message2));
+  }
 
-        Message message2 = Message.builder()
-                .contents("contents2")
-                .reply("reply2")
-                .audioUrl("http://audio.url2")
-                .cakeId(1L)
-                .senderId(0L)
-                .build();
+  @Test
+  public void findAll() {
+    Message message = Message.builder()
+        .contents("contents")
+        .reply("reply")
+        .audioUrl("http://audio.url")
+        .cakeId(0L)
+        .senderId(0L)
+        .build();
 
-        Message message3 = Message.builder()
-                .contents("contents3")
-                .reply("reply3")
-                .audioUrl("http://audio.url3")
-                .cakeId(0L)
-                .senderId(1L)
-                .build();
+    Message message2 = Message.builder()
+        .contents("contents2")
+        .reply("reply2")
+        .audioUrl("http://audio.url2")
+        .cakeId(1L)
+        .senderId(0L)
+        .build();
 
-        store.put(0L, message);
-        store.put(1L, message2);
-        store.put(2L, message3);
-        messageRepository = new MemoryMessageRepository(store);
+    Message message3 = Message.builder()
+        .contents("contents3")
+        .reply("reply3")
+        .audioUrl("http://audio.url3")
+        .cakeId(0L)
+        .senderId(1L)
+        .build();
 
-        List<Message> result = messageRepository.findAll();
+    store.put(0L, message);
+    store.put(1L, message2);
+    store.put(2L, message3);
+    messageRepository = new MemoryMessageRepository(store);
 
-        assertThat(result).isEqualTo(Arrays.asList(message, message2, message3));
-    }
+    List<Message> result = messageRepository.findAll();
 
-    @Test
-    public void destroyAll() {
-        Message message = Message.builder()
-                .contents("contents")
-                .reply("reply")
-                .audioUrl("http://audio.url")
-                .cakeId(0L)
-                .senderId(0L)
-                .build();
+    assertThat(result).isEqualTo(Arrays.asList(message, message2, message3));
+  }
 
-        store.put(0L, message);
-        messageRepository = new MemoryMessageRepository(store);
+  @Test
+  public void destroyAll() {
+    Message message = Message.builder()
+        .contents("contents")
+        .reply("reply")
+        .audioUrl("http://audio.url")
+        .cakeId(0L)
+        .senderId(0L)
+        .build();
 
-        messageRepository.destroyAll();
+    store.put(0L, message);
+    messageRepository = new MemoryMessageRepository(store);
 
-        assertThat(store).isEmpty();
-    }
+    messageRepository.destroyAll();
+
+    assertThat(store).isEmpty();
+  }
 }
