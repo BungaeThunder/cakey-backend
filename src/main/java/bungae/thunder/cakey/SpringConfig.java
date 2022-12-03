@@ -1,6 +1,13 @@
 package bungae.thunder.cakey;
 
-import bungae.thunder.cakey.repository.*;
+import bungae.thunder.cakey.domain.cake.repository.CakeRepository;
+import bungae.thunder.cakey.domain.cake.repository.MemoryCakeRepository;
+import bungae.thunder.cakey.domain.message.repository.MemoryMessageRepository;
+import bungae.thunder.cakey.domain.message.repository.MessageRepository;
+import bungae.thunder.cakey.domain.report.repository.MemoryReportRepository;
+import bungae.thunder.cakey.domain.report.repository.ReportRepository;
+import bungae.thunder.cakey.domain.user.repository.MemoryUserRepository;
+import bungae.thunder.cakey.domain.user.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
