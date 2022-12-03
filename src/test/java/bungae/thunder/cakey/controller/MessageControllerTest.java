@@ -1,11 +1,12 @@
 package bungae.thunder.cakey.controller;
 
-import bungae.thunder.cakey.domain.Cake;
-import bungae.thunder.cakey.domain.Message;
-import bungae.thunder.cakey.domain.User;
-import bungae.thunder.cakey.service.CakeService;
-import bungae.thunder.cakey.service.MessageService;
-import bungae.thunder.cakey.service.UserService;
+import bungae.thunder.cakey.cake.domain.Cake;
+import bungae.thunder.cakey.cake.service.CakeService;
+import bungae.thunder.cakey.message.controller.MessageController;
+import bungae.thunder.cakey.message.domain.Message;
+import bungae.thunder.cakey.message.service.MessageService;
+import bungae.thunder.cakey.user.domain.User;
+import bungae.thunder.cakey.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;
