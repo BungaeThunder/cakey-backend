@@ -2,6 +2,7 @@ package bungae.thunder.cakey.controller;
 
 import bungae.thunder.cakey.domain.Message;
 import bungae.thunder.cakey.domain.Report;
+import bungae.thunder.cakey.domain.User;
 import bungae.thunder.cakey.service.MessageService;
 import bungae.thunder.cakey.service.ReportService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -49,6 +50,10 @@ class ReportControllerTest {
     @MockBean
     MessageService messageService;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
+
     @BeforeEach
     public void test() {
         mvc = MockMvcBuilders.webAppContextSetup(ctx).build();
@@ -94,20 +99,23 @@ class ReportControllerTest {
     @Test
     @DisplayName("create a report")
     public void createReport() throws Exception {
-        Message message = Message.builder().id(123L).build();
-
-        given(messageService.getMessage(123L)).willReturn(Optional.ofNullable(message));
-
+        Report report1 = Report.builder().id(1L).messageId(321L).contents("hello").build();
+        String report = objectMapper.writeValueAsString(Report.builder().id(1L).messageId(1L).contents("whattt").build());
+//        Message message = Message.builder().id(123L).build();
+//
+//        given(messageService.getMessage(123L)).willReturn(Optional.ofNullable(message));
+//
         JSONObject newReport = new JSONObject();
         newReport.put("messageId", 123L);
         newReport.put("contents", "this is bad message!!!");
+        System.out.println("report = " + newReport);
 
         mvc.perform(post("/reports")
                         .content(newReport.toString())
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
                 .andDo(print());
     }
-
 
 }

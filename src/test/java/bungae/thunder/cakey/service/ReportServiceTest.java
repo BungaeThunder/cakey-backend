@@ -30,11 +30,11 @@ public class ReportServiceTest {
     @Test
     void createReport() {
         //given
-        Report report = Report.builder().build();
-        Message message = Message.builder().id(123L).build();
+        Report report = Report.builder().messageId(123L).build();
+//        Message message = Message.builder().id(123L).build();
 
         //when
-        Long reportId = reportService.createReport(report, message);
+        Long reportId = reportService.createReport(report);
 
         //then
         Report result = reportService.getReport(report.getId()).get();
@@ -48,9 +48,9 @@ public class ReportServiceTest {
         Message message = Message.builder().id(123L).build();
 
         Report report1 = Report.builder().messageId(message.getId()).contents("hwy").build();
-        reportService.createReport(report1, message);
+        reportService.createReport(report1);
         Report report2 = Report.builder().messageId(message.getId()).contents("qhyyy~").build();
-        reportService.createReport(report2, message);
+        reportService.createReport(report2);
 
         // when
         List<Report> result = reportService.getAllReportsByMessageId(message.getId());

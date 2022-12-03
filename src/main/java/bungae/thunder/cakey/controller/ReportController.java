@@ -21,25 +21,15 @@ import java.util.Optional;
 @RequestMapping("/reports")
 public class ReportController {
     private final ReportService reportService;
-    private final MessageService messageService;
 
     @Autowired //bean 연결
-    public ReportController(ReportService reportService, MessageService messageService) {
+    public ReportController(ReportService reportService) {
         this.reportService = reportService;
-        this.messageService = messageService;
     }
 
     @PostMapping()
-    public ResponseEntity<Long> createReport(@RequestBody ReportDto reportDto) {
-        Report report = Report.builder().messageId(reportDto.getMessageId()).contents(reportDto.getContents()).build();
-        Optional<Message> message = messageService.getMessage(reportDto.getMessageId());
-
-        if (message.isEmpty()) {
-            String err = String.format("No such message(%d)", reportDto.getMessageId());
-            throw new NotFoundException(err);
-        }
-        Long reportId = reportService.createReport(report, message.get());
-        return ResponseEntity.created(URI.create("/reports" + reportId)).body(reportId);
+    public ResponseEntity<Long> createReport(@RequestBody Report report) {
+        return ResponseEntity.ok(reportService.createReport(report));
     }
 
     /*
