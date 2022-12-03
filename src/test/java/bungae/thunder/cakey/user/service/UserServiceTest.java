@@ -1,14 +1,14 @@
-package bungae.thunder.cakey.domain.user.service;
+package bungae.thunder.cakey.user.service;
 
-import bungae.thunder.cakey.domain.user.domain.User;
-import bungae.thunder.cakey.domain.user.repository.MemoryUserRepository;
+import bungae.thunder.cakey.user.domain.User;
+import bungae.thunder.cakey.user.repository.MemoryUserRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class UserServiceTest {
     UserService userService;

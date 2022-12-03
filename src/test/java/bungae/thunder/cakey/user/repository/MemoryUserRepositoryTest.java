@@ -1,10 +1,8 @@
-package bungae.thunder.cakey.domain.user.repository;
+package bungae.thunder.cakey.user.repository;
 
-import bungae.thunder.cakey.domain.user.domain.User;
+import bungae.thunder.cakey.user.domain.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

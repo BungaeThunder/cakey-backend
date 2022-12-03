@@ -1,18 +1,17 @@
-package bungae.thunder.cakey.domain.message.service;
+package bungae.thunder.cakey.message.service;
 
-import bungae.thunder.cakey.domain.cake.domain.Cake;
-import bungae.thunder.cakey.domain.message.domain.Message;
-import bungae.thunder.cakey.domain.user.domain.User;
-import bungae.thunder.cakey.domain.message.repository.MessageRepository;
+import bungae.thunder.cakey.cake.domain.Cake;
+import bungae.thunder.cakey.message.domain.Message;
+import bungae.thunder.cakey.message.repository.MessageRepository;
+import bungae.thunder.cakey.user.domain.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;

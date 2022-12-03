@@ -1,6 +1,6 @@
-package bungae.thunder.cakey.domain.report.repository;
+package bungae.thunder.cakey.report.repository;
 
-import bungae.thunder.cakey.domain.report.domain.Report;
+import bungae.thunder.cakey.report.domain.Report;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 

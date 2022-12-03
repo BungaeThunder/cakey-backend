@@ -1,6 +1,6 @@
-package bungae.thunder.cakey.domain.cake.repository;
+package bungae.thunder.cakey.cake.repository;
 
-import bungae.thunder.cakey.domain.cake.domain.Cake;
+import bungae.thunder.cakey.cake.domain.Cake;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,8 +1,8 @@
-package bungae.thunder.cakey.domain.cake.service;
+package bungae.thunder.cakey.cake.service;
 
-import bungae.thunder.cakey.domain.cake.domain.Cake;
-import bungae.thunder.cakey.domain.user.domain.User;
-import bungae.thunder.cakey.domain.cake.repository.MemoryCakeRepository;
+import bungae.thunder.cakey.cake.domain.Cake;
+import bungae.thunder.cakey.cake.repository.MemoryCakeRepository;
+import bungae.thunder.cakey.user.domain.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class CakeServiceTest {
     CakeService cakeService;

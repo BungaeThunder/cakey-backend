@@ -1,8 +1,8 @@
-package bungae.thunder.cakey.domain.report.service;
+package bungae.thunder.cakey.report.service;
 
-import bungae.thunder.cakey.domain.message.domain.Message;
-import bungae.thunder.cakey.domain.report.domain.Report;
-import bungae.thunder.cakey.domain.report.repository.MemoryReportRepository;
+import bungae.thunder.cakey.message.domain.Message;
+import bungae.thunder.cakey.report.domain.Report;
+import bungae.thunder.cakey.report.repository.MemoryReportRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
