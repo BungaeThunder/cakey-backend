@@ -106,9 +106,9 @@ public class MessageControllerTest {
     @Test
     @DisplayName("Should get messages by cake id.")
     public void getMessagesByCakeId() throws Exception {
-        Message message0 = Message.builder().id(0L).build();
-        Message message1 = Message.builder().id(1L).build();
-        Message message2 = Message.builder().id(2L).build();
+        Message message0 = Message.builder().id(0L).cakeId(0L).build();
+        Message message1 = Message.builder().id(1L).cakeId(0L).build();
+        Message message2 = Message.builder().id(2L).cakeId(0L).build();
 
         List<Message> messages = new ArrayList<>();
         Collections.addAll(messages, message0, message1, message2);
