@@ -55,7 +55,7 @@ public class UserControllerTest {
     public void getUser() throws Exception{
         User user1 = User.builder().id(123L).name("jinWoo").build();
 
-        given(userService.getUser(123L)).willReturn(Optional.ofNullable(user1));
+        given(userService.getUser(123L)).willReturn(user1);
 
         mvc.perform(get("/users/{userId}", 123L))
                 .andExpect(status().isOk())
