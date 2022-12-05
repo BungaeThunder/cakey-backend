@@ -38,7 +38,7 @@ public class UserService {
     public User getUser(Long userId) {
         User user = userRepository.findById(userId);
         if(Objects.isNull(user)) {
-            throw new UserNotFoundException(userId);
+            throw new UserNotFoundException("유저가 존재하지 않습니다");
         }
         return user;
     }

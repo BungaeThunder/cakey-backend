@@ -1,6 +1,5 @@
 package bungae.thunder.cakey.user.controller;
 
-import bungae.thunder.cakey.common.exception.DataNotFoundException;
 import bungae.thunder.cakey.user.domain.User;
 import bungae.thunder.cakey.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
