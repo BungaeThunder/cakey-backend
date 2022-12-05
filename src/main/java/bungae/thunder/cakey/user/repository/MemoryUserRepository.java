@@ -1,5 +1,6 @@
 package bungae.thunder.cakey.user.repository;
 
+import bungae.thunder.cakey.cake.domain.Cake;
 import bungae.thunder.cakey.user.domain.User;
 
 import java.util.*;
@@ -17,15 +18,8 @@ public class MemoryUserRepository implements UserRepository {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return Optional.ofNullable(store.get(id));
-    }
-
-    @Override
-    public Optional<User> findByName(String name) {
-        return store.values().stream()
-                .filter(member -> member.getName().equals(name))
-                .findAny();
+    public User findById(Long id) {
+        return store.get(id);
     }
 
     @Override

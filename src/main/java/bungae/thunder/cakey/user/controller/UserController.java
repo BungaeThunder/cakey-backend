@@ -28,7 +28,7 @@ public class UserController {
 
     @GetMapping("/{userId}")
     public ResponseEntity<User> getUser(@PathVariable Long userId) {
-        return ResponseEntity.ok(userService.getUser(userId).orElseThrow(() -> new DataNotFoundException()));
+        return ResponseEntity.ok(userService.getUser(userId));
     }
 
     @PostMapping("/signUp")
