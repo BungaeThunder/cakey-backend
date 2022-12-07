@@ -39,7 +39,7 @@ public class UserControllerTest {
 
     @Test
     @DisplayName("전체 유저 조회 테스트")
-    public void getAllUsers() throws Exception{
+    public void getAllUsers() throws Exception {
         List<User> users = new ArrayList<>();
         users.add(User.builder().id(123L).name("jinWoo").build());
 
@@ -52,10 +52,10 @@ public class UserControllerTest {
 
     @Test
     @DisplayName("유저ID가 존재한 유저 조회 테스트")
-    public void getUser() throws Exception{
+    public void getUser() throws Exception {
         User user1 = User.builder().id(123L).name("jinWoo").build();
 
-        given(userService.getUser(123L)).willReturn(Optional.ofNullable(user1));
+        given(userService.getUser(123L)).willReturn(user1);
 
         mvc.perform(get("/users/{userId}", 123L))
                 .andExpect(status().isOk())

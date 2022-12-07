@@ -4,14 +4,13 @@ import bungae.thunder.cakey.cake.domain.Cake;
 import bungae.thunder.cakey.common.exception.DataNotFoundException;
 import bungae.thunder.cakey.user.domain.User;
 import bungae.thunder.cakey.cake.service.CakeService;
-import bungae.thunder.cakey.user.service.UserService;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/cakes")
@@ -19,17 +18,14 @@ import java.util.Optional;
 public class CakeController {
 
     private final CakeService cakeService;
-    private final UserService userService;
 
     @Autowired
-    public CakeController(CakeService cakeService, UserService userService) {
+    public CakeController(CakeService cakeService) {
         this.cakeService = cakeService;
-        this.userService = userService;
     }
 
     @PostMapping
     public ResponseEntity<Long> createCake(@RequestBody User user) {
-        validateUserId(user.getId());
         return ResponseEntity.ok(cakeService.createCake(user));
     }
 
@@ -41,15 +37,6 @@ public class CakeController {
 
     @GetMapping
     public ResponseEntity<List<Cake>> getAllCakes(@RequestParam Long userId) {
-        validateUserId(userId);
         return ResponseEntity.ok(cakeService.getAllCakes(userId));
-    }
-
-    // TODO: 공통 validate 로직으로 빼기
-    private void validateUserId(Long userId) {
-        Optional<User> user = userService.getUser(userId);
-        if (user.isEmpty()) {
-            throw new DataNotFoundException();
-        }
     }
 }
