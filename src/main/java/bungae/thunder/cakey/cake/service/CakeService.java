@@ -74,6 +74,10 @@ public class CakeService {
      * 유저의 모든 케이크 가져오기
      */
     public List<Cake> getAllCakes(Long userId) {
-        return cakeRepository.findAllByUserId(userId);
+        List<Cake> dbCakes = cakeRepository.findAllByUserId(userId);
+        if (dbCakes.isEmpty()) {
+            throw new CakeNotFoundException("해당 유저의 케이크가 존재하지 않습니다.");
+        }
+        return dbCakes;
     }
 }

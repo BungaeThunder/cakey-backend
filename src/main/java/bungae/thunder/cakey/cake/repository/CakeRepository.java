@@ -3,7 +3,6 @@ package bungae.thunder.cakey.cake.repository;
 import bungae.thunder.cakey.cake.domain.Cake;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface CakeRepository {
     Cake save(Cake cake);

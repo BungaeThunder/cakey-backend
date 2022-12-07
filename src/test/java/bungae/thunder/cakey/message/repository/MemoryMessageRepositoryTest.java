@@ -42,21 +42,21 @@ public class MemoryMessageRepositoryTest {
 
         Message message = Message.builder()
                 .id(0L)
-                .contents("contents")
-                .reply("reply")
-                .audioUrl("http://audio.url")
-                .cakeId(0L)
-                .senderId(0L)
-                .build();
+            .contents("contents")
+            .reply("reply")
+            .audioUrl("http://audio.url")
+            .cakeId(0L)
+            .senderId(0L)
+            .build();
 
         store.put(0L, message);
         messageRepository = new MemoryMessageRepository(store);
 
-        Optional<Message> shouldExist = messageRepository.findOneById(0L);
-        Optional<Message> shouldNotExist = messageRepository.findOneById(1L);
+        Message shouldExist = messageRepository.findOneById(0L);
+        Message shouldNotExist = messageRepository.findOneById(1L);
 
-        assertThat(shouldExist).isNotEmpty();
-        assertThat(shouldNotExist).isEmpty();
+        assertThat(shouldExist).isNotNull();
+        assertThat(shouldNotExist).isNull();
     }
 
     @Test

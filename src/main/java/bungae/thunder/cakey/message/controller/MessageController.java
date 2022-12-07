@@ -2,8 +2,6 @@ package bungae.thunder.cakey.message.controller;
 
 import bungae.thunder.cakey.cake.domain.Cake;
 import bungae.thunder.cakey.cake.service.CakeService;
-import bungae.thunder.cakey.common.exception.BadRequestException;
-import bungae.thunder.cakey.common.exception.NotFoundException;
 import bungae.thunder.cakey.message.domain.Message;
 import bungae.thunder.cakey.message.dto.CreateMessageDto;
 import bungae.thunder.cakey.message.service.MessageService;
@@ -36,7 +34,7 @@ public class MessageController {
 
     @Autowired
     public MessageController(MessageService messageService, UserService userService,
-                             CakeService cakeService) {
+        CakeService cakeService) {
         this.messageService = messageService;
         this.userService = userService;
         this.cakeService = cakeService;
@@ -45,7 +43,7 @@ public class MessageController {
     @PostMapping
     public ResponseEntity<Long> createMessage(@RequestBody CreateMessageDto createMessageDto) {
         Message message = Message.builder().contents(createMessageDto.getContents())
-                .audioUrl(createMessageDto.getAudioUrl()).build();
+            .audioUrl(createMessageDto.getAudioUrl()).build();
 
         User user = userService.getUser(createMessageDto.getSenderId());
         Cake cake = cakeService.getCake(createMessageDto.getCakeId());
@@ -62,10 +60,11 @@ public class MessageController {
 
     @GetMapping
     public ResponseEntity<List<Message>> getMessagesByCakeId(@RequestParam Optional<Long> cakeId) {
+        /* TODO: request param validation
         if (cakeId.isEmpty()) {
             throw new BadRequestException("cakeId must be provided.");
         }
-
+         */
         return ResponseEntity.ok(messageService.getAllMessagesByCakeId(cakeId.get()));
     }
 }
