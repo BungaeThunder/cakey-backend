@@ -1,18 +1,17 @@
 package bungae.thunder.cakey.cake.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import bungae.thunder.cakey.cake.domain.Cake;
 import bungae.thunder.cakey.cake.repository.MemoryCakeRepository;
 import bungae.thunder.cakey.user.domain.User;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class CakeServiceTest {
     CakeService cakeService;
@@ -126,5 +125,4 @@ public class CakeServiceTest {
         // then
         assertThat(result.size()).isEqualTo(2);
     }
-
 }

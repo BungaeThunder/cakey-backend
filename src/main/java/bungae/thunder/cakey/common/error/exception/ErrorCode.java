@@ -12,7 +12,6 @@ public enum ErrorCode {
     INTERNAL_SERVER_ERROR(500, "C004", "Server Error"),
     INVALID_INPUT_TYPE(400, "C005", "Invalid Type Value"),
     ACCESS_DENIED(403, "C006", "Access is Denied"),
-
     ;
     private final String code;
     private final String type;
@@ -35,6 +34,4 @@ public enum ErrorCode {
     public int getStatus() {
         return status;
     }
-
-
 }

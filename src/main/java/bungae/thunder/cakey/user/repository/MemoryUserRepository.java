@@ -1,7 +1,6 @@
 package bungae.thunder.cakey.user.repository;
 
 import bungae.thunder.cakey.user.domain.User;
-
 import java.util.*;
 
 public class MemoryUserRepository implements UserRepository {
