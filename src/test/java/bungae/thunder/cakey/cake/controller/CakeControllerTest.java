@@ -41,9 +41,8 @@ public class CakeControllerTest {
 
     @Test
     @DisplayName("케이크 생성 테스트")
-    public void creatCake() throws Exception {
-        given(userService.getUser(getDbUser1().getId())).willReturn(
-            Optional.ofNullable(getDbUser1()));
+    public void createCake() throws Exception {
+        given(userService.getUser(getDbUser1().getId())).willReturn(getDbUser1());
         given(cakeService.createCake(getDbUser1())).willReturn(getDbCake1().getId());
 
         JSONObject body = new JSONObject();
@@ -62,8 +61,7 @@ public class CakeControllerTest {
     @Test
     @DisplayName("케이크Id로 조회 테스트")
     public void getCake() throws Exception {
-        given(cakeService.getCake(getDbCake1().getId())).willReturn(
-            Optional.ofNullable(getDbCake1()));
+        given(cakeService.getCake(getDbCake1().getId())).willReturn(getDbCake1());
 
         mvc.perform(get("/cakes/{cakeId}", getDbCake1().getId()))
             .andExpect(status().isOk())
@@ -73,8 +71,7 @@ public class CakeControllerTest {
     @Test
     @DisplayName("유저Id로 조회 테스트")
     public void getAllCakes() throws Exception {
-        given(userService.getUser(getDbUser1().getId())).willReturn(
-            Optional.ofNullable(getDbUser1()));
+        given(userService.getUser(getDbUser1().getId())).willReturn(getDbUser1());
         given(cakeService.getAllCakes(getDbUser1().getId())).willReturn(getDbAllCakesByUser1());
 
         mvc.perform(get("/cakes")

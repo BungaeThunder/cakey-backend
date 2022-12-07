@@ -48,15 +48,9 @@ public class MessageController {
                 .audioUrl(createMessageDto.getAudioUrl()).build();
 
         User user = userService.getUser(createMessageDto.getSenderId());
-        Optional<Cake> cake = cakeService.getCake(createMessageDto.getCakeId());
+        Cake cake = cakeService.getCake(createMessageDto.getCakeId());
 
-        if (cake.isEmpty()) {
-            String reason = String.format("No such cake %d\n", createMessageDto.getCakeId());
-            System.out.println(reason);
-            throw new NotFoundException(reason);
-        }
-
-        Long messageId = messageService.createMessage(message, user, cake.get());
+        Long messageId = messageService.createMessage(message, user, cake);
 
         return ResponseEntity.created(URI.create("/messages" + messageId)).body(messageId);
     }

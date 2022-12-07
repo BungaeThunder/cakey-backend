@@ -42,7 +42,7 @@ public class CakeServiceTest {
         cake.setId(cakeService.createCake(user));
 
         // then
-        Cake result = cakeService.getCake(cake.getId()).get();
+        Cake result = cakeService.getCake(cake.getId());
         assertThat(result.getUserId()).isEqualTo(user.getId());
 
         LocalDate today = LocalDate.now();
@@ -56,7 +56,7 @@ public class CakeServiceTest {
         cakeService.createCake(user);
 
         // when
-        Cake result = cakeService.getRecentCake(user.getId()).get();
+        Cake result = cakeService.getRecentCake(user.getId());
 
         // then
         assertThat(result.getYear()).isEqualTo(LocalDate.now().getYear());
@@ -70,7 +70,7 @@ public class CakeServiceTest {
         cake.setId(cakeService.createCake(user));
 
         // when
-        Cake result = cakeService.getSpecificYearCake(user.getId(), 2022).get();
+        Cake result = cakeService.getSpecificYearCake(user.getId(), 2022);
 
         // then
         assertThat(cake.getYear()).isEqualTo(result.getYear());

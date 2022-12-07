@@ -19,29 +19,31 @@ public class MemoryCakeRepository implements CakeRepository {
     }
 
     @Override
-    public Optional<Cake> findById(Long id) {
-        return Optional.ofNullable(store.get(id));
+    public Cake findById(Long id) {
+        return store.get(id);
     }
 
     @Override
-    public Optional<Cake> findOneByUserId(Long userId) {
+    public Cake findOneByUserId(Long userId) {
         return store.values().stream()
-                .filter(cake -> cake.getUserId().equals(userId))
-                .max(Comparator.comparingInt(Cake::getYear));
+            .filter(cake -> cake.getUserId().equals(userId))
+            .max(Comparator.comparingInt(Cake::getYear))
+            .get();
     }
 
     @Override
     public List<Cake> findAllByUserId(Long userId) {
         return store.values().stream()
-                .filter(cake -> cake.getUserId().equals(userId))
-                .collect(Collectors.toList());
+            .filter(cake -> cake.getUserId().equals(userId))
+            .collect(Collectors.toList());
     }
 
     @Override
-    public Optional<Cake> findByUserIdAndYear(Long userId, Integer year) {
+    public Cake findByUserIdAndYear(Long userId, Integer year) {
         return store.values().stream()
-                .filter(cake -> cake.getUserId().equals(userId) && cake.getYear().equals(year))
-                .findFirst();
+            .filter(cake -> cake.getUserId().equals(userId) && cake.getYear().equals(year))
+            .findFirst()
+            .orElse(null);
     }
 
     @Override
