@@ -63,12 +63,7 @@ public class MessageController {
 
     @GetMapping("/{messageId}")
     public ResponseEntity<Message> getMessage(@PathVariable Long messageId) {
-        Optional<Message> message = messageService.getMessage(messageId);
-        if (message.isEmpty()) {
-            throw new NotFoundException();
-        }
-
-        return ResponseEntity.ok(message.get());
+        return ResponseEntity.ok(messageService.getMessage(messageId));
     }
 
     @GetMapping

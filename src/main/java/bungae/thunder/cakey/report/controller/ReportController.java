@@ -1,6 +1,5 @@
 package bungae.thunder.cakey.report.controller;
 
-import bungae.thunder.cakey.common.exception.NotFoundException;
 import bungae.thunder.cakey.report.domain.Report;
 import bungae.thunder.cakey.report.service.ReportService;
 import lombok.extern.slf4j.Slf4j;
@@ -8,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -34,11 +30,7 @@ public class ReportController {
      */
     @GetMapping("/{reportId}")
     public ResponseEntity<Report> getReport(@PathVariable Long reportId) {
-        Optional<Report> report = reportService.getReport(reportId);
-        if (report.isEmpty()) {
-            throw new NotFoundException();
-        }
-        return ResponseEntity.ok(report.get());
+        return ResponseEntity.ok(reportService.getReport(reportId));
     }
 
     /*
