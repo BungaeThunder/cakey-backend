@@ -2,6 +2,10 @@
 
 This is backend repository for *Cakey app*
 
+## Convention
+
+[Google java style guide](https://google.github.io/styleguide/javaguide.html)를 따른다. \
+
 ## Docker compose
 
 ### Quick start guide

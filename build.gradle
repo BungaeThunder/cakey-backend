@@ -3,6 +3,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id "io.freefair.lombok" version "6.5.1"
+	id "com.diffplug.spotless" version "6.12.0"
 }
 
 group = 'bungae.thunder'
@@ -22,4 +23,46 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+task installGitLocalHook(type: Copy) {
+	from 'scripts/pre-commit'
+	into '.git/hooks'
+	fileMode 0775
+}
+
+/**
+ * ref)
+ * https://nesoy.github.io/articles/2020-04/Spotless
+ * https://github.com/diffplug/spotless/tree/main/plugin-gradle
+ */
+spotless {
+	java {
+		// 사용하지 않는 import 제거
+		removeUnusedImports()
+		// 공백 제거
+		trimTrailingWhitespace()
+		// 끝부분 NewLine 처리
+		endWithNewline()
+
+		/**
+		 * import 순서도 정의가 가능하다.
+		 */
+		importOrder 'java', 'javax', 'org', 'com', 'com.diffplug', ''
+
+		/**
+		 * Google Java Format을 쉽게 적용할 수 있다.
+		 */
+		googleJavaFormat().aosp()
+	}
+
+	/**
+	 * 특정 파일에 대해 적용할 수 있다.
+	 */
+	format 'misc', {
+		target '**/*.gradle', '**/*.md', '**/.gitignore'
+
+		trimTrailingWhitespace()
+		endWithNewline()
+	}
 }
