@@ -2,7 +2,6 @@ package bungae.thunder.cakey.cake.controller;
 
 import bungae.thunder.cakey.cake.domain.Cake;
 import bungae.thunder.cakey.cake.service.CakeService;
-import bungae.thunder.cakey.common.exception.DataNotFoundException;
 import bungae.thunder.cakey.user.domain.User;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/cakes")
 @Slf4j
 public class CakeController {
+
     private final CakeService cakeService;
 
     @Autowired
@@ -28,8 +28,7 @@ public class CakeController {
 
     @GetMapping("/{cakeId}")
     public ResponseEntity<Cake> getCake(@PathVariable Long cakeId) {
-        return ResponseEntity.ok(
-                cakeService.getCake(cakeId).orElseThrow(() -> new DataNotFoundException()));
+        return ResponseEntity.ok(cakeService.getCake(cakeId));
     }
 
     @GetMapping

@@ -26,6 +26,7 @@ import org.springframework.test.web.servlet.MockMvc;
 // https://reflectoring.io/spring-boot-web-controller-test/ (recommend)
 @WebMvcTest(controllers = UserController.class)
 public class UserControllerTest {
+
     @Autowired private MockMvc mvc;
 
     @Autowired private ObjectMapper objectMapper;

@@ -1,6 +1,7 @@
 package bungae.thunder.cakey.cake.service;
 
 import bungae.thunder.cakey.cake.domain.Cake;
+import bungae.thunder.cakey.cake.exception.CakeNotFoundException;
 import bungae.thunder.cakey.cake.repository.CakeRepository;
 import bungae.thunder.cakey.user.domain.User;
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CakeService {
+
     private final CakeRepository cakeRepository;
 
     @Autowired
@@ -32,56 +34,39 @@ public class CakeService {
         return cakeRepository.save(newCake).getId();
     }
 
-    /** 케이크 만들기 */
-    @Deprecated
-    public Long createCake(Cake cake, User user) {
-        cake.setUserId(user.getId());
-
-        Calendar calendar = new GregorianCalendar();
-        calendar.setTime(new Date());
-        cake.setYear(calendar.get(Calendar.YEAR));
-
-        cakeRepository.save(cake);
-        return cake.getId();
-    }
-
-    /** 특정 케이크 만들기 */
-    @Deprecated
-    public Long createCake(Cake cake, User user, Integer year) {
-        cake.setUserId(user.getId());
-        cake.setYear(year);
-
-        cakeRepository.save(cake);
-        return cake.getId();
-    }
-
     /** 케이크 가져오기 */
-    public Optional<Cake> getCake(Long id) {
-        return cakeRepository.findById(id);
+    public Cake getCake(Long id) {
+        Cake dbCake = cakeRepository.findById(id);
+        if (Objects.isNull(dbCake)) {
+            throw new CakeNotFoundException("케이크가 존재하지 않습니다");
+        }
+        return dbCake;
     }
 
-    /**
-     * 유저의 최근 케이크 가져오기 TODO: 논의 사항 해가 바뀌면 모든 유저의 케이크가 자동으로 생기는지? 아니면 케이크 만들기 액션을 해야 생기는지? 20년에 가입한
-     * 유저의 케이크가 21년 없이 20년, 22년만 존재할 수 있는지 회원 가입 시에는 무조건 가입년도의 케이크는 기본으로 생성
-     */
-    public Optional<Cake> getRecentCake(Long userId) {
-        return cakeRepository.findOneByUserId(userId);
-    }
-
-    /** 유저의 올해 케이크 가져오기 */
-    public Optional<Cake> getThisYearCake(Long userId) {
-        Calendar calendar = new GregorianCalendar();
-        calendar.setTime(new Date());
-        return cakeRepository.findByUserIdAndYear(userId, calendar.get(Calendar.YEAR));
+    /** 유저의 최근 케이크 가져오기 */
+    public Cake getRecentCake(Long userId) {
+        Cake dbCake = cakeRepository.findOneByUserId(userId);
+        if (Objects.isNull(dbCake)) {
+            throw new CakeNotFoundException("케이크가 존재하지 않습니다.");
+        }
+        return dbCake;
     }
 
     /** 유저의 특정 케이크 가져오기 */
-    public Optional<Cake> getSpecificYearCake(Long userId, Integer year) {
-        return cakeRepository.findByUserIdAndYear(userId, year);
+    public Cake getSpecificYearCake(Long userId, Integer year) {
+        Cake dbCake = cakeRepository.findByUserIdAndYear(userId, year);
+        if (Objects.isNull(dbCake)) {
+            throw new CakeNotFoundException("케이크가 존재하지 않습니다.");
+        }
+        return dbCake;
     }
 
     /** 유저의 모든 케이크 가져오기 */
     public List<Cake> getAllCakes(Long userId) {
-        return cakeRepository.findAllByUserId(userId);
+        List<Cake> dbCakes = cakeRepository.findAllByUserId(userId);
+        if (dbCakes.isEmpty()) {
+            throw new CakeNotFoundException("해당 유저의 케이크가 존재하지 않습니다.");
+        }
+        return dbCakes;
     }
 }

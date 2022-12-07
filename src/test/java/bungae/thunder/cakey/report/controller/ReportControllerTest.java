@@ -29,6 +29,7 @@ import org.springframework.web.context.WebApplicationContext;
 // https://goodteacher.tistory.com/257
 @WebMvcTest(controllers = ReportController.class)
 class ReportControllerTest {
+
     @Autowired WebApplicationContext ctx;
 
     private MockMvc mvc;

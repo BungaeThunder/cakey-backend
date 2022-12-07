@@ -18,15 +18,16 @@ public class MemoryCakeRepository implements CakeRepository {
     }
 
     @Override
-    public Optional<Cake> findById(Long id) {
-        return Optional.ofNullable(store.get(id));
+    public Cake findById(Long id) {
+        return store.get(id);
     }
 
     @Override
-    public Optional<Cake> findOneByUserId(Long userId) {
+    public Cake findOneByUserId(Long userId) {
         return store.values().stream()
                 .filter(cake -> cake.getUserId().equals(userId))
-                .max(Comparator.comparingInt(Cake::getYear));
+                .max(Comparator.comparingInt(Cake::getYear))
+                .get();
     }
 
     @Override
@@ -37,10 +38,11 @@ public class MemoryCakeRepository implements CakeRepository {
     }
 
     @Override
-    public Optional<Cake> findByUserIdAndYear(Long userId, Integer year) {
+    public Cake findByUserIdAndYear(Long userId, Integer year) {
         return store.values().stream()
                 .filter(cake -> cake.getUserId().equals(userId) && cake.getYear().equals(year))
-                .findFirst();
+                .findFirst()
+                .orElse(null);
     }
 
     @Override

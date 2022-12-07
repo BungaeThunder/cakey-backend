@@ -18,7 +18,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -55,7 +54,7 @@ public class MessageControllerTest {
         Cake cake = Cake.builder().id(0L).year(1995).userId(0L).build();
 
         given(userService.getUser(0L)).willReturn(user);
-        given(cakeService.getCake(0L)).willReturn(Optional.ofNullable(cake));
+        given(cakeService.getCake(0L)).willReturn(cake);
 
         JSONObject newMessage = new JSONObject();
         newMessage.put("senderId", 0L);

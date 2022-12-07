@@ -8,6 +8,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 public class MemoryCakeRepositoryTest {
+
     MemoryCakeRepository cakeRepository = new MemoryCakeRepository();
 
     @AfterEach
@@ -24,7 +25,7 @@ public class MemoryCakeRepositoryTest {
         cakeRepository.save(cake);
 
         // then
-        Cake result = cakeRepository.findById(cake.getId()).get();
+        Cake result = cakeRepository.findById(cake.getId());
         assertThat(result).isEqualTo(cake);
     }
 
@@ -41,8 +42,8 @@ public class MemoryCakeRepositoryTest {
         cakeRepository.save(cake3);
 
         // when
-        Cake result1 = cakeRepository.findOneByUserId(123L).get();
-        Cake result2 = cakeRepository.findOneByUserId(456L).get();
+        Cake result1 = cakeRepository.findOneByUserId(123L);
+        Cake result2 = cakeRepository.findOneByUserId(456L);
 
         // then
         assertThat(result1.getYear()).isEqualTo(cake2.getYear());
@@ -82,12 +83,12 @@ public class MemoryCakeRepositoryTest {
         cakeRepository.save(cake2);
 
         // when
-        Cake result1 = cakeRepository.findByUserIdAndYear(123L, 2021).get();
-        Cake result2 = cakeRepository.findByUserIdAndYear(123L, 2019).orElse(null);
+        Cake result1 = cakeRepository.findByUserIdAndYear(123L, 2021);
+        Cake result2 = cakeRepository.findByUserIdAndYear(123L, 2019);
 
         // then
         assertThat(result1).isEqualTo(cake2);
-        assertThat(result2).isEqualTo(null);
+        assertThat(result2).isNull();
     }
 
     @Test

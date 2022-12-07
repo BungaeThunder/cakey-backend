@@ -13,6 +13,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ErrorResponse {
+
     private String type;
     private String message;
     private int status;
@@ -60,6 +61,7 @@ public class ErrorResponse {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class FieldError {
+
         private String field;
         private String value;
         private String reason;

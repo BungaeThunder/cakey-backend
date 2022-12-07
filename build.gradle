@@ -15,20 +15,20 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.mockito:mockito-core:4.8.0'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.mockito:mockito-core:4.8.0'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
 
 task installGitLocalHook(type: Copy) {
-	from 'scripts/pre-commit'
-	into '.git/hooks'
-	fileMode 0775
+    from 'scripts/pre-commit'
+    into '.git/hooks'
+    fileMode 0775
 }
 
 /**
@@ -37,32 +37,32 @@ task installGitLocalHook(type: Copy) {
  * https://github.com/diffplug/spotless/tree/main/plugin-gradle
  */
 spotless {
-	java {
-		// 사용하지 않는 import 제거
-		removeUnusedImports()
-		// 공백 제거
-		trimTrailingWhitespace()
-		// 끝부분 NewLine 처리
-		endWithNewline()
+    java {
+        // 사용하지 않는 import 제거
+        removeUnusedImports()
+        // 공백 제거
+        trimTrailingWhitespace()
+        // 끝부분 NewLine 처리
+        endWithNewline()
 
-		/**
-		 * import 순서도 정의가 가능하다.
-		 */
-		importOrder 'java', 'javax', 'org', 'com', 'com.diffplug', ''
+        /**
+         * import 순서도 정의가 가능하다.
+         */
+        importOrder 'java', 'javax', 'org', 'com', 'com.diffplug', ''
 
-		/**
-		 * Google Java Format을 쉽게 적용할 수 있다.
-		 */
-		googleJavaFormat().aosp()
-	}
+        /**
+         * Google Java Format을 쉽게 적용할 수 있다.
+         */
+        googleJavaFormat().aosp()
+    }
 
-	/**
-	 * 특정 파일에 대해 적용할 수 있다.
-	 */
-	format 'misc', {
-		target '**/*.gradle', '**/*.md', '**/.gitignore'
+    /**
+     * 특정 파일에 대해 적용할 수 있다.
+     */
+    format 'misc', {
+        target '**/*.gradle', '**/*.md', '**/.gitignore'
 
-		trimTrailingWhitespace()
-		endWithNewline()
-	}
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
 }

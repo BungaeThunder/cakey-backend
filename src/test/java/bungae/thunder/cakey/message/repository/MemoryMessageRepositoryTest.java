@@ -53,11 +53,11 @@ public class MemoryMessageRepositoryTest {
         store.put(0L, message);
         messageRepository = new MemoryMessageRepository(store);
 
-        Optional<Message> shouldExist = messageRepository.findOneById(0L);
-        Optional<Message> shouldNotExist = messageRepository.findOneById(1L);
+        Message shouldExist = messageRepository.findOneById(0L);
+        Message shouldNotExist = messageRepository.findOneById(1L);
 
-        assertThat(shouldExist).isNotEmpty();
-        assertThat(shouldNotExist).isEmpty();
+        assertThat(shouldExist).isNotNull();
+        assertThat(shouldNotExist).isNull();
     }
 
     @Test
