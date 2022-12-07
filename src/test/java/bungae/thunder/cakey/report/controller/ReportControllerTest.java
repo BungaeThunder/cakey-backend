@@ -85,9 +85,6 @@ class ReportControllerTest {
 
         given(reportService.getAllReportsByMessageId(123L)).willReturn(reports);
 
-//        MultiValueMap<String, String> param = new LinkedMultiValueMap<>();
-//        param.add("messageId","123");
-
         mvc.perform(get("/reports").param("messageId", "123"))
                 .andExpect(status().isOk())
                 .andDo(print());
@@ -97,12 +94,6 @@ class ReportControllerTest {
     @Test
     @DisplayName("create a report")
     public void createReport() throws Exception {
-        Report report1 = Report.builder().id(1L).messageId(321L).contents("hello").build();
-        String report = objectMapper.writeValueAsString(Report.builder().id(1L).messageId(1L).contents("whattt").build());
-//        Message message = Message.builder().id(123L).build();
-//
-//        given(messageService.getMessage(123L)).willReturn(Optional.ofNullable(message));
-//
         JSONObject newReport = new JSONObject();
         newReport.put("messageId", 123L);
         newReport.put("contents", "this is bad message!!!");
@@ -113,6 +104,8 @@ class ReportControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.content()
+                        .string(objectMapper.writeValueAsString(0L)))
                 .andDo(print());
     }
 

@@ -31,7 +31,6 @@ public class ReportServiceTest {
     void createReport() {
         //given
         Report report = Report.builder().messageId(123L).build();
-//        Message message = Message.builder().id(123L).build();
 
         //when
         Long reportId = reportService.createReport(report);
@@ -54,7 +53,6 @@ public class ReportServiceTest {
 
         // when
         List<Report> result = reportService.getAllReportsByMessageId(message.getId());
-//        System.out.println("result = " + result);
 
         // then
         assertThat(result.size()).isEqualTo(2);
