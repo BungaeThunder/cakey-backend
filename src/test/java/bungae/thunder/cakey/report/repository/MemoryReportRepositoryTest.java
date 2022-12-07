@@ -26,7 +26,7 @@ public class MemoryReportRepositoryTest {
 
         //then
 
-        Report result = reportRepository.findById(report.getId()).get();
+        Report result = reportRepository.findById(report.getId());
         assertThat(result).isEqualTo(result);
     }
 

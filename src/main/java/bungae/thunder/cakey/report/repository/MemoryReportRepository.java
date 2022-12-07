@@ -18,8 +18,8 @@ public class MemoryReportRepository implements ReportRepository {
     }
 
     @Override
-    public Optional<Report> findById(Long id) {
-        return Optional.ofNullable(store.get(id));
+    public Report findById(Long id) {
+        return store.get(id);
     }
 
     @Override

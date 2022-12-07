@@ -34,11 +34,7 @@ public class ReportController {
      */
     @GetMapping("/{reportId}")
     public ResponseEntity<Report> getReport(@PathVariable Long reportId) {
-        Optional<Report> report = reportService.getReport(reportId);
-        if (report.isEmpty()) {
-            throw new NotFoundException();
-        }
-        return ResponseEntity.ok(report.get());
+        return ResponseEntity.ok(reportService.getReport(reportId));
     }
 
     /*

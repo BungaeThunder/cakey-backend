@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface ReportRepository {
     Report save(Report report);
 
-    Optional<Report> findById(Long id);
+    Report findById(Long id);
 
     List<Report> findAllByMessageId(Long messageId);
 
