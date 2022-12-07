@@ -1,16 +1,15 @@
 package bungae.thunder.cakey.cake.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import bungae.thunder.cakey.cake.domain.Cake;
 import bungae.thunder.cakey.cake.repository.MemoryCakeRepository;
 import bungae.thunder.cakey.user.domain.User;
 import java.time.LocalDate;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class CakeServiceTest {
 

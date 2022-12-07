@@ -14,8 +14,8 @@ public class Message {
     private Long senderId;
 
     @Builder
-    public Message(Long id, String contents, String reply, String audioUrl, Long cakeId,
-                   Long senderId) {
+    public Message(
+        Long id, String contents, String reply, String audioUrl, Long cakeId, Long senderId) {
         this.id = id;
         this.contents = contents;
         this.reply = reply;

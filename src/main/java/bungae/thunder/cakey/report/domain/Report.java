@@ -1,7 +1,6 @@
 package bungae.thunder.cakey.report.domain;
 
 import lombok.Builder;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,12 +8,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Report {
     /**
-     * TODO: 논의 내용
-     * 신고한 사람의 userID
-     * 해당 신고 처리 결과
-     * 신고 유형 ?
+     * TODO: 논의 내용 신고한 사람의 userID 해당 신고 처리 결과 신고 유형 ?
      */
     private Long id;
+
     private Long messageId;
     private String contents;
 
@@ -28,5 +25,4 @@ public class Report {
     public void setId(Long id) {
         this.id = id;
     }
-
 }

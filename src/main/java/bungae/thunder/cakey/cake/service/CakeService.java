@@ -4,11 +4,10 @@ import bungae.thunder.cakey.cake.domain.Cake;
 import bungae.thunder.cakey.cake.exception.CakeNotFoundException;
 import bungae.thunder.cakey.cake.repository.CakeRepository;
 import bungae.thunder.cakey.user.domain.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class CakeService {
@@ -20,7 +19,6 @@ public class CakeService {
         this.cakeRepository = cakeRepository;
     }
 
-
     /**
      * 케이크 만들기
      */
@@ -29,17 +27,16 @@ public class CakeService {
         LocalDate today = LocalDate.now();
         LocalDate birthday = user.getBirthday().withYear(today.getYear());
 
-        Cake newCake = Cake.builder()
-            .userId(user.getId())
-            .year(today.isAfter(birthday) ? today.getYear() + 1 : today.getYear())
-            .build();
+        Cake newCake =
+            Cake.builder()
+                .userId(user.getId())
+                .year(today.isAfter(birthday) ? today.getYear() + 1 : today.getYear())
+                .build();
 
         return cakeRepository.save(newCake).getId();
     }
 
-    /**
-     * 케이크 가져오기
-     */
+    /** 케이크 가져오기 */
     public Cake getCake(Long id) {
         Cake dbCake = cakeRepository.findById(id);
         if (Objects.isNull(dbCake)) {
@@ -48,9 +45,7 @@ public class CakeService {
         return dbCake;
     }
 
-    /**
-     * 유저의 최근 케이크 가져오기
-     */
+    /** 유저의 최근 케이크 가져오기 */
     public Cake getRecentCake(Long userId) {
         Cake dbCake = cakeRepository.findOneByUserId(userId);
         if (Objects.isNull(dbCake)) {
@@ -59,9 +54,7 @@ public class CakeService {
         return dbCake;
     }
 
-    /**
-     * 유저의 특정 케이크 가져오기
-     */
+    /** 유저의 특정 케이크 가져오기 */
     public Cake getSpecificYearCake(Long userId, Integer year) {
         Cake dbCake = cakeRepository.findByUserIdAndYear(userId, year);
         if (Objects.isNull(dbCake)) {
@@ -70,9 +63,7 @@ public class CakeService {
         return dbCake;
     }
 
-    /**
-     * 유저의 모든 케이크 가져오기
-     */
+    /** 유저의 모든 케이크 가져오기 */
     public List<Cake> getAllCakes(Long userId) {
         List<Cake> dbCakes = cakeRepository.findAllByUserId(userId);
         if (dbCakes.isEmpty()) {

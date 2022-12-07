@@ -1,19 +1,18 @@
 package bungae.thunder.cakey.message.service;
 
-import bungae.thunder.cakey.cake.domain.Cake;
-import bungae.thunder.cakey.message.domain.Message;
-import bungae.thunder.cakey.message.repository.MessageRepository;
-import bungae.thunder.cakey.user.domain.User;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import java.util.Arrays;
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
+
+import bungae.thunder.cakey.cake.domain.Cake;
+import bungae.thunder.cakey.message.domain.Message;
+import bungae.thunder.cakey.message.repository.MessageRepository;
+import bungae.thunder.cakey.user.domain.User;
+import java.util.Arrays;
+import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class MessageServiceTest {
     MessageRepository mockedMessageRepository;
@@ -65,7 +64,8 @@ public class MessageServiceTest {
     public void getAllMessagesByCakeId() {
         Message message = Message.builder().build();
         Message message2 = Message.builder().build();
-        when(mockedMessageRepository.findAllByCakeId(anyLong())).thenReturn(Arrays.asList(message, message2));
+        when(mockedMessageRepository.findAllByCakeId(anyLong()))
+            .thenReturn(Arrays.asList(message, message2));
 
         List<Message> result = messageService.getAllMessagesByCakeId(0L);
 
@@ -77,7 +77,8 @@ public class MessageServiceTest {
     public void getAllMessagesBySenderId() {
         Message message = Message.builder().build();
         Message message2 = Message.builder().build();
-        when(mockedMessageRepository.findAllBySenderId(anyLong())).thenReturn(Arrays.asList(message, message2));
+        when(mockedMessageRepository.findAllBySenderId(anyLong()))
+            .thenReturn(Arrays.asList(message, message2));
 
         List<Message> result = messageService.getAllMessagesBySenderId(0L);
 
