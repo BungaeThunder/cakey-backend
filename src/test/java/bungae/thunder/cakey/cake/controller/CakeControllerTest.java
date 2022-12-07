@@ -26,17 +26,13 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest(controllers = CakeController.class)
 public class CakeControllerTest {
 
-    @Autowired
-    private MockMvc mvc;
+    @Autowired private MockMvc mvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    @Autowired private ObjectMapper objectMapper;
 
-    @MockBean
-    CakeService cakeService;
+    @MockBean CakeService cakeService;
 
-    @MockBean
-    UserService userService;
+    @MockBean UserService userService;
 
     @Test
     @DisplayName("케이크 생성 테스트")
@@ -51,8 +47,8 @@ public class CakeControllerTest {
         body.put("birthday", getDbUser1().getBirthday().toString());
 
         mvc.perform(post("/cakes").content(body.toString()).contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andDo(print());
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
     @Test
@@ -61,8 +57,8 @@ public class CakeControllerTest {
         given(cakeService.getCake(getDbCake1().getId())).willReturn(getDbCake1());
 
         mvc.perform(get("/cakes/{cakeId}", getDbCake1().getId()))
-            .andExpect(status().isOk())
-            .andDo(print());
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
     @Test

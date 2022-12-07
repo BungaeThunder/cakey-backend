@@ -25,24 +25,24 @@ public class MemoryCakeRepository implements CakeRepository {
     @Override
     public Cake findOneByUserId(Long userId) {
         return store.values().stream()
-            .filter(cake -> cake.getUserId().equals(userId))
-            .max(Comparator.comparingInt(Cake::getYear))
-            .get();
+                .filter(cake -> cake.getUserId().equals(userId))
+                .max(Comparator.comparingInt(Cake::getYear))
+                .get();
     }
 
     @Override
     public List<Cake> findAllByUserId(Long userId) {
         return store.values().stream()
-            .filter(cake -> cake.getUserId().equals(userId))
-            .collect(Collectors.toList());
+                .filter(cake -> cake.getUserId().equals(userId))
+                .collect(Collectors.toList());
     }
 
     @Override
     public Cake findByUserIdAndYear(Long userId, Integer year) {
         return store.values().stream()
-            .filter(cake -> cake.getUserId().equals(userId) && cake.getYear().equals(year))
-            .findFirst()
-            .orElse(null);
+                .filter(cake -> cake.getUserId().equals(userId) && cake.getYear().equals(year))
+                .findFirst()
+                .orElse(null);
     }
 
     @Override

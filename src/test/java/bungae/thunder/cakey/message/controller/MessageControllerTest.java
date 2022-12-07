@@ -30,31 +30,26 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest(controllers = MessageController.class)
 public class MessageControllerTest {
 
-    @MockBean
-    MessageService messageService;
+    @MockBean MessageService messageService;
 
-    @MockBean
-    UserService userService;
+    @MockBean UserService userService;
 
-    @MockBean
-    CakeService cakeService;
+    @MockBean CakeService cakeService;
 
-    @Autowired
-    private MockMvc mvc;
+    @Autowired private MockMvc mvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    @Autowired private ObjectMapper objectMapper;
 
     @Test
     @DisplayName("Should create a new message")
     public void createMessage() throws Exception {
         User user =
-            User.builder()
-                .id(0L)
-                .email("cakey@cakey.com")
-                .name("Cakey")
-                .birthday(LocalDate.of(1995, 5, 25))
-                .build();
+                User.builder()
+                        .id(0L)
+                        .email("cakey@cakey.com")
+                        .name("Cakey")
+                        .birthday(LocalDate.of(1995, 5, 25))
+                        .build();
 
         Cake cake = Cake.builder().id(0L).year(1995).userId(0L).build();
 
@@ -68,33 +63,33 @@ public class MessageControllerTest {
         newMessage.put("audioUrl", "http://audio.url");
 
         mvc.perform(
-                post("/messages")
-                    .content(newMessage.toString())
-                    .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isCreated())
-            .andExpect(content().string("0"))
-            .andDo(print());
+                        post("/messages")
+                                .content(newMessage.toString())
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(content().string("0"))
+                .andDo(print());
     }
 
     @Test
     @DisplayName("Should get a proper message")
     public void getMessage() throws Exception {
         Message message =
-            Message.builder()
-                .id(0L)
-                .contents("Want some pizza?")
-                .reply("No.")
-                .audioUrl("http://pizza.hot")
-                .cakeId(0L)
-                .senderId(0L)
-                .build();
+                Message.builder()
+                        .id(0L)
+                        .contents("Want some pizza?")
+                        .reply("No.")
+                        .audioUrl("http://pizza.hot")
+                        .cakeId(0L)
+                        .senderId(0L)
+                        .build();
 
         given(messageService.getMessage(0L)).willReturn(message);
 
         mvc.perform(get("/messages/{messageId}", 0L))
-            .andExpect(status().isOk())
-            .andExpect(content().string(objectMapper.writeValueAsString(message)))
-            .andDo(print());
+                .andExpect(status().isOk())
+                .andExpect(content().string(objectMapper.writeValueAsString(message)))
+                .andDo(print());
     }
 
     @Test
@@ -110,8 +105,8 @@ public class MessageControllerTest {
         given(messageService.getAllMessagesByCakeId(0L)).willReturn(messages);
 
         mvc.perform(get("/messages").param("cakeId", "0"))
-            .andExpect(status().isOk())
-            .andExpect(content().string(objectMapper.writeValueAsString(messages)))
-            .andDo(print());
+                .andExpect(status().isOk())
+                .andExpect(content().string(objectMapper.writeValueAsString(messages)))
+                .andDo(print());
     }
 }

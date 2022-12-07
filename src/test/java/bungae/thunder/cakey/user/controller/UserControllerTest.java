@@ -27,14 +27,11 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest(controllers = UserController.class)
 public class UserControllerTest {
 
-    @Autowired
-    private MockMvc mvc;
+    @Autowired private MockMvc mvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    @Autowired private ObjectMapper objectMapper;
 
-    @MockBean
-    UserService userService;
+    @MockBean UserService userService;
 
     @Test
     @DisplayName("전체 유저 조회 테스트")
@@ -67,14 +64,14 @@ public class UserControllerTest {
     @DisplayName("유저 회원 가입 테스트")
     public void signUpUser() throws Exception {
         String content =
-            objectMapper.writeValueAsString(User.builder().id(123L).name("jinWoo").build());
+                objectMapper.writeValueAsString(User.builder().id(123L).name("jinWoo").build());
 
         mvc.perform(
-                post("/users/signUp")
-                    .content(content)
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk());
+                        post("/users/signUp")
+                                .content(content)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
         // .andExpect(content().string("jinWoo")) // TODO: body가 없어서 에러 나는 중, post 방식 형식 맞추면 이 부분 ㄷ시
     }
 }

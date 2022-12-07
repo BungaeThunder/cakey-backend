@@ -30,19 +30,15 @@ import org.springframework.web.context.WebApplicationContext;
 @WebMvcTest(controllers = ReportController.class)
 class ReportControllerTest {
 
-    @Autowired
-    WebApplicationContext ctx;
+    @Autowired WebApplicationContext ctx;
 
     private MockMvc mvc;
 
-    @MockBean
-    ReportService reportService;
+    @MockBean ReportService reportService;
 
-    @MockBean
-    MessageService messageService;
+    @MockBean MessageService messageService;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    @Autowired private ObjectMapper objectMapper;
 
     @BeforeEach
     public void test() {
@@ -59,9 +55,9 @@ class ReportControllerTest {
         given(reportService.getReport(321L)).willReturn(report);
 
         mvc.perform(get("/reports/{reportId}", 321L))
-            .andExpect(status().isOk())
-            .andExpect(
-                MockMvcResultMatchers.content().string(Matchers.containsString(contents)))
+                .andExpect(status().isOk())
+                .andExpect(
+                        MockMvcResultMatchers.content().string(Matchers.containsString(contents)))
                 .andDo(print());
     }
 
@@ -71,7 +67,7 @@ class ReportControllerTest {
         Report report1 = Report.builder().id(1L).messageId(321L).contents("hello").build();
         Report report2 = Report.builder().id(2L).messageId(123L).contents("bro").build();
         Report report3 =
-            Report.builder().id(3L).messageId(123L).contents("goot to see you").build();
+                Report.builder().id(3L).messageId(123L).contents("goot to see you").build();
 
         List<Report> reports = new ArrayList<>();
         Collections.addAll(reports, report2, report3);
@@ -79,8 +75,8 @@ class ReportControllerTest {
         given(reportService.getAllReportsByMessageId(123L)).willReturn(reports);
 
         mvc.perform(get("/reports").param("messageId", "123"))
-            .andExpect(status().isOk())
-            .andDo(print());
+                .andExpect(status().isOk())
+                .andDo(print());
     }
 
     @Test
@@ -92,13 +88,13 @@ class ReportControllerTest {
         System.out.println("report = " + newReport);
 
         mvc.perform(
-                post("/reports")
-                    .content(newReport.toString())
-                    .contentType(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(
-                MockMvcResultMatchers.content().string(objectMapper.writeValueAsString(0L)))
-            .andDo(print());
+                        post("/reports")
+                                .content(newReport.toString())
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(
+                        MockMvcResultMatchers.content().string(objectMapper.writeValueAsString(0L)))
+                .andDo(print());
     }
 }

@@ -19,19 +19,17 @@ public class CakeService {
         this.cakeRepository = cakeRepository;
     }
 
-    /**
-     * 케이크 만들기
-     */
+    /** 케이크 만들기 */
     public Long createCake(User user) {
         // TODO: 정확한 시간 비교를 위해서는 request time으로 계산 필요
         LocalDate today = LocalDate.now();
         LocalDate birthday = user.getBirthday().withYear(today.getYear());
 
         Cake newCake =
-            Cake.builder()
-                .userId(user.getId())
-                .year(today.isAfter(birthday) ? today.getYear() + 1 : today.getYear())
-                .build();
+                Cake.builder()
+                        .userId(user.getId())
+                        .year(today.isAfter(birthday) ? today.getYear() + 1 : today.getYear())
+                        .build();
 
         return cakeRepository.save(newCake).getId();
     }

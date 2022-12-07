@@ -39,11 +39,11 @@ public class MemoryReportRepositoryTest {
         reportRepository.save(report2);
 
         Report report3 =
-            Report.builder().messageId(111L).contents("this is VERYVERYVERY bad").build();
+                Report.builder().messageId(111L).contents("this is VERYVERYVERY bad").build();
         reportRepository.save(report3);
 
         Report report4 =
-            Report.builder().messageId(11L).contents("this is bad. you could DIE").build();
+                Report.builder().messageId(11L).contents("this is bad. you could DIE").build();
         reportRepository.save(report4);
 
         Report report5 = Report.builder().messageId(11L).contents("NOPE").build();
@@ -70,11 +70,11 @@ public class MemoryReportRepositoryTest {
         reportRepository.save(report2);
 
         Report report3 =
-            Report.builder().messageId(111L).contents("this is VERYVERYVERY bad").build();
+                Report.builder().messageId(111L).contents("this is VERYVERYVERY bad").build();
         reportRepository.save(report3);
 
         Report report4 =
-            Report.builder().messageId(11L).contents("this is bad. you could DIE").build();
+                Report.builder().messageId(11L).contents("this is bad. you could DIE").build();
         reportRepository.save(report4);
 
         Report report5 = Report.builder().messageId(11L).contents("NOPE").build();

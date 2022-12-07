@@ -27,15 +27,15 @@ public class MemoryMessageRepository implements MessageRepository {
     @Override
     public List<Message> findAllByCakeId(Long cakeId) {
         return store.values().stream()
-            .filter(message -> message.getCakeId().equals(cakeId))
-            .collect(Collectors.toList());
+                .filter(message -> message.getCakeId().equals(cakeId))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<Message> findAllBySenderId(Long senderId) {
         return store.values().stream()
-            .filter(message -> message.getSenderId().equals(senderId))
-            .collect(Collectors.toList());
+                .filter(message -> message.getSenderId().equals(senderId))
+                .collect(Collectors.toList());
     }
 
     @Override

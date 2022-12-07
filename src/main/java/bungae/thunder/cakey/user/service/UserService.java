@@ -17,9 +17,7 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    /**
-     * 회원가입
-     */
+    /** 회원가입 */
     public Long createUser(User user) {
         userRepository.save(user);
         return user.getId();

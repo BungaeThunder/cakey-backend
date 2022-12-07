@@ -24,8 +24,8 @@ public class MemoryReportRepository implements ReportRepository {
     @Override
     public List<Report> findAllByMessageId(Long messageId) {
         return store.values().stream()
-            .filter(report -> report.getMessageId().equals(messageId))
-            .collect(Collectors.toList());
+                .filter(report -> report.getMessageId().equals(messageId))
+                .collect(Collectors.toList());
     }
 
     @Override

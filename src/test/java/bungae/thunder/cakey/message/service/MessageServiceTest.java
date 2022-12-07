@@ -65,7 +65,7 @@ public class MessageServiceTest {
         Message message = Message.builder().build();
         Message message2 = Message.builder().build();
         when(mockedMessageRepository.findAllByCakeId(anyLong()))
-            .thenReturn(Arrays.asList(message, message2));
+                .thenReturn(Arrays.asList(message, message2));
 
         List<Message> result = messageService.getAllMessagesByCakeId(0L);
 
@@ -78,7 +78,7 @@ public class MessageServiceTest {
         Message message = Message.builder().build();
         Message message2 = Message.builder().build();
         when(mockedMessageRepository.findAllBySenderId(anyLong()))
-            .thenReturn(Arrays.asList(message, message2));
+                .thenReturn(Arrays.asList(message, message2));
 
         List<Message> result = messageService.getAllMessagesBySenderId(0L);
 

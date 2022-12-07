@@ -32,7 +32,7 @@ public class MessageController {
 
     @Autowired
     public MessageController(
-        MessageService messageService, UserService userService, CakeService cakeService) {
+            MessageService messageService, UserService userService, CakeService cakeService) {
         this.messageService = messageService;
         this.userService = userService;
         this.cakeService = cakeService;
@@ -41,10 +41,10 @@ public class MessageController {
     @PostMapping
     public ResponseEntity<Long> createMessage(@RequestBody CreateMessageDto createMessageDto) {
         Message message =
-            Message.builder()
-                .contents(createMessageDto.getContents())
-                .audioUrl(createMessageDto.getAudioUrl())
-                .build();
+                Message.builder()
+                        .contents(createMessageDto.getContents())
+                        .audioUrl(createMessageDto.getAudioUrl())
+                        .build();
 
         User user = userService.getUser(createMessageDto.getSenderId());
         Cake cake = cakeService.getCake(createMessageDto.getCakeId());

@@ -17,9 +17,7 @@ public class ReportService {
         this.reportRepository = reportRepository;
     }
 
-    /**
-     * message 신고
-     */
+    /** message 신고 */
     public Long createReport(Report report) {
 
         reportRepository.save(report);
