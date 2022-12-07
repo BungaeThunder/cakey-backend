@@ -12,6 +12,7 @@ public class Cake {
 
     @Builder
     Cake(Long id, Integer year, Long userId) {
+        this.id = id;
         this.year = year;
         this.userId = userId;
     }

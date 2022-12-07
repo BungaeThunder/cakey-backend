@@ -17,6 +17,7 @@ import java.util.Optional;
 @RequestMapping("/cakes")
 @Slf4j
 public class CakeController {
+
     private final CakeService cakeService;
     private final UserService userService;
 
@@ -34,7 +35,8 @@ public class CakeController {
 
     @GetMapping("/{cakeId}")
     public ResponseEntity<Cake> getCake(@PathVariable Long cakeId) {
-        return ResponseEntity.ok(cakeService.getCake(cakeId).orElseThrow(() -> new DataNotFoundException()));
+        return ResponseEntity.ok(
+            cakeService.getCake(cakeId).orElseThrow(() -> new DataNotFoundException()));
     }
 
     @GetMapping
