@@ -1,6 +1,5 @@
 package bungae.thunder.cakey.user.repository;
 
-import bungae.thunder.cakey.cake.domain.Cake;
 import bungae.thunder.cakey.user.domain.User;
 
 import java.util.*;

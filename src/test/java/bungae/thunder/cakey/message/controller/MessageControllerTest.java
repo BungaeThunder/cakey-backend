@@ -65,7 +65,7 @@ public class MessageControllerTest {
                 .build();
 
         given(userService.getUser(0L))
-                .willReturn(Optional.ofNullable(user));
+                .willReturn(user);
         given(cakeService.getCake(0L))
                 .willReturn(Optional.ofNullable(cake));
 
@@ -96,7 +96,7 @@ public class MessageControllerTest {
                 .build();
 
         given(messageService.getMessage(0L))
-                .willReturn(Optional.ofNullable(message));
+                .willReturn(message);
 
         mvc.perform(get("/messages/{messageId}", 0L))
                 .andExpect(status().isOk())

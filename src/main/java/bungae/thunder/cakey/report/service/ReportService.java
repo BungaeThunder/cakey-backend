@@ -1,13 +1,13 @@
 package bungae.thunder.cakey.report.service;
 
-import bungae.thunder.cakey.message.domain.Message;
 import bungae.thunder.cakey.report.domain.Report;
+import bungae.thunder.cakey.report.exception.ReportNotFoundException;
 import bungae.thunder.cakey.report.repository.ReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 @Service
 public class ReportService {
@@ -27,8 +27,12 @@ public class ReportService {
         return report.getId();
     }
 
-    public Optional<Report> getReport(Long id){
-        return reportRepository.findById(id);
+    public Report getReport(Long id){
+        Report report = reportRepository.findById(id);
+        if(Objects.isNull(report)) {
+            throw new ReportNotFoundException("레포트가 존재하지 않습니다");
+        }
+        return report;
     }
 
     /**

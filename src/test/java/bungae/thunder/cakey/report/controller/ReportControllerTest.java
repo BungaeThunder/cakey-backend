@@ -64,7 +64,7 @@ class ReportControllerTest {
         Report report = Report.builder().id(123L).messageId(321L).contents(contents).build();
         Report report2 = Report.builder().id(321L).messageId(321L).contents(contents).build();
 
-        given(reportService.getReport(321L)).willReturn(Optional.ofNullable(report));
+        given(reportService.getReport(321L)).willReturn(report);
 
         mvc.perform(get("/reports/{reportId}", 321L))
                 .andExpect(status().isOk())

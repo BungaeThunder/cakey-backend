@@ -36,7 +36,7 @@ public class ReportServiceTest {
         Long reportId = reportService.createReport(report);
 
         //then
-        Report result = reportService.getReport(report.getId()).get();
+        Report result = reportService.getReport(report.getId());
         assertThat(result.getId()).isEqualTo(reportId);
 
     }

@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
@@ -41,14 +40,14 @@ public class MessageServiceTest {
     @Test
     public void getMessage() {
         Message message = Message.builder().id(0L).build();
-        when(mockedMessageRepository.findOneById(0L)).thenReturn(Optional.ofNullable(message));
-        when(mockedMessageRepository.findOneById(1L)).thenReturn(Optional.ofNullable(null));
+        when(mockedMessageRepository.findOneById(0L)).thenReturn(message);
+        when(mockedMessageRepository.findOneById(1L)).thenReturn(null);
 
-        Optional<Message> shouldExist = messageService.getMessage(0L);
-        Optional<Message> shouldNotExist = messageService.getMessage(1L);
+        Message shouldExist = messageService.getMessage(0L);
+        Message shouldNotExist = messageService.getMessage(1L);
 
-        assertThat(shouldExist).isEqualTo(Optional.ofNullable(message));
-        assertThat(shouldNotExist).isEmpty();
+        assertThat(shouldExist).isEqualTo(message);
+        assertThat(shouldNotExist).isEqualTo(null);
     }
 
     @Test
