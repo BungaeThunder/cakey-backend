@@ -1,12 +1,11 @@
 package bungae.thunder.cakey.cake.repository;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import bungae.thunder.cakey.cake.domain.Cake;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class MemoryCakeRepositoryTest {
     MemoryCakeRepository cakeRepository = new MemoryCakeRepository();
@@ -19,10 +18,7 @@ public class MemoryCakeRepositoryTest {
     @Test
     public void save() {
         // given
-        Cake cake = Cake.builder()
-                .userId(123L)
-                .year(2022)
-                .build();
+        Cake cake = Cake.builder().userId(123L).year(2022).build();
 
         // when
         cakeRepository.save(cake);
@@ -35,22 +31,13 @@ public class MemoryCakeRepositoryTest {
     @Test
     public void findOneByUserId() {
         // given
-        Cake cake1 = Cake.builder()
-                .userId(123L)
-                .year(2021)
-                .build();
+        Cake cake1 = Cake.builder().userId(123L).year(2021).build();
         cakeRepository.save(cake1);
 
-        Cake cake2 = Cake.builder()
-                .userId(123L)
-                .year(2022)
-                .build();
+        Cake cake2 = Cake.builder().userId(123L).year(2022).build();
         cakeRepository.save(cake2);
 
-        Cake cake3 = Cake.builder()
-                .userId(456L)
-                .year(2019)
-                .build();
+        Cake cake3 = Cake.builder().userId(456L).year(2019).build();
         cakeRepository.save(cake3);
 
         // when
@@ -65,22 +52,13 @@ public class MemoryCakeRepositoryTest {
     @Test
     public void findAllByUserId() {
         // given
-        Cake cake1 = Cake.builder()
-                .userId(123L)
-                .year(2022)
-                .build();
+        Cake cake1 = Cake.builder().userId(123L).year(2022).build();
         cakeRepository.save(cake1);
 
-        Cake cake2 = Cake.builder()
-                .userId(123L)
-                .year(2021)
-                .build();
+        Cake cake2 = Cake.builder().userId(123L).year(2021).build();
         cakeRepository.save(cake2);
 
-        Cake cake3 = Cake.builder()
-                .userId(456L)
-                .year(2022)
-                .build();
+        Cake cake3 = Cake.builder().userId(456L).year(2022).build();
         cakeRepository.save(cake3);
 
         // when
@@ -97,16 +75,10 @@ public class MemoryCakeRepositoryTest {
     @Test
     public void findByUserIdAndYear() {
         // given
-        Cake cake1 = Cake.builder()
-                .userId(123L)
-                .year(2022)
-                .build();
+        Cake cake1 = Cake.builder().userId(123L).year(2022).build();
         cakeRepository.save(cake1);
 
-        Cake cake2 = Cake.builder()
-                .userId(123L)
-                .year(2021)
-                .build();
+        Cake cake2 = Cake.builder().userId(123L).year(2021).build();
         cakeRepository.save(cake2);
 
         // when
@@ -121,22 +93,13 @@ public class MemoryCakeRepositoryTest {
     @Test
     public void findAll() {
         // given
-        Cake cake1 = Cake.builder()
-                .userId(123L)
-                .year(2022)
-                .build();
+        Cake cake1 = Cake.builder().userId(123L).year(2022).build();
         cakeRepository.save(cake1);
 
-        Cake cake2 = Cake.builder()
-                .userId(123L)
-                .year(2021)
-                .build();
+        Cake cake2 = Cake.builder().userId(123L).year(2021).build();
         cakeRepository.save(cake2);
 
-        Cake cake3 = Cake.builder()
-                .userId(456L)
-                .year(2022)
-                .build();
+        Cake cake3 = Cake.builder().userId(456L).year(2022).build();
         cakeRepository.save(cake3);
 
         // when

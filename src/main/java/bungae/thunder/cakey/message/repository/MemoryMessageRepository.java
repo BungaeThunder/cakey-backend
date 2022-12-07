@@ -1,7 +1,6 @@
 package bungae.thunder.cakey.message.repository;
 
 import bungae.thunder.cakey.message.domain.Message;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -9,7 +8,7 @@ public class MemoryMessageRepository implements MessageRepository {
     private static Map<Long, Message> store;
     private static Long sequence = 0L;
 
-    public MemoryMessageRepository (Map<Long, Message> store) {
+    public MemoryMessageRepository(Map<Long, Message> store) {
         this.store = store;
     }
 
@@ -27,18 +26,14 @@ public class MemoryMessageRepository implements MessageRepository {
 
     @Override
     public List<Message> findAllByCakeId(Long cakeId) {
-        return store
-                .values()
-                .stream()
+        return store.values().stream()
                 .filter(message -> message.getCakeId().equals(cakeId))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Message> findAllBySenderId(Long senderId) {
-        return store
-                .values()
-                .stream()
+        return store.values().stream()
                 .filter(message -> message.getSenderId().equals(senderId))
                 .collect(Collectors.toList());
     }

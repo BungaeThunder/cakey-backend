@@ -1,9 +1,8 @@
 package bungae.thunder.cakey.report.repository;
 
 import bungae.thunder.cakey.report.domain.Report;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ReportRepository {
@@ -14,5 +13,4 @@ public interface ReportRepository {
     List<Report> findAllByMessageId(Long messageId);
 
     List<Report> findAll();
-
 }

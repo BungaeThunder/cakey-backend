@@ -1,44 +1,41 @@
 package bungae.thunder.cakey.report.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import bungae.thunder.cakey.message.domain.Message;
 import bungae.thunder.cakey.report.domain.Report;
 import bungae.thunder.cakey.report.repository.MemoryReportRepository;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
 
 public class ReportServiceTest {
     ReportService reportService;
     MemoryReportRepository reportRepository;
 
     @BeforeEach
-    void beforeEach(){
+    void beforeEach() {
         reportRepository = new MemoryReportRepository();
         reportService = new ReportService(reportRepository);
     }
 
     @AfterEach
-    void afterEach(){
+    void afterEach() {
         reportRepository.clearStore();
     }
 
     @Test
     void createReport() {
-        //given
+        // given
         Report report = Report.builder().messageId(123L).build();
 
-        //when
+        // when
         Long reportId = reportService.createReport(report);
 
-        //then
+        // then
         Report result = reportService.getReport(report.getId());
         assertThat(result.getId()).isEqualTo(reportId);
-
     }
 
     @Test
@@ -56,8 +53,5 @@ public class ReportServiceTest {
 
         // then
         assertThat(result.size()).isEqualTo(2);
-
-
     }
 }
-

@@ -2,12 +2,11 @@ package bungae.thunder.cakey.report.controller;
 
 import bungae.thunder.cakey.report.domain.Report;
 import bungae.thunder.cakey.report.service.ReportService;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Slf4j
 @RestController
@@ -15,7 +14,7 @@ import java.util.List;
 public class ReportController {
     private final ReportService reportService;
 
-    @Autowired //bean 연결
+    @Autowired // bean 연결
     public ReportController(ReportService reportService) {
         this.reportService = reportService;
     }
@@ -39,8 +38,5 @@ public class ReportController {
     @GetMapping()
     public ResponseEntity<List<Report>> getAllReports(@RequestParam Long messageId) {
         return ResponseEntity.ok(reportService.getAllReportsByMessageId(messageId));
-
     }
-
-
 }

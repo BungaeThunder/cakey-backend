@@ -1,7 +1,6 @@
 package bungae.thunder.cakey.report.repository;
 
 import bungae.thunder.cakey.report.domain.Report;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -25,7 +24,7 @@ public class MemoryReportRepository implements ReportRepository {
     @Override
     public List<Report> findAllByMessageId(Long messageId) {
         return store.values().stream()
-                .filter(report -> report.getMessageId().equals(messageId) )
+                .filter(report -> report.getMessageId().equals(messageId))
                 .collect(Collectors.toList());
     }
 
@@ -34,6 +33,7 @@ public class MemoryReportRepository implements ReportRepository {
         return new ArrayList<>(store.values());
     }
 
-    public void clearStore() { store.clear(); }
+    public void clearStore() {
+        store.clear();
+    }
 }
-

@@ -3,13 +3,12 @@ package bungae.thunder.cakey.message.service;
 import bungae.thunder.cakey.cake.domain.Cake;
 import bungae.thunder.cakey.message.domain.Message;
 import bungae.thunder.cakey.message.exception.MessageNotFoundException;
-import bungae.thunder.cakey.user.domain.User;
 import bungae.thunder.cakey.message.repository.MessageRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import bungae.thunder.cakey.user.domain.User;
 import java.util.List;
 import java.util.Objects;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class MessageService {
@@ -29,7 +28,7 @@ public class MessageService {
 
     public Message getMessage(Long id) {
         Message message = messageRepository.findOneById(id);
-        if(Objects.isNull(message)) {
+        if (Objects.isNull(message)) {
             throw new MessageNotFoundException("메시지가 존재하지 않습니다");
         }
         return message;
