@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface MessageRepository {
     Message save(Message message);
-    Optional<Message> findOneById(Long id);
+    Message findOneById(Long id);
     List<Message> findAllByCakeId(Long cakeId);
     List<Message> findAllBySenderId(Long senderId);
     List<Message> findAll();

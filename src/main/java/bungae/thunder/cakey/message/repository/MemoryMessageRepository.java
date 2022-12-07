@@ -21,8 +21,8 @@ public class MemoryMessageRepository implements MessageRepository {
     }
 
     @Override
-    public Optional<Message> findOneById(Long id) {
-        return Optional.ofNullable(store.get(id));
+    public Message findOneById(Long id) {
+        return store.get(id);
     }
 
     @Override
