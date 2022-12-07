@@ -21,23 +21,11 @@ public class MemoryUserRepositoryTest {
         //when
         repository.save(user);
         //then
-        User result = repository.findById(user.getId()).get();
+        User result = repository.findById(user.getId());
         assertThat(result).isEqualTo(user);
     }
 
     // TODO: 테스트 코드 고치기
-//    @Test
-//    public void findByName() {
-//        //given
-//        User user1 = User.builder().name("spring1").build();
-//        repository.save(user1);
-//        User user2 = User.builder().name("spring2").build();
-//        repository.save(user2);
-//        //when
-//        User result = repository.findByName("spring1").get();
-//        //then
-//        assertThat(result).isEqualTo(user1);
-//    }
 //
 //    @Test
 //    public void findAll() {

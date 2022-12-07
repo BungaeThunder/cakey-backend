@@ -1,12 +1,13 @@
 package bungae.thunder.cakey.user.service;
 
 import bungae.thunder.cakey.user.domain.User;
+import bungae.thunder.cakey.user.exception.UserNotFoundException;
 import bungae.thunder.cakey.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 
 @Service // 컴포넌트 스캔 방식
 public class UserService {
@@ -34,7 +35,11 @@ public class UserService {
     /**
      * 특정 회원 조회
      */
-    public Optional<User> getUser(Long userId) {
-        return userRepository.findById(userId);
+    public User getUser(Long userId) {
+        User user = userRepository.findById(userId);
+        if(Objects.isNull(user)) {
+            throw new UserNotFoundException("유저가 존재하지 않습니다");
+        }
+        return user;
     }
 }

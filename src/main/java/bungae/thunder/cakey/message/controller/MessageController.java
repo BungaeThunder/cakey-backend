@@ -45,14 +45,8 @@ public class MessageController {
         Message message = Message.builder().contents(createMessageDto.getContents())
             .audioUrl(createMessageDto.getAudioUrl()).build();
 
-        Optional<User> user = userService.getUser(createMessageDto.getSenderId());
+        User user = userService.getUser(createMessageDto.getSenderId());
         Optional<Cake> cake = cakeService.getCake(createMessageDto.getCakeId());
-
-        if (user.isEmpty()) {
-            String reason = String.format("No such user %d\n", createMessageDto.getSenderId());
-            System.out.println(reason);
-            throw new NotFoundException(reason);
-        }
 
         if (cake.isEmpty()) {
             String reason = String.format("No such cake %d\n", createMessageDto.getCakeId());
@@ -60,7 +54,7 @@ public class MessageController {
             throw new NotFoundException(reason);
         }
 
-        Long messageId = messageService.createMessage(message, user.get(), cake.get());
+        Long messageId = messageService.createMessage(message, user, cake.get());
 
         return ResponseEntity.created(URI.create("/messages" + messageId)).body(messageId);
     }

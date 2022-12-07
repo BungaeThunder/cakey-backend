@@ -34,7 +34,7 @@ class UserServiceTest {
         Long saveId = userService.createUser(user);
 
         // then
-        User findUser = userRepository.findById(saveId).get();
+        User findUser = userRepository.findById(saveId);
         assertThat(user.getName()).isEqualTo(findUser.getName());
     }
 
@@ -62,7 +62,7 @@ class UserServiceTest {
         userRepository.save(user1);
 
         // when
-        User result = userService.getUser(user1.getId()).get();
+        User result = userService.getUser(user1.getId());
 
         // then
         assertThat(result.getId()).isEqualTo(user1.getId());
