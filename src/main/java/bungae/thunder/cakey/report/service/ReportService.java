@@ -21,9 +21,7 @@ public class ReportService {
     /**
      * message 신고
      */
-    public Long createReport(Report report, Message message, String content) {
-        report.setMessageId(message.getId());
-        report.setContents(content);
+    public Long createReport(Report report) {
 
         reportRepository.save(report);
         return report.getId();
@@ -36,8 +34,8 @@ public class ReportService {
     /**
      * 특정 메세지 신고 내역 조회
      */
-    public List<Report> getAllReportsByMessage(Message message) {
-        return reportRepository.findAllByMessageId(message.getId());
+    public List<Report> getAllReportsByMessageId(Long messageId) {
+        return reportRepository.findAllByMessageId(messageId);
     }
 
 

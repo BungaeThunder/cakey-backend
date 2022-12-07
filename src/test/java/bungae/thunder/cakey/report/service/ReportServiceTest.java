@@ -30,32 +30,29 @@ public class ReportServiceTest {
     @Test
     void createReport() {
         //given
-        Report report = Report.builder().build();
-        Message message = Message.builder().id(123L).build();
-        String content = "hello dear";
+        Report report = Report.builder().messageId(123L).build();
 
         //when
-        reportService.createReport(report, message, content);
+        Long reportId = reportService.createReport(report);
 
         //then
         Report result = reportService.getReport(report.getId()).get();
-        assertThat(result.getMessageId()).isEqualTo(message.getId());
-
+        assertThat(result.getId()).isEqualTo(reportId);
 
     }
 
     @Test
-    void getAllReportsByMessage(){
+    void getAllReportsByMessageId() {
         // given
         Message message = Message.builder().id(123L).build();
 
-        Report report1 = Report.builder().messageId(message.getId()).build();
-        reportService.createReport(report1, message, "hellooooo");
-        Report report2 = Report.builder().messageId(message.getId()).build();
-        reportService.createReport(report2, message, "hiiiiii");
+        Report report1 = Report.builder().messageId(message.getId()).contents("hwy").build();
+        reportService.createReport(report1);
+        Report report2 = Report.builder().messageId(message.getId()).contents("qhyyy~").build();
+        reportService.createReport(report2);
 
         // when
-        List<Report> result =  reportService.getAllReportsByMessage(message);
+        List<Report> result = reportService.getAllReportsByMessageId(message.getId());
 
         // then
         assertThat(result.size()).isEqualTo(2);
