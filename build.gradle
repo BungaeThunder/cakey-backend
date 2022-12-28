@@ -31,6 +31,8 @@ task installGitLocalHook(type: Copy) {
     fileMode 0775
 }
 
+build.dependsOn installGitLocalHook
+
 /**
  * ref)
  * https://nesoy.github.io/articles/2020-04/Spotless
