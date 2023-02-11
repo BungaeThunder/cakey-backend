@@ -1,28 +1,30 @@
 package bungae.thunder.cakey.user.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
 import bungae.thunder.cakey.user.domain.User;
-import bungae.thunder.cakey.user.repository.MemoryUserRepository;
 import java.util.List;
-import org.junit.jupiter.api.AfterEach;
+
+import bungae.thunder.cakey.user.repository.UserJpaRepository;
+import bungae.thunder.cakey.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
+@SpringBootTest
+@Transactional
 class UserServiceTest {
-    UserService userService;
-    MemoryUserRepository userRepository;
+    @InjectMocks
+    private UserService userService;
 
-    @BeforeEach
-    public void beforeEach() {
-        userRepository = new MemoryUserRepository();
-        userService = new UserService(userRepository);
-    }
-
-    @AfterEach
-    public void afterEach() {
-        userRepository.clearStore();
-    }
+    @Mock
+    private UserJpaRepository userJpaRepository;
 
     @Test
     void createUser() {
@@ -33,7 +35,7 @@ class UserServiceTest {
         Long saveId = userService.createUser(user);
 
         // then
-        User findUser = userRepository.findById(saveId);
+        User findUser = userService.getUser(saveId);
         assertThat(user.getName()).isEqualTo(findUser.getName());
     }
 
@@ -41,11 +43,11 @@ class UserServiceTest {
     void getAllUsers() {
         // given
         User user1 = User.builder().id(123L).build();
-        userRepository.save(user1);
+        userService.createUser(user1);
         User user2 = User.builder().id(124L).build();
-        userRepository.save(user2);
+        userService.createUser(user2);
         User user3 = User.builder().id(125L).build();
-        userRepository.save(user3);
+        userService.createUser(user3);
 
         // when
         List<User> userList = userService.getAllUsers();
@@ -58,7 +60,7 @@ class UserServiceTest {
     void getUser() {
         // given
         User user1 = User.builder().id(123L).build();
-        userRepository.save(user1);
+        userService.createUser(user1);
 
         // when
         User result = userService.getUser(user1.getId());

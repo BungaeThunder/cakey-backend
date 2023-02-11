@@ -1,14 +1,21 @@
 package bungae.thunder.cakey.user.domain;
 
 import java.time.LocalDate;
+
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User {
-    private Long id;
+    @Id @GeneratedValue private Long id;
     private String email;
     private String name;
     private LocalDate birthday;
