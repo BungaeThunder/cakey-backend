@@ -2,6 +2,8 @@ version: '3.9'
 services:
   mariadb:
     image: mariadb:10.7.4
+    ports:
+      - "3306:3306"
     volumes:
       - ./data/mariadb:/var/lib/mysql
       - ./data/log/mariadb:/var/log/mariadb
