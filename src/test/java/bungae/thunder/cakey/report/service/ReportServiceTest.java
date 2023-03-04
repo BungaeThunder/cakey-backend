@@ -41,7 +41,7 @@ public class ReportServiceTest {
     @Test
     void getAllReportsByMessageId() {
         // given
-        Message message = Message.builder().id(123L).build();
+        Message message = Message.builder().build();
 
         Report report1 = Report.builder().messageId(message.getId()).contents("hwy").build();
         reportService.createReport(report1);
