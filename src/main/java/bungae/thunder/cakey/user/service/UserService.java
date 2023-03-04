@@ -33,10 +33,6 @@ public class UserService {
 
     /** 특정 회원 조회 */
     public User getUser(Long userId) {
-        Optional<User> user = userRepository.findById(userId);
-        if (Objects.isNull(user)) {
-            throw new UserNotFoundException("유저가 존재하지 않습니다");
-        }
-        return user.get();
+        return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("유저가 존재하지 않습니다"));
     }
 }
