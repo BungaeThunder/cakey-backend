@@ -3,7 +3,7 @@
 echo '[git hook] executing gradle spotlessCheck before commit'
 
 # run the spotlessCheck with the gradle wrapper
-./gradlew spotlessCheck --daemon
+./gradlew spotlessApply
 
 # store the last exit code in a variable
 RESULT=$?
