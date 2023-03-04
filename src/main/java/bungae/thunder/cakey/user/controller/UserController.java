@@ -30,7 +30,7 @@ public class UserController {
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity<Long> signUpUser(@RequestBody User user) {
+    public ResponseEntity<User> signUpUser(@RequestBody User user) {
         return ResponseEntity.ok(userService.createUser(user));
     }
 }

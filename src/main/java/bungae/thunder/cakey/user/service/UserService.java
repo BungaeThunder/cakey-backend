@@ -3,7 +3,6 @@ package bungae.thunder.cakey.user.service;
 import bungae.thunder.cakey.user.domain.User;
 import bungae.thunder.cakey.user.exception.UserNotFoundException;
 import bungae.thunder.cakey.user.repository.UserJpaRepository;
-import bungae.thunder.cakey.user.repository.UserRepository;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -23,9 +22,8 @@ public class UserService {
     }
 
     /** 회원가입 */
-    public Long createUser(User user) {
-        userRepository.save(user);
-        return user.getId();
+    public User createUser(User user) {
+        return userRepository.save(user);
     }
 
     /** 전체 회원 조회 */

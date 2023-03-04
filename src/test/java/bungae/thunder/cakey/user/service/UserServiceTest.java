@@ -1,71 +1,84 @@
 package bungae.thunder.cakey.user.service;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.mock;
-
 import bungae.thunder.cakey.user.domain.User;
-import java.util.List;
-
 import bungae.thunder.cakey.user.repository.UserJpaRepository;
-import bungae.thunder.cakey.user.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
+import org.mockito.MockitoAnnotations;
 
-@SpringBootTest
-@Transactional
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 class UserServiceTest {
+    @Mock
+    private UserJpaRepository userRepository;
+
     @InjectMocks
     private UserService userService;
 
-    @Mock
-    private UserJpaRepository userJpaRepository;
-
-    @Test
-    void createUser() {
-        // given
-        User user = User.builder().name("hello").build();
-
-        // when
-        Long saveId = userService.createUser(user);
-
-        // then
-        User findUser = userService.getUser(saveId);
-        assertThat(user.getName()).isEqualTo(findUser.getName());
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
     }
 
+    @DisplayName("유저 등록 - 성공")
     @Test
-    void getAllUsers() {
+    void createUserTest() {
         // given
-        User user1 = User.builder().id(123L).build();
-        userService.createUser(user1);
-        User user2 = User.builder().id(124L).build();
-        userService.createUser(user2);
-        User user3 = User.builder().id(125L).build();
-        userService.createUser(user3);
+        User user = User.builder()
+                .email("test@test.com")
+                .name("테스트")
+                .birthday(LocalDate.of(2000, 1, 1))
+                .build();
+        User savedUser = User.builder()
+                .email("test@test.com")
+                .name("테스트")
+                .birthday(LocalDate.of(2000, 1, 1))
+                .build();
+        when(userRepository.save(any())).thenReturn(savedUser);
 
         // when
-        List<User> userList = userService.getAllUsers();
+        User createdUser = userService.createUser(user);
 
         // then
-        assertThat(userList.size()).isEqualTo(3);
+        assertThat(createdUser.getEmail()).isEqualTo("test@test.com");
+        assertThat(createdUser.getName()).isEqualTo("테스트");
+        assertThat(createdUser.getBirthday()).isEqualTo(LocalDate.of(2000, 1, 1));
     }
 
+    @DisplayName("전체 유저 조회 - 성공")
     @Test
-    void getUser() {
+    void getAllUsersTest() {
         // given
-        User user1 = User.builder().id(123L).build();
-        userService.createUser(user1);
+        List<User> userList = new ArrayList<>();
+        userList.add(User.builder()
+                .email("test@test.com")
+                .name("테스트1")
+                .birthday(LocalDate.of(2000, 1, 1))
+                .build());
+        userList.add(User.builder()
+                .email("test2@test.com")
+                .name("테스트2")
+                .birthday(LocalDate.of(2001, 1, 1))
+                .build());
+        when(userRepository.findAll()).thenReturn(userList);
 
         // when
-        User result = userService.getUser(user1.getId());
+        List<User> allUsers = userService.getAllUsers();
 
         // then
-        assertThat(result.getId()).isEqualTo(user1.getId());
+        assertThat(allUsers.size()).isEqualTo(2);
+        assertThat(allUsers.get(0).getEmail()).isEqualTo("test@test.com");
+        assertThat(allUsers.get(0).getName()).isEqualTo("테스트1");
+        assertThat(allUsers.get(0).getBirthday()).isEqualTo(LocalDate.of(2000, 1, 1));
     }
 }
+
