@@ -6,6 +6,7 @@ import bungae.thunder.cakey.user.domain.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
@@ -17,6 +18,7 @@ public class UserJpaRepositoryTest {
     UserJpaRepository userJPARepository;
 
     @Test
+    @Rollback(false)
     public void save() {
         // given
         User user = User.builder().name("spring").build();

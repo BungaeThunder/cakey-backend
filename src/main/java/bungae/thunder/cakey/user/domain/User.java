@@ -22,8 +22,7 @@ public class User {
     // TODO: createdat 클래스화
 
     @Builder
-    public User(Long id, String email, String name, LocalDate birthday) {
-        this.id = id;
+    public User(String email, String name, LocalDate birthday) {
         this.email = email;
         this.name = name;
         this.birthday = birthday;

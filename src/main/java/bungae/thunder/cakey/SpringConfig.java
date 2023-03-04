@@ -6,15 +6,10 @@ import bungae.thunder.cakey.message.repository.MemoryMessageRepository;
 import bungae.thunder.cakey.message.repository.MessageRepository;
 import bungae.thunder.cakey.report.repository.MemoryReportRepository;
 import bungae.thunder.cakey.report.repository.ReportRepository;
-import bungae.thunder.cakey.user.repository.MemoryUserRepository;
-import bungae.thunder.cakey.user.repository.UserJpaRepository;
-import bungae.thunder.cakey.user.repository.UserRepository;
+
 import java.util.HashMap;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
-
-import javax.persistence.EntityManager;
 
 @Configuration
 public class SpringConfig {
