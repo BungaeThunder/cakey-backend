@@ -6,7 +6,6 @@ import bungae.thunder.cakey.message.exception.MessageNotFoundException;
 import bungae.thunder.cakey.message.repository.MessageRepository;
 import bungae.thunder.cakey.user.domain.User;
 import java.util.List;
-import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,29 +19,27 @@ public class MessageService {
     }
 
     public Long createMessage(Message message, User user, Cake cake) {
-        message.setCakeId(cake.getId());
-        message.setSenderId(user.getId());
+        message.setCake(cake);
+        message.setSender(user);
 
         return messageRepository.save(message).getId();
     }
 
     public Message getMessage(Long id) {
-        Message message = messageRepository.findOneById(id);
-        if (Objects.isNull(message)) {
-            throw new MessageNotFoundException("메시지가 존재하지 않습니다");
-        }
-        return message;
+        return messageRepository
+                .findById(id)
+                .orElseThrow(() -> new MessageNotFoundException("메시지가 존재하지 않습니다"));
     }
 
     public List<Message> getAllMessages() {
         return messageRepository.findAll();
     }
 
-    public List<Message> getAllMessagesByCakeId(Long cakeId) {
-        return messageRepository.findAllByCakeId(cakeId);
-    }
-
-    public List<Message> getAllMessagesBySenderId(Long senderId) {
-        return messageRepository.findAllBySenderId(senderId);
-    }
+    //    public List<Message> getAllMessagesByCakeId(Long cakeId) {
+    //        return messageRepository.findAllByCakeId(cakeId);
+    //    }
+    //
+    //    public List<Message> getAllMessagesBySenderId(Long senderId) {
+    //        return messageRepository.findAllBySenderId(senderId);
+    //    }
 }
