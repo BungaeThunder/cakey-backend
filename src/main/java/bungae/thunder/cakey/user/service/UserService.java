@@ -4,9 +4,6 @@ import bungae.thunder.cakey.user.domain.User;
 import bungae.thunder.cakey.user.exception.UserNotFoundException;
 import bungae.thunder.cakey.user.repository.UserJpaRepository;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +30,8 @@ public class UserService {
 
     /** 특정 회원 조회 */
     public User getUser(Long userId) {
-        return userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("유저가 존재하지 않습니다"));
+        return userRepository
+                .findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("유저가 존재하지 않습니다"));
     }
 }
