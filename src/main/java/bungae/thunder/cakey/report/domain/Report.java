@@ -12,13 +12,12 @@ public class Report {
     /** TODO: 논의 내용 신고한 사람의 userID 해당 신고 처리 결과 신고 유형 ? */
     @Id
     @GeneratedValue
-    @Column(name = "report_id")
     private Long id;
 
     private String contents;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "message_id")
+    @JoinColumn(name = "id")
     private Message message;
 
     @Builder
