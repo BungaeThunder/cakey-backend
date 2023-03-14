@@ -25,7 +25,6 @@ public class ReportService {
     }
 
     public Report getReport(Long id) {
-        Optional<Report> report = reportRepository.findById(id);
         return reportRepository
                 .findById(id)
                 .orElseThrow(() -> new ReportNotFoundException("리포트가 존재하지 않습니다"));
