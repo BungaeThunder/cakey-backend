@@ -23,7 +23,7 @@ public class CakeController {
 
     @PostMapping
     public ResponseEntity<Long> createCake(@RequestBody User user) {
-        return ResponseEntity.ok(cakeService.createCake(user));
+        return ResponseEntity.ok(cakeService.createCake(user).getId());
     }
 
     @GetMapping("/{cakeId}")

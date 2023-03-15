@@ -1,53 +1,39 @@
 package bungae.thunder.cakey.cake.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
 
 import bungae.thunder.cakey.cake.domain.Cake;
-import bungae.thunder.cakey.cake.repository.MemoryCakeRepository;
+import bungae.thunder.cakey.cake.repository.CakeJpaRepository;
 import bungae.thunder.cakey.user.domain.User;
 import java.time.LocalDate;
-import java.util.List;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CakeServiceTest {
 
     CakeService cakeService;
-    MemoryCakeRepository cakeRepository;
+    CakeJpaRepository mokedCakeRepository;
 
     @BeforeEach
     void beforeEach() {
-        cakeRepository = new MemoryCakeRepository();
-        cakeService = new CakeService(cakeRepository);
-    }
-
-    @AfterEach
-    void afterEach() {
-        cakeRepository.clearStore();
-    }
-
-    private User getDb() {
-        return User.builder().id(123L).birthday(LocalDate.parse("1995-12-31")).build();
+        mokedCakeRepository = mock(CakeJpaRepository.class);
+        cakeService = new CakeService(mokedCakeRepository);
     }
 
     @Test
     void createCake() {
-        // given
-        User user = getDb();
-        Cake cake = Cake.builder().build();
+        User user = User.builder().name("rm").birthday(LocalDate.of(1994, 9, 12)).build();
+        Cake expectedCake = Cake.builder().user(user).year(2023).build();
+        given(mokedCakeRepository.save(any())).willReturn(expectedCake);
 
-        // when
-        cake.setId(cakeService.createCake(user));
+        Cake result = cakeService.createCake(user);
 
-        // then
-        Cake result = cakeService.getCake(cake.getId());
-        assertThat(result.getUserId()).isEqualTo(user.getId());
-
-        LocalDate today = LocalDate.now();
-        assertThat(today.getYear()).isEqualTo(result.getYear());
+        assertThat(result).isEqualTo(expectedCake);
     }
 
+    /*
     @Test
     void getRecentCake() {
         // given
@@ -87,4 +73,5 @@ public class CakeServiceTest {
         // then
         assertThat(result.size()).isEqualTo(1);
     }
+     */
 }

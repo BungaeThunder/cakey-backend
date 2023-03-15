@@ -1,8 +1,11 @@
 package bungae.thunder.cakey.cake.domain;
 
+import bungae.thunder.cakey.user.domain.User;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,16 +16,20 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Cake {
 
-    @Id @GeneratedValue private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
     private Integer year;
-    private Long userId;
+
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private User user;
 
     @Builder
-    Cake(Long id, Integer year, Long userId) {
-        this.id = id;
+    Cake(Integer year, User user) {
         this.year = year;
-        this.userId = userId;
+        this.user = user;
     }
 
     public void setId(Long id) {
