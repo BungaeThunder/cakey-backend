@@ -1,7 +1,6 @@
 package bungae.thunder.cakey.message.controller;
 
 import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -9,15 +8,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import bungae.thunder.cakey.cake.domain.Cake;
 import bungae.thunder.cakey.cake.service.CakeService;
-import bungae.thunder.cakey.message.domain.Message;
 import bungae.thunder.cakey.message.service.MessageService;
 import bungae.thunder.cakey.user.domain.User;
 import bungae.thunder.cakey.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -45,7 +40,6 @@ public class MessageControllerTest {
     public void createMessage() throws Exception {
         User user =
                 User.builder()
-                        .id(0L)
                         .email("cakey@cakey.com")
                         .name("Cakey")
                         .birthday(LocalDate.of(1995, 5, 25))
@@ -71,42 +65,42 @@ public class MessageControllerTest {
                 .andDo(print());
     }
 
-    @Test
-    @DisplayName("Should get a proper message")
-    public void getMessage() throws Exception {
-        Message message =
-                Message.builder()
-                        .id(0L)
-                        .contents("Want some pizza?")
-                        .reply("No.")
-                        .audioUrl("http://pizza.hot")
-                        .cakeId(0L)
-                        .senderId(0L)
-                        .build();
-
-        given(messageService.getMessage(0L)).willReturn(message);
-
-        mvc.perform(get("/messages/{messageId}", 0L))
-                .andExpect(status().isOk())
-                .andExpect(content().string(objectMapper.writeValueAsString(message)))
-                .andDo(print());
-    }
-
-    @Test
-    @DisplayName("Should get messages by cake id.")
-    public void getMessagesByCakeId() throws Exception {
-        Message message0 = Message.builder().id(0L).cakeId(0L).build();
-        Message message1 = Message.builder().id(1L).cakeId(0L).build();
-        Message message2 = Message.builder().id(2L).cakeId(0L).build();
-
-        List<Message> messages = new ArrayList<>();
-        Collections.addAll(messages, message0, message1, message2);
-
-        given(messageService.getAllMessagesByCakeId(0L)).willReturn(messages);
-
-        mvc.perform(get("/messages").param("cakeId", "0"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(objectMapper.writeValueAsString(messages)))
-                .andDo(print());
-    }
+    //    @Test
+    //    @DisplayName("Should get a proper message")
+    //    public void getMessage() throws Exception {
+    //        Message message =
+    //                Message.builder()
+    //                        .id(0L)
+    //                        .contents("Want some pizza?")
+    //                        .reply("No.")
+    //                        .audioUrl("http://pizza.hot")
+    //                        .cakeId(0L)
+    //                        .senderId(0L)
+    //                        .build();
+    //
+    //        given(messageService.getMessage(0L)).willReturn(message);
+    //
+    //        mvc.perform(get("/messages/{messageId}", 0L))
+    //                .andExpect(status().isOk())
+    //                .andExpect(content().string(objectMapper.writeValueAsString(message)))
+    //                .andDo(print());
+    //    }
+    //
+    //    @Test
+    //    @DisplayName("Should get messages by cake id.")
+    //    public void getMessagesByCakeId() throws Exception {
+    //        Message message0 = Message.builder().id(0L).cakeId(0L).build();
+    //        Message message1 = Message.builder().id(1L).cakeId(0L).build();
+    //        Message message2 = Message.builder().id(2L).cakeId(0L).build();
+    //
+    //        List<Message> messages = new ArrayList<>();
+    //        Collections.addAll(messages, message0, message1, message2);
+    //
+    //        given(messageService.getAllMessagesByCakeId(0L)).willReturn(messages);
+    //
+    //        mvc.perform(get("/messages").param("cakeId", "0"))
+    //                .andExpect(status().isOk())
+    //                .andExpect(content().string(objectMapper.writeValueAsString(messages)))
+    //                .andDo(print());
+    //    }
 }

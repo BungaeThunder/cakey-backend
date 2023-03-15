@@ -1,7 +1,14 @@
 package bungae.thunder.cakey.user.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 import bungae.thunder.cakey.user.domain.User;
 import bungae.thunder.cakey.user.repository.UserJpaRepository;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,20 +16,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
-
 class UserServiceTest {
-    @Mock
-    private UserJpaRepository userRepository;
+    @Mock private UserJpaRepository userRepository;
 
-    @InjectMocks
-    private UserService userService;
+    @InjectMocks private UserService userService;
 
     @BeforeEach
     void setUp() {
@@ -33,16 +30,18 @@ class UserServiceTest {
     @Test
     void createUserTest() {
         // given
-        User user = User.builder()
-                .email("test@test.com")
-                .name("테스트")
-                .birthday(LocalDate.of(2000, 1, 1))
-                .build();
-        User savedUser = User.builder()
-                .email("test@test.com")
-                .name("테스트")
-                .birthday(LocalDate.of(2000, 1, 1))
-                .build();
+        User user =
+                User.builder()
+                        .email("test@test.com")
+                        .name("테스트")
+                        .birthday(LocalDate.of(2000, 1, 1))
+                        .build();
+        User savedUser =
+                User.builder()
+                        .email("test@test.com")
+                        .name("테스트")
+                        .birthday(LocalDate.of(2000, 1, 1))
+                        .build();
         when(userRepository.save(any())).thenReturn(savedUser);
 
         // when
@@ -59,16 +58,18 @@ class UserServiceTest {
     void getAllUsersTest() {
         // given
         List<User> userList = new ArrayList<>();
-        userList.add(User.builder()
-                .email("test@test.com")
-                .name("테스트1")
-                .birthday(LocalDate.of(2000, 1, 1))
-                .build());
-        userList.add(User.builder()
-                .email("test2@test.com")
-                .name("테스트2")
-                .birthday(LocalDate.of(2001, 1, 1))
-                .build());
+        userList.add(
+                User.builder()
+                        .email("test@test.com")
+                        .name("테스트1")
+                        .birthday(LocalDate.of(2000, 1, 1))
+                        .build());
+        userList.add(
+                User.builder()
+                        .email("test2@test.com")
+                        .name("테스트2")
+                        .birthday(LocalDate.of(2001, 1, 1))
+                        .build());
         when(userRepository.findAll()).thenReturn(userList);
 
         // when
@@ -81,4 +82,3 @@ class UserServiceTest {
         assertThat(allUsers.get(0).getBirthday()).isEqualTo(LocalDate.of(2000, 1, 1));
     }
 }
-
