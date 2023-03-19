@@ -17,7 +17,6 @@ public class Report {
     private String contents;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
     private Message message;
 
     @Builder

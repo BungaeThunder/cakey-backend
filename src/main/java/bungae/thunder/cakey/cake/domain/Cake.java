@@ -23,7 +23,6 @@ public class Cake {
     private Integer year;
 
     @ManyToOne
-    @JoinColumn(name = "id")
     private User user;
 
     @Builder
