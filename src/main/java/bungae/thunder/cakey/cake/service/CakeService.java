@@ -24,18 +24,12 @@ public class CakeService {
      */
     public Cake createCake(User user) {
 
-        Cake newCake =
-            Cake.builder()
-                .user(user)
-                .year(calculateYear(user.getBirthday()))
-                .build();
+        Cake newCake = Cake.builder().user(user).year(calculateYear(user.getBirthday())).build();
 
         return cakeJpaRepository.save(newCake);
     }
 
-    /**
-     * 케이크 가져오기
-     */
+    /** 케이크 가져오기 */
     public Cake getCake(Long id) {
         Cake dbCake = cakeJpaRepository.findById(id).orElse(null);
         if (Objects.isNull(dbCake)) {
@@ -44,9 +38,7 @@ public class CakeService {
         return dbCake;
     }
 
-    /**
-     * 유저의 최근 케이크 가져오기
-     */
+    /** 유저의 최근 케이크 가져오기 */
     public Cake getRecentCake(Long userId) {
 
         Cake dbCake = cakeJpaRepository.findRecentByUserId(userId);
@@ -56,9 +48,7 @@ public class CakeService {
         return dbCake;
     }
 
-    /**
-     * 유저의 특정 케이크 가져오기
-     */
+    /** 유저의 특정 케이크 가져오기 */
     public Cake getSpecificYearCake(Long userId, Integer year) {
         Cake dbCake = cakeJpaRepository.findSpecificByUserIdAndYear(userId, year);
         if (Objects.isNull(dbCake)) {
@@ -67,9 +57,7 @@ public class CakeService {
         return dbCake;
     }
 
-    /**
-     * 유저의 모든 케이크 가져오기
-     */
+    /** 유저의 모든 케이크 가져오기 */
     public List<Cake> getAllCakes(Long userId) {
         List<Cake> dbCakes = cakeJpaRepository.findAllByUserId(userId);
         if (dbCakes.isEmpty()) {
