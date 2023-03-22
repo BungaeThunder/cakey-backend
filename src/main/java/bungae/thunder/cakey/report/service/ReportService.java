@@ -1,16 +1,12 @@
 package bungae.thunder.cakey.report.service;
 
 import bungae.thunder.cakey.message.domain.Message;
-import bungae.thunder.cakey.message.exception.MessageNotFoundException;
-import bungae.thunder.cakey.message.repository.MessageJpaRepository;
 import bungae.thunder.cakey.message.service.MessageService;
 import bungae.thunder.cakey.report.domain.Report;
 import bungae.thunder.cakey.report.dto.ReportRequestDto;
 import bungae.thunder.cakey.report.exception.ReportNotFoundException;
 import bungae.thunder.cakey.report.repository.ReportJpaRepository;
 import java.util.List;
-
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,16 +17,16 @@ public class ReportService {
     private final MessageService messageService;
 
     @Autowired
-    public ReportService(ReportJpaRepository reportRepository, MessageService messageService){
+    public ReportService(ReportJpaRepository reportRepository, MessageService messageService) {
         this.reportRepository = reportRepository;
         this.messageService = messageService;
-
     }
 
     /** message 신고 */
     public Long createReport(ReportRequestDto reportRequestDto) {
         Message message = messageService.getMessage(reportRequestDto.getMessageId());
-        Report report = Report.builder().message(message).contents(reportRequestDto.getContents()).build();
+        Report report =
+                Report.builder().message(message).contents(reportRequestDto.getContents()).build();
         reportRepository.save(report);
         return report.getId();
     }

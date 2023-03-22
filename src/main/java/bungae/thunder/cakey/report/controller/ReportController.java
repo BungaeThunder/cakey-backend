@@ -7,7 +7,6 @@ import bungae.thunder.cakey.report.dto.ReportResponseDto;
 import bungae.thunder.cakey.report.service.ReportService;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +20,11 @@ public class ReportController {
     private final ReportResponseDtoConverter reportResponseDtoConverter;
 
     @Autowired
-    public ReportController(ReportService reportService, ReportResponseDtoConverter reportResponseDtoConverter) {
+    public ReportController(
+            ReportService reportService, ReportResponseDtoConverter reportResponseDtoConverter) {
         this.reportService = reportService;
         this.reportResponseDtoConverter = reportResponseDtoConverter;
     }
-
 
     @PostMapping()
     public ResponseEntity<Long> createReport(@RequestBody ReportRequestDto reportRequestDto) {
@@ -37,7 +36,8 @@ public class ReportController {
      */
     @GetMapping("/{reportId}")
     public ResponseEntity<ReportResponseDto> getReport(@PathVariable Long reportId) {
-        return ResponseEntity.ok(reportResponseDtoConverter.convert(reportService.getReport(reportId)));
+        return ResponseEntity.ok(
+                reportResponseDtoConverter.convert(reportService.getReport(reportId)));
     }
 
     /*
@@ -46,7 +46,10 @@ public class ReportController {
     @GetMapping()
     public ResponseEntity<List<ReportResponseDto>> getAllReports(@RequestParam Long messageId) {
         List<Report> reports = reportService.getAllReportsByMessageId(messageId);
-        List<ReportResponseDto> responses = reports.stream().map(reportResponseDtoConverter::convert).collect(Collectors.toList());
+        List<ReportResponseDto> responses =
+                reports.stream()
+                        .map(reportResponseDtoConverter::convert)
+                        .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
     }
 }
