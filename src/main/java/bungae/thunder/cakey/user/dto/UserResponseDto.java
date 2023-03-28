@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class UserResponseDTO {
+public class UserResponseDto {
 
     private String email;
     private String name;

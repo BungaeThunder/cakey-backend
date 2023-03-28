@@ -2,7 +2,8 @@ package bungae.thunder.cakey.user.controller;
 
 import bungae.thunder.cakey.user.converter.UserResponseDtoConverter;
 import bungae.thunder.cakey.user.domain.User;
-import bungae.thunder.cakey.user.dto.UserResponseDTO;
+import bungae.thunder.cakey.user.dto.UserResponseDto;
+import bungae.thunder.cakey.user.dto.UserSignUpDto;
 import bungae.thunder.cakey.user.service.UserService;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,32 +18,36 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
-    private UserResponseDtoConverter userResponseDtoConverter;
+    private UserResponseDtoConverter UserResponseDtoConverter;
 
     @Autowired
     public UserController(
-            UserService userService, UserResponseDtoConverter userResponseDtoConverter) {
+            UserService userService, UserResponseDtoConverter UserResponseDtoConverter) {
         this.userService = userService;
-        this.userResponseDtoConverter = userResponseDtoConverter;
+        this.UserResponseDtoConverter = UserResponseDtoConverter;
     }
 
     @GetMapping
-    public ResponseEntity<List<UserResponseDTO>> getAllUsers() {
+    public ResponseEntity<List<UserResponseDto>> getAllUsers() {
         List<User> allUsers = userService.getAllUsers();
-        List<UserResponseDTO> responses =
+        List<UserResponseDto> responses =
                 allUsers.stream()
-                        .map(user -> userResponseDtoConverter.convert(user))
+                        .map(user -> UserResponseDtoConverter.convert(user))
                         .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<UserResponseDTO> getUser(@PathVariable Long userId) {
-        return ResponseEntity.ok(userResponseDtoConverter.convert(userService.getUser(userId)));
+    public ResponseEntity<UserResponseDto> getUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(UserResponseDtoConverter.convert(userService.getUser(userId)));
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity<UserResponseDTO> signUpUser(@RequestBody User user) {
-        return ResponseEntity.ok(userResponseDtoConverter.convert(userService.createUser(user)));
+    public ResponseEntity<UserResponseDto> signUpUser(@RequestBody UserSignUpDto userSignUpDto) {
+        User user = User.builder().email(userSignUpDto.getEmail())
+                .name(userSignUpDto.getName())
+                .birthday(userSignUpDto.getBirthday())
+                .build();
+        return ResponseEntity.ok(UserResponseDtoConverter.convert(userService.createUser(user)));
     }
 }
