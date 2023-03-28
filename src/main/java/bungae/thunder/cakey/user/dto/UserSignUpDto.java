@@ -11,5 +11,3 @@ public class UserSignUpDto {
     private String name;
     private LocalDate birthday;
 }
-
-

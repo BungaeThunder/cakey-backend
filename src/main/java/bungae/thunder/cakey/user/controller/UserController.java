@@ -44,10 +44,12 @@ public class UserController {
 
     @PostMapping("/signUp")
     public ResponseEntity<UserResponseDto> signUpUser(@RequestBody UserSignUpDto userSignUpDto) {
-        User user = User.builder().email(userSignUpDto.getEmail())
-                .name(userSignUpDto.getName())
-                .birthday(userSignUpDto.getBirthday())
-                .build();
+        User user =
+                User.builder()
+                        .email(userSignUpDto.getEmail())
+                        .name(userSignUpDto.getName())
+                        .birthday(userSignUpDto.getBirthday())
+                        .build();
         return ResponseEntity.ok(UserResponseDtoConverter.convert(userService.createUser(user)));
     }
 }
