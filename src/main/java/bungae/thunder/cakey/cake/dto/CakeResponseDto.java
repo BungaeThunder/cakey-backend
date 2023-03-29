@@ -7,12 +7,11 @@ import lombok.Getter;
  * 케이크 response dto
  */
 @Builder
-@Getter
 public class CakeResponseDto {
 
-    private Long id;
+    public Long id;
 
-    private Integer year;
+    public Integer year;
 
-    private Long userId;
+    public Long userId;
 }

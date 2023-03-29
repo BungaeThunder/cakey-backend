@@ -43,14 +43,8 @@ public class CakeControllerTest {
 //    public void createCake() throws Exception {
 //        given(userService.getUser(getDbUser1().getId())).willReturn(getDbUser1());
 //        given(cakeService.createCake(getDbUser1())).willReturn(getDbCake1());
-//
-//        JSONObject body = new JSONObject();
-//        body.put("id", getDbUser1().getId().toString());
-//        body.put("name", getDbUser1().getName());
-//        body.put("email", getDbUser1().getEmail());
-//        body.put("birthday", getDbUser1().getBirthday().toString());
-//
-//        mvc.perform(post("/cakes").content(body.toString()).contentType(MediaType.APPLICATION_JSON))
+////
+//        mvc.perform(get("/cakes/create/{userId}", getDbUser1().getId()))
 //                .andExpect(status().isOk())
 //                .andDo(print());
 //    }

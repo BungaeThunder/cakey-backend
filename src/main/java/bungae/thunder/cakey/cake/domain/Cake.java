@@ -29,8 +29,4 @@ public class Cake {
         this.year = year;
         this.user = user;
     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }
