@@ -43,7 +43,8 @@ public class UserController {
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity<UserResponseDto> signUpUser(@RequestBody UserSignUpRequestDto UserSignUpRequestDto) {
+    public ResponseEntity<UserResponseDto> signUpUser(
+            @RequestBody UserSignUpRequestDto UserSignUpRequestDto) {
         User user =
                 User.builder()
                         .email(UserSignUpRequestDto.getEmail())
