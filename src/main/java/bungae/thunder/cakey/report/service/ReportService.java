@@ -4,7 +4,6 @@ import bungae.thunder.cakey.report.domain.Report;
 import bungae.thunder.cakey.report.exception.ReportNotFoundException;
 import bungae.thunder.cakey.report.repository.ReportJpaRepository;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
