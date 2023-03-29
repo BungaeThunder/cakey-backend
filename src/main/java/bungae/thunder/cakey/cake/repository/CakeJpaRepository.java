@@ -6,9 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CakeJpaRepository extends JpaRepository<Cake, Long> {
 
-    /**
-     * 유저의 모든 케이크 조회
-     */
+    /** 유저의 모든 케이크 조회 */
     List<Cake> findAllByUserId(Long userId);
 
     /** 유저의 최근 케이크 조회 */

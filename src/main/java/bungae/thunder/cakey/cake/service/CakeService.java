@@ -19,9 +19,7 @@ public class CakeService {
         this.cakeJpaRepository = cakeJpaRepository;
     }
 
-    /**
-     * 케이크 만들기
-     */
+    /** 케이크 만들기 */
     public Cake createCake(User user) {
 
         Cake newCake = Cake.builder().user(user).year(calculateYear(user.getBirthday())).build();

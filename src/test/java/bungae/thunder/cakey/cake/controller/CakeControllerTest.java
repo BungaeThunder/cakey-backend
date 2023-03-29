@@ -1,42 +1,23 @@
 package bungae.thunder.cakey.cake.controller;
 
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import bungae.thunder.cakey.cake.domain.Cake;
 import bungae.thunder.cakey.cake.service.CakeService;
-import bungae.thunder.cakey.user.domain.User;
 import bungae.thunder.cakey.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import org.json.JSONObject;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(controllers = CakeController.class)
 public class CakeControllerTest {
 
-    @Autowired
-    private MockMvc mvc;
+    @Autowired private MockMvc mvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
+    @Autowired private ObjectMapper objectMapper;
 
-    @MockBean
-    CakeService cakeService;
+    @MockBean CakeService cakeService;
 
-    @MockBean
-    UserService userService;
+    @MockBean UserService userService;
 
 //    @Test
 //    @DisplayName("케이크 생성 테스트")

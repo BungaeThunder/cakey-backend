@@ -7,32 +7,28 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @Transactional
 public class CakeJpaRepositoryTest {
 
-    @Autowired
-    CakeJpaRepository cakeJpaRepository;
+    @Autowired CakeJpaRepository cakeJpaRepository;
 
-    @Autowired
-    UserJpaRepository userJpaRepository;
+    @Autowired UserJpaRepository userJpaRepository;
 
     @Test
     public void testCakeSave() {
-        //given
+        // given
         User user1 = User.builder().name("test").build();
         userJpaRepository.save(user1);
         Cake given = cakeJpaRepository.save(Cake.builder().year(2023).user(user1).build());
 
-        //when
+        // when
         Cake find = cakeJpaRepository.findById(given.getId()).get();
 
-        //then
+        // then
         Assertions.assertThat(find.getId()).isEqualTo(given.getId());
         Assertions.assertThat(find.getUser().getId()).isEqualTo(given.getUser().getId());
-
     }
 }

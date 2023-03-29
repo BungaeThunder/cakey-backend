@@ -1,12 +1,15 @@
-#!/bin/bash
+#!/bin/sh
 
-echo '[git hook] executing gradle spotlessCheck before commit'
+# Part 1
+stagedFiles=$(git diff --staged --name-only)
 
-# run the spotlessCheck with the gradle wrapper
+# Part 2
+echo "Running spotlessApply. Formatting code..."
 ./gradlew spotlessApply
 
-# store the last exit code in a variable
-RESULT=$?
-
-# return the './gradlew spotlessCheck' exit code
-exit $RESULT
+# Part 3
+for file in $stagedFiles; do
+  if test -f "$file"; then
+    git add "$file"
+  fi
+done
