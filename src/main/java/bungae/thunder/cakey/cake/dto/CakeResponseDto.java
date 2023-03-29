@@ -7,6 +7,7 @@ import lombok.Getter;
  * 케이크 response dto
  */
 @Getter
+@Builder
 public class CakeResponseDto {
 
     private Long id;
