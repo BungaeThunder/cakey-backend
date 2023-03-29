@@ -3,7 +3,6 @@ package bungae.thunder.cakey.report.service;
 import bungae.thunder.cakey.message.domain.Message;
 import bungae.thunder.cakey.message.service.MessageService;
 import bungae.thunder.cakey.report.domain.Report;
-import bungae.thunder.cakey.report.dto.ReportRequestDto;
 import bungae.thunder.cakey.report.exception.ReportNotFoundException;
 import bungae.thunder.cakey.report.repository.ReportJpaRepository;
 import java.util.List;
@@ -23,12 +22,10 @@ public class ReportService {
     }
 
     /** message 신고 */
-    public Long createReport(ReportRequestDto reportRequestDto) {
-        Message message = messageService.getMessage(reportRequestDto.getMessageId());
-        Report report =
-                Report.builder().message(message).contents(reportRequestDto.getContents()).build();
-        reportRepository.save(report);
-        return report.getId();
+    public Report createReport(String content, Long messageID) {
+        Message message = messageService.getMessage(messageID);
+        Report report = Report.builder().message(message).contents(content).build();
+        return reportRepository.save(report);
     }
 
     public Report getReport(Long id) {

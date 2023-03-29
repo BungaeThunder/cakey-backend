@@ -2,7 +2,7 @@ package bungae.thunder.cakey.report.controller;
 
 import bungae.thunder.cakey.report.converter.ReportResponseDtoConverter;
 import bungae.thunder.cakey.report.domain.Report;
-import bungae.thunder.cakey.report.dto.ReportRequestDto;
+import bungae.thunder.cakey.report.dto.CreateReportRequestDto;
 import bungae.thunder.cakey.report.dto.ReportResponseDto;
 import bungae.thunder.cakey.report.service.ReportService;
 import java.util.List;
@@ -27,8 +27,13 @@ public class ReportController {
     }
 
     @PostMapping()
-    public ResponseEntity<Long> createReport(@RequestBody ReportRequestDto reportRequestDto) {
-        return ResponseEntity.ok(reportService.createReport(reportRequestDto));
+    public ResponseEntity<ReportResponseDto> createReport(
+            @RequestBody CreateReportRequestDto createReportRequestDto) {
+        Report report =
+                reportService.createReport(
+                        createReportRequestDto.getContents(),
+                        createReportRequestDto.getMessageId());
+        return ResponseEntity.ok(reportResponseDtoConverter.convert(report));
     }
 
     /*
