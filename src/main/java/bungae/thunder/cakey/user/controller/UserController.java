@@ -3,7 +3,7 @@ package bungae.thunder.cakey.user.controller;
 import bungae.thunder.cakey.user.converter.UserResponseDtoConverter;
 import bungae.thunder.cakey.user.domain.User;
 import bungae.thunder.cakey.user.dto.UserResponseDto;
-import bungae.thunder.cakey.user.dto.UserSignUpDto;
+import bungae.thunder.cakey.user.dto.UserSignUpRequestDto;
 import bungae.thunder.cakey.user.service.UserService;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,12 +43,12 @@ public class UserController {
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity<UserResponseDto> signUpUser(@RequestBody UserSignUpDto userSignUpDto) {
+    public ResponseEntity<UserResponseDto> signUpUser(@RequestBody UserSignUpRequestDto UserSignUpRequestDto) {
         User user =
                 User.builder()
-                        .email(userSignUpDto.getEmail())
-                        .name(userSignUpDto.getName())
-                        .birthday(userSignUpDto.getBirthday())
+                        .email(UserSignUpRequestDto.getEmail())
+                        .name(UserSignUpRequestDto.getName())
+                        .birthday(UserSignUpRequestDto.getBirthday())
                         .build();
         return ResponseEntity.ok(UserResponseDtoConverter.convert(userService.createUser(user)));
     }
