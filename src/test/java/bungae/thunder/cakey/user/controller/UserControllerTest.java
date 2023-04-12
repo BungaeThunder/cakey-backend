@@ -53,17 +53,17 @@ class UserControllerTest {
 
         userResponseDtos = new ArrayList<>();
         userResponseDtos.add(
-            UserResponseDto.builder()
-                .email("test1@test.com")
-                .name("Test1")
-                .birthday(LocalDate.of(2000, 1, 1))
-                .build());
+                UserResponseDto.builder()
+                        .email("test1@test.com")
+                        .name("Test1")
+                        .birthday(LocalDate.of(2000, 1, 1))
+                        .build());
         userResponseDtos.add(
                 UserResponseDto.builder()
-                .email("test2@test.com")
-                .name("Test2")
-                .birthday(LocalDate.of(1990, 1, 1))
-                .build());
+                        .email("test2@test.com")
+                        .name("Test2")
+                        .birthday(LocalDate.of(1990, 1, 1))
+                        .build());
     }
 
     @Test
