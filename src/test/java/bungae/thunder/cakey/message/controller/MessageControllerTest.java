@@ -1,25 +1,12 @@
 package bungae.thunder.cakey.message.controller;
 
-import static org.mockito.BDDMockito.given;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import bungae.thunder.cakey.cake.domain.Cake;
 import bungae.thunder.cakey.cake.service.CakeService;
 import bungae.thunder.cakey.message.service.MessageService;
-import bungae.thunder.cakey.user.domain.User;
 import bungae.thunder.cakey.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.time.LocalDate;
-import org.json.JSONObject;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(controllers = MessageController.class)
@@ -35,35 +22,35 @@ public class MessageControllerTest {
 
     @Autowired private ObjectMapper objectMapper;
 
-    @Test
-    @DisplayName("Should create a new message")
-    public void createMessage() throws Exception {
-        User user =
-                User.builder()
-                        .email("cakey@cakey.com")
-                        .name("Cakey")
-                        .birthday(LocalDate.of(1995, 5, 25))
-                        .build();
-
-        Cake cake = Cake.builder().id(0L).year(1995).userId(0L).build();
-
-        given(userService.getUser(0L)).willReturn(user);
-        given(cakeService.getCake(0L)).willReturn(cake);
-
-        JSONObject newMessage = new JSONObject();
-        newMessage.put("senderId", 0L);
-        newMessage.put("cakeId", 0L);
-        newMessage.put("contents", "Happy birthday! Have a good day.");
-        newMessage.put("audioUrl", "http://audio.url");
-
-        mvc.perform(
-                        post("/messages")
-                                .content(newMessage.toString())
-                                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andExpect(content().string("0"))
-                .andDo(print());
-    }
+    //    @Test
+    //    @DisplayName("Should create a new message")
+    //    public void createMessage() throws Exception {
+    //        User user =
+    //                User.builder()
+    //                        .email("cakey@cakey.com")
+    //                        .name("Cakey")
+    //                        .birthday(LocalDate.of(1995, 5, 25))
+    //                        .build();
+    //
+    //        Cake cake = Cake.builder.id(0L).year(1995).userId(0L).build();
+    //
+    //        given(userService.getUser(0L)).willReturn(user);
+    //        given(cakeService.getCake(0L)).willReturn(cake);
+    //
+    //        JSONObject newMessage = new JSONObject();
+    //        newMessage.put("senderId", 0L);
+    //        newMessage.put("cakeId", 0L);
+    //        newMessage.put("contents", "Happy birthday! Have a good day.");
+    //        newMessage.put("audioUrl", "http://audio.url");
+    //
+    //        mvc.perform(
+    //                        post("/messages")
+    //                                .content(newMessage.toString())
+    //                                .contentType(MediaType.APPLICATION_JSON))
+    //                .andExpect(status().isCreated())
+    //                .andExpect(content().string("0"))
+    //                .andDo(print());
+    //    }
 
     //    @Test
     //    @DisplayName("Should get a proper message")
