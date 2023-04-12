@@ -8,7 +8,9 @@ import static org.mockito.MockitoAnnotations.openMocks;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import bungae.thunder.cakey.user.converter.UserResponseDtoConverter;
 import bungae.thunder.cakey.user.domain.User;
+import bungae.thunder.cakey.user.dto.UserResponseDto;
 import bungae.thunder.cakey.user.service.UserService;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,10 +26,12 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @WebMvcTest(UserController.class)
 class UserControllerTest {
     @MockBean private UserService userService;
+    @MockBean private UserResponseDtoConverter userResponseDtoConverter;
 
     @Autowired private MockMvc mockMvc;
 
     private List<User> users;
+    private List<UserResponseDto> userResponseDtos;
 
     @BeforeEach
     void setUp() {
@@ -46,11 +50,27 @@ class UserControllerTest {
                         .name("Test2")
                         .birthday(LocalDate.of(1990, 1, 1))
                         .build());
+
+        userResponseDtos = new ArrayList<>();
+        userResponseDtos.add(
+            UserResponseDto.builder()
+                .email("test1@test.com")
+                .name("Test1")
+                .birthday(LocalDate.of(2000, 1, 1))
+                .build());
+        userResponseDtos.add(
+                UserResponseDto.builder()
+                .email("test2@test.com")
+                .name("Test2")
+                .birthday(LocalDate.of(1990, 1, 1))
+                .build());
     }
 
     @Test
     void getAllUsers_shouldReturnAllUsers() throws Exception {
         given(userService.getAllUsers()).willReturn(users);
+        given(userResponseDtoConverter.convert(users.get(0))).willReturn(userResponseDtos.get(0));
+        given(userResponseDtoConverter.convert(users.get(1))).willReturn(userResponseDtos.get(1));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/users"))
                 .andExpect(status().isOk())
@@ -67,6 +87,7 @@ class UserControllerTest {
     void getUser_withValidId_shouldReturnUser() throws Exception {
         User user = users.get(0);
         given(userService.getUser(anyLong())).willReturn(user);
+        given(userResponseDtoConverter.convert(users.get(0))).willReturn(userResponseDtos.get(0));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/users/1"))
                 .andExpect(status().isOk())
@@ -74,29 +95,4 @@ class UserControllerTest {
                 .andExpect(jsonPath("$.name", equalTo(user.getName())))
                 .andExpect(jsonPath("$.birthday", equalTo("2000-01-01")));
     }
-
-    //    @Test
-    //    void getUser_withInvalidId_shouldReturnNotFound() throws Exception {
-    //        given(userService.getUser(anyLong())).willThrow(new UserNotFoundException("User not
-    // found"));
-    //
-    //        mockMvc.perform(MockMvcRequestBuilders.get("/users/100"))
-    //                .andExpect(400);
-    //    }
-
-    //    @Test
-    //    void signUpUser_shouldCreateUser() throws Exception {
-    //        User newUser = User.builder()
-    //                .email("new@test.com")
-    //                .name("New User")
-    //                .birthday(LocalDate.of(1995, 2, 15))
-    //                .build();
-    //        given(userService.createUser(newUser)).willReturn(newUser);
-    //
-    //        String json = "{ \"email\": \"new@test.com\", \"name\": \"New User\", \"birthday\":
-    // \"1995-02-15\" }";
-    //
-    //        // TODO: Mocking
-    //
-    //    }
 }

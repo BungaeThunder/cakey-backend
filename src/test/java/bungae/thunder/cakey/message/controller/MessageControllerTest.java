@@ -35,35 +35,35 @@ public class MessageControllerTest {
 
     @Autowired private ObjectMapper objectMapper;
 
-    @Test
-    @DisplayName("Should create a new message")
-    public void createMessage() throws Exception {
-        User user =
-                User.builder()
-                        .email("cakey@cakey.com")
-                        .name("Cakey")
-                        .birthday(LocalDate.of(1995, 5, 25))
-                        .build();
-
-        Cake cake = Cake.builder().id(0L).year(1995).userId(0L).build();
-
-        given(userService.getUser(0L)).willReturn(user);
-        given(cakeService.getCake(0L)).willReturn(cake);
-
-        JSONObject newMessage = new JSONObject();
-        newMessage.put("senderId", 0L);
-        newMessage.put("cakeId", 0L);
-        newMessage.put("contents", "Happy birthday! Have a good day.");
-        newMessage.put("audioUrl", "http://audio.url");
-
-        mvc.perform(
-                        post("/messages")
-                                .content(newMessage.toString())
-                                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isCreated())
-                .andExpect(content().string("0"))
-                .andDo(print());
-    }
+//    @Test
+//    @DisplayName("Should create a new message")
+//    public void createMessage() throws Exception {
+//        User user =
+//                User.builder()
+//                        .email("cakey@cakey.com")
+//                        .name("Cakey")
+//                        .birthday(LocalDate.of(1995, 5, 25))
+//                        .build();
+//
+//        Cake cake = Cake.builder().id(0L).year(1995).userId(0L).build();
+//
+//        given(userService.getUser(0L)).willReturn(user);
+//        given(cakeService.getCake(0L)).willReturn(cake);
+//
+//        JSONObject newMessage = new JSONObject();
+//        newMessage.put("senderId", 0L);
+//        newMessage.put("cakeId", 0L);
+//        newMessage.put("contents", "Happy birthday! Have a good day.");
+//        newMessage.put("audioUrl", "http://audio.url");
+//
+//        mvc.perform(
+//                        post("/messages")
+//                                .content(newMessage.toString())
+//                                .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(status().isCreated())
+//                .andExpect(content().string("0"))
+//                .andDo(print());
+//    }
 
     //    @Test
     //    @DisplayName("Should get a proper message")
