@@ -1,7 +1,10 @@
 package bungae.thunder.cakey.cake.controller;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import bungae.thunder.cakey.cake.converter.CakeResponseDtoConverter;
 import bungae.thunder.cakey.cake.domain.Cake;
@@ -50,13 +53,10 @@ public class CakeControllerTest {
         when(cakeResponseDtoConverter.convert(cake)).thenReturn(cakeResponseDto);
 
         mvc.perform(MockMvcRequestBuilders.get("/cakes/create/{userId}", userId))
-            .andExpect(MockMvcResultMatchers.status().isOk())
-            .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(cakeResponseDto.getId()))
-            .andExpect(
-                MockMvcResultMatchers.jsonPath("$.year").value(cakeResponseDto.getYear()))
-            .andExpect(
-                MockMvcResultMatchers.jsonPath("$.userId")
-                    .value(cakeResponseDto.getUserId()))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.id").value(cakeResponseDto.getId()))
+            .andExpect(jsonPath("$.year").value(cakeResponseDto.getYear()))
+            .andExpect(jsonPath("$.userId").value(cakeResponseDto.getUserId()))
             .andDo(MockMvcResultHandlers.print());
     }
 
@@ -70,27 +70,29 @@ public class CakeControllerTest {
         when(cakeResponseDtoConverter.convert(cake)).thenReturn(cakeResponseDto);
 
         mvc.perform(MockMvcRequestBuilders.get("/cakes/1"))
-            .andExpect(MockMvcResultMatchers.status().isOk())
-            .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(cakeResponseDto.getId()))
-            .andExpect(
-                MockMvcResultMatchers.jsonPath("$.year").value(cakeResponseDto.getYear()))
-            .andExpect(
-                MockMvcResultMatchers.jsonPath("$.userId")
-                    .value(cakeResponseDto.getUserId()))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.id").value(cakeResponseDto.getId()))
+            .andExpect(jsonPath("$.year").value(cakeResponseDto.getYear()))
+            .andExpect(jsonPath("$.userId").value(cakeResponseDto.getUserId()))
             .andDo(print());
     }
 
     @Test
     @DisplayName("유저Id로 조회 테스트")
     public void getAllCakes() throws Exception {
-        User user = getUser1();
-        List<Cake> cakeList = getCakeList();
+        List<Cake> cakes = getCakeList();
+        List<CakeResponseDto> cakeResponseDtos = getCakeResponseDtoList();
 
-        when(userService.getUser(user.getId())).thenReturn(user);
-        when(cakeService.getAllCakes(user.getId())).thenReturn(cakeList);
+        when(cakeService.getAllCakes(1L)).thenReturn(cakes);
+        when(cakeResponseDtoConverter.convert(cakes.get(0))).thenReturn(cakeResponseDtos.get(0));
+        when(cakeResponseDtoConverter.convert(cakes.get(1))).thenReturn(cakeResponseDtos.get(1));
 
         mvc.perform(MockMvcRequestBuilders.get("/cakes?userId=1"))
-            .andExpect(MockMvcResultMatchers.status().isOk())
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$", hasSize(2)))
+            .andExpect(jsonPath("$[0].id").value(cakeResponseDtos.get(0).getId()))
+            .andExpect(jsonPath("$[0].year").value(cakeResponseDtos.get(0).getYear()))
+            .andExpect(jsonPath("$[0].userId").value(cakeResponseDtos.get(0).getUserId()))
             .andDo(print());
     }
 
@@ -102,11 +104,23 @@ public class CakeControllerTest {
         return Cake.builder().user(getUser1()).year(1994).build();
     }
 
+    private Cake getCake2() {
+        return Cake.builder().user(getUser1()).year(2023).build();
+    }
+
     private CakeResponseDto getCakeResponse1() {
         return CakeResponseDto.builder().userId(1L).year(1994).build();
     }
 
+    private CakeResponseDto getCakeResponse2() {
+        return CakeResponseDto.builder().userId(1L).year(2023).build();
+    }
+
     private List<Cake> getCakeList() {
-        return Arrays.asList(getCake1());
+        return Arrays.asList(getCake1(), getCake2());
+    }
+
+    private List<CakeResponseDto> getCakeResponseDtoList() {
+        return Arrays.asList(getCakeResponse1(), getCakeResponse2());
     }
 }
