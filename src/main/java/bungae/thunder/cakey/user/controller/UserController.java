@@ -1,8 +1,12 @@
 package bungae.thunder.cakey.user.controller;
 
+import bungae.thunder.cakey.user.converter.UserResponseDtoConverter;
 import bungae.thunder.cakey.user.domain.User;
+import bungae.thunder.cakey.user.dto.UserResponseDto;
+import bungae.thunder.cakey.user.dto.UserSignUpRequestDto;
 import bungae.thunder.cakey.user.service.UserService;
 import java.util.List;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,23 +18,39 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
-    @Autowired // 자동으로 스프링이 userService를 연결
-    public UserController(UserService userService) {
+    private UserResponseDtoConverter UserResponseDtoConverter;
+
+    @Autowired
+    public UserController(
+            UserService userService, UserResponseDtoConverter UserResponseDtoConverter) {
         this.userService = userService;
+        this.UserResponseDtoConverter = UserResponseDtoConverter;
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
+    public ResponseEntity<List<UserResponseDto>> getAllUsers() {
+        List<User> allUsers = userService.getAllUsers();
+        List<UserResponseDto> responses =
+                allUsers.stream()
+                        .map(user -> UserResponseDtoConverter.convert(user))
+                        .collect(Collectors.toList());
+        return ResponseEntity.ok(responses);
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<User> getUser(@PathVariable Long userId) {
-        return ResponseEntity.ok(userService.getUser(userId));
+    public ResponseEntity<UserResponseDto> getUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(UserResponseDtoConverter.convert(userService.getUser(userId)));
     }
 
     @PostMapping("/signUp")
-    public ResponseEntity<User> signUpUser(@RequestBody User user) {
-        return ResponseEntity.ok(userService.createUser(user));
+    public ResponseEntity<UserResponseDto> signUpUser(
+            @RequestBody UserSignUpRequestDto UserSignUpRequestDto) {
+        User user =
+                User.builder()
+                        .email(UserSignUpRequestDto.getEmail())
+                        .name(UserSignUpRequestDto.getName())
+                        .birthday(UserSignUpRequestDto.getBirthday())
+                        .build();
+        return ResponseEntity.ok(UserResponseDtoConverter.convert(userService.createUser(user)));
     }
 }
