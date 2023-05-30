@@ -1,5 +1,6 @@
 package bungae.thunder.cakey.user.service;
 
+import bungae.thunder.cakey.user.domain.LoginBy;
 import bungae.thunder.cakey.user.domain.User;
 import bungae.thunder.cakey.user.exception.UserNotFoundException;
 import bungae.thunder.cakey.user.repository.UserJpaRepository;
@@ -33,5 +34,14 @@ public class UserService {
         return userRepository
                 .findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("유저가 존재하지 않습니다"));
+    }
+
+    public User createNaverUser(String email, String name) {
+        User user = User.builder().email(email).name(name).loginBy(LoginBy.NAVER).build();
+
+        String clientId = System.getenv("NAVER_LOGIN_CLIENT_ID");
+        String secret = System.getenv("NAVER_LOGIN_SECRET");
+
+        return this.createUser(user);
     }
 }

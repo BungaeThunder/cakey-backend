@@ -1,9 +1,8 @@
 package bungae.thunder.cakey.user.domain;
 
 import java.time.LocalDate;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,10 +18,17 @@ public class User {
     private LocalDate birthday;
     // TODO: createdat 클래스화
 
+    @Enumerated(EnumType.STRING)
+    private LoginBy loginBy;
+    private String token;
+
     @Builder
-    public User(String email, String name, LocalDate birthday) {
+    public User(String email, String name, LocalDate birthday,
+                LoginBy loginBy, String token) {
         this.email = email;
         this.name = name;
         this.birthday = birthday;
+        this.loginBy = loginBy;
+        this.token = token;
     }
 }
