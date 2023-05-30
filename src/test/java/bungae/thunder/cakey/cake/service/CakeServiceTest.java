@@ -7,71 +7,121 @@ import static org.mockito.Mockito.*;
 import bungae.thunder.cakey.cake.domain.Cake;
 import bungae.thunder.cakey.cake.repository.CakeJpaRepository;
 import bungae.thunder.cakey.user.domain.User;
+import bungae.thunder.cakey.user.service.UserService;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 public class CakeServiceTest {
 
-    CakeService cakeService;
-    CakeJpaRepository mokedCakeRepository;
+    @InjectMocks
+    private CakeService cakeService;
+    @Mock
+    CakeJpaRepository mockedCakeRepository;
 
     @BeforeEach
     void beforeEach() {
-        mokedCakeRepository = mock(CakeJpaRepository.class);
-        cakeService = new CakeService(mokedCakeRepository);
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
     void createCake() {
-        User user = User.builder().name("rm").birthday(LocalDate.of(1994, 9, 12)).build();
-        Cake expectedCake = Cake.builder().user(user).year(2023).build();
-        given(mokedCakeRepository.save(any())).willReturn(expectedCake);
+        // given
+        User user = getUser1();
+        Cake cake = getCake1();
+
+        // when
+        when(mockedCakeRepository.save(any())).thenReturn(cake);
 
         Cake result = cakeService.createCake(user);
 
-        assertThat(result).isEqualTo(expectedCake);
+        // then
+        assertThat(result).isEqualTo(cake);
     }
 
-    /*
+    @Test
+    void getCake() {
+        // given
+        Cake cake = getCake1();
+
+        // when
+        when(mockedCakeRepository.findById(any())).thenReturn(Optional.ofNullable(cake));
+
+        Cake result = cakeService.getCake(cake.getId());
+
+        // then
+        assertThat(result).isEqualTo(cake);
+    }
+
+
     @Test
     void getRecentCake() {
         // given
-        User user = getDb();
-        cakeService.createCake(user);
+        User user = getUser1();
+        Cake cake = getCake2();
 
         // when
+        when(mockedCakeRepository.findRecentByUserId(user.getId())).thenReturn(cake);
+
         Cake result = cakeService.getRecentCake(user.getId());
 
         // then
-        assertThat(result.getYear()).isEqualTo(LocalDate.now().getYear());
+        assertThat(result).isEqualTo(cake);
     }
+
 
     @Test
     void getSpecificYearCake() {
         // given
-        User user = getDb();
-        Cake cake = Cake.builder().userId(123L).year(2022).build();
-        cake.setId(cakeService.createCake(user));
+        User user = getUser1();
+        Cake cake = getCake1();
 
         // when
-        Cake result = cakeService.getSpecificYearCake(user.getId(), 2022);
+        when(mockedCakeRepository.findSpecificByUserIdAndYear(user.getId(),
+            cake.getYear())).thenReturn(cake);
+
+        Cake result = cakeService.getSpecificYearCake(user.getId(), getCake1().getYear());
 
         // then
-        assertThat(cake.getYear()).isEqualTo(result.getYear());
+        assertThat(result).isEqualTo(cake);
     }
+
 
     @Test
     void getAllCakes() {
         // given
-        User user = getDb();
-        cakeService.createCake(user);
+        User user = getUser1();
+        List<Cake> cakes = getCakeList();
 
         // when
-        List<Cake> result = cakeService.getAllCakes(user.getId());
+        when(mockedCakeRepository.findAllByUserId(any())).thenReturn(cakes);
+        List<Cake> results = cakeService.getAllCakes(user.getId());
 
         // then
-        assertThat(result.size()).isEqualTo(1);
+        assertThat(results.size()).isEqualTo(2);
+        assertThat(results).isEqualTo(cakes);
     }
-     */
+
+    private User getUser1() {
+        return User.builder().name("RM").birthday(LocalDate.parse("1994-09-12")).build();
+    }
+
+    private Cake getCake1() {
+        return Cake.builder().user(getUser1()).year(1994).build();
+    }
+
+    private Cake getCake2() {
+        return Cake.builder().user(getUser1()).year(2023).build();
+    }
+
+    private List<Cake> getCakeList() {
+        return Arrays.asList(getCake1(), getCake2());
+    }
+
 }
