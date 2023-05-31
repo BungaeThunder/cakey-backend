@@ -23,22 +23,17 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @WebMvcTest(controllers = CakeController.class)
 public class CakeControllerTest {
 
-    @Autowired
-    private MockMvc mvc;
+    @Autowired private MockMvc mvc;
 
-    @MockBean
-    CakeService cakeService;
+    @MockBean CakeService cakeService;
 
-    @MockBean
-    UserService userService;
+    @MockBean UserService userService;
 
-    @MockBean
-    CakeResponseDtoConverter cakeResponseDtoConverter;
+    @MockBean CakeResponseDtoConverter cakeResponseDtoConverter;
 
     @Test
     @DisplayName("케이스 생성 테스트")
@@ -53,11 +48,11 @@ public class CakeControllerTest {
         when(cakeResponseDtoConverter.convert(cake)).thenReturn(cakeResponseDto);
 
         mvc.perform(MockMvcRequestBuilders.get("/cakes/create/{userId}", userId))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.id").value(cakeResponseDto.getId()))
-            .andExpect(jsonPath("$.year").value(cakeResponseDto.getYear()))
-            .andExpect(jsonPath("$.userId").value(cakeResponseDto.getUserId()))
-            .andDo(MockMvcResultHandlers.print());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(cakeResponseDto.getId()))
+                .andExpect(jsonPath("$.year").value(cakeResponseDto.getYear()))
+                .andExpect(jsonPath("$.userId").value(cakeResponseDto.getUserId()))
+                .andDo(MockMvcResultHandlers.print());
     }
 
     @Test
@@ -70,11 +65,11 @@ public class CakeControllerTest {
         when(cakeResponseDtoConverter.convert(cake)).thenReturn(cakeResponseDto);
 
         mvc.perform(MockMvcRequestBuilders.get("/cakes/1"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.id").value(cakeResponseDto.getId()))
-            .andExpect(jsonPath("$.year").value(cakeResponseDto.getYear()))
-            .andExpect(jsonPath("$.userId").value(cakeResponseDto.getUserId()))
-            .andDo(print());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(cakeResponseDto.getId()))
+                .andExpect(jsonPath("$.year").value(cakeResponseDto.getYear()))
+                .andExpect(jsonPath("$.userId").value(cakeResponseDto.getUserId()))
+                .andDo(print());
     }
 
     @Test
@@ -88,12 +83,12 @@ public class CakeControllerTest {
         when(cakeResponseDtoConverter.convert(cakes.get(1))).thenReturn(cakeResponseDtos.get(1));
 
         mvc.perform(MockMvcRequestBuilders.get("/cakes?userId=1"))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$", hasSize(2)))
-            .andExpect(jsonPath("$[0].id").value(cakeResponseDtos.get(0).getId()))
-            .andExpect(jsonPath("$[0].year").value(cakeResponseDtos.get(0).getYear()))
-            .andExpect(jsonPath("$[0].userId").value(cakeResponseDtos.get(0).getUserId()))
-            .andDo(print());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$[0].id").value(cakeResponseDtos.get(0).getId()))
+                .andExpect(jsonPath("$[0].year").value(cakeResponseDtos.get(0).getYear()))
+                .andExpect(jsonPath("$[0].userId").value(cakeResponseDtos.get(0).getUserId()))
+                .andDo(print());
     }
 
     private User getUser1() {

@@ -1,7 +1,7 @@
 package bungae.thunder.cakey.cake.controller;
 
-import bungae.thunder.cakey.cake.domain.Cake;
 import bungae.thunder.cakey.cake.converter.CakeResponseDtoConverter;
+import bungae.thunder.cakey.cake.domain.Cake;
 import bungae.thunder.cakey.cake.dto.CakeResponseDto;
 import bungae.thunder.cakey.cake.service.CakeService;
 import bungae.thunder.cakey.user.domain.User;
@@ -25,8 +25,10 @@ public class CakeController {
     private CakeResponseDtoConverter cakeResponseDtoConverter;
 
     @Autowired
-    public CakeController(CakeService cakeService, UserService userService,
-        CakeResponseDtoConverter cakeResponseDtoConverter) {
+    public CakeController(
+            CakeService cakeService,
+            UserService userService,
+            CakeResponseDtoConverter cakeResponseDtoConverter) {
         this.cakeService = cakeService;
         this.userService = userService;
         this.cakeResponseDtoConverter = cakeResponseDtoConverter;
@@ -47,9 +49,9 @@ public class CakeController {
     public ResponseEntity<List<CakeResponseDto>> getAllCakes(@RequestParam Long userId) {
         List<Cake> allCakes = cakeService.getAllCakes(userId);
         List<CakeResponseDto> responses =
-            allCakes.stream()
-                .map(cake -> cakeResponseDtoConverter.convert(cake))
-                .collect(Collectors.toList());
+                allCakes.stream()
+                        .map(cake -> cakeResponseDtoConverter.convert(cake))
+                        .collect(Collectors.toList());
         return ResponseEntity.ok(responses);
     }
 }
