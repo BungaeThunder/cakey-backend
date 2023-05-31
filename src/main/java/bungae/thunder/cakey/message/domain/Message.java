@@ -1,11 +1,9 @@
 package bungae.thunder.cakey.message.domain;
 
+import bungae.thunder.cakey.cake.domain.Cake;
+import bungae.thunder.cakey.user.domain.User;
 import java.util.Date;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -35,19 +33,17 @@ public class Message {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastModifiedDate;
 
-    //    @ManyToOne
-    //    @JoinColumn(name = "id")
-    //    private Cake cake;
-    //
-    //    @ManyToOne
-    //    @JoinColumn(name = "id")
-    //    private User sender;
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Cake cake;
 
-    //    public void setCake(Cake cake) {
-    //        this.cake = cake;
-    //    }
-    //
-    //    public void setSender(User user) {
-    //        this.sender = user;
-    //    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    private User sender;
+
+    public void setCake(Cake cake) {
+        this.cake = cake;
+    }
+
+    public void setSender(User user) {
+        this.sender = user;
+    }
 }
