@@ -1,13 +1,11 @@
 package bungae.thunder.cakey.cake.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
 
 import bungae.thunder.cakey.cake.domain.Cake;
 import bungae.thunder.cakey.cake.repository.CakeJpaRepository;
 import bungae.thunder.cakey.user.domain.User;
-import bungae.thunder.cakey.user.service.UserService;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -20,10 +18,8 @@ import org.mockito.MockitoAnnotations;
 
 public class CakeServiceTest {
 
-    @InjectMocks
-    private CakeService cakeService;
-    @Mock
-    CakeJpaRepository mockedCakeRepository;
+    @InjectMocks private CakeService cakeService;
+    @Mock CakeJpaRepository mockedCakeRepository;
 
     @BeforeEach
     void beforeEach() {
@@ -59,7 +55,6 @@ public class CakeServiceTest {
         assertThat(result).isEqualTo(cake);
     }
 
-
     @Test
     void getRecentCake() {
         // given
@@ -75,7 +70,6 @@ public class CakeServiceTest {
         assertThat(result).isEqualTo(cake);
     }
 
-
     @Test
     void getSpecificYearCake() {
         // given
@@ -83,15 +77,14 @@ public class CakeServiceTest {
         Cake cake = getCake1();
 
         // when
-        when(mockedCakeRepository.findSpecificByUserIdAndYear(user.getId(),
-            cake.getYear())).thenReturn(cake);
+        when(mockedCakeRepository.findSpecificByUserIdAndYear(user.getId(), cake.getYear()))
+                .thenReturn(cake);
 
         Cake result = cakeService.getSpecificYearCake(user.getId(), getCake1().getYear());
 
         // then
         assertThat(result).isEqualTo(cake);
     }
-
 
     @Test
     void getAllCakes() {
@@ -123,5 +116,4 @@ public class CakeServiceTest {
     private List<Cake> getCakeList() {
         return Arrays.asList(getCake1(), getCake2());
     }
-
 }
