@@ -4,6 +4,7 @@ plugins {
 	id 'java'
 	id "io.freefair.lombok" version "6.5.1"
 	id "com.diffplug.spotless" version "6.12.0"
+    id 'com.google.cloud.tools.jib' version '3.3.2'
 }
 
 group = 'bungae.thunder'
@@ -69,5 +70,20 @@ spotless {
 
         trimTrailingWhitespace()
         endWithNewline()
+    }
+}
+
+jib {
+    from {
+        image = "openjdk:11-jre-slim"
+    }
+
+    to {
+        image = "cakey-backend"
+        tags = ["0.0.1"]
+    }
+
+    container {
+        jvmFlags = ["-Xms128m", "-Xmx128m"]
     }
 }

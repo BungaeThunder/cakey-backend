@@ -13,3 +13,14 @@ services:
       MARIADB_USER: ${MARIADB_USER}
       MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     restart: unless-stopped
+  cakey-backend:
+    image: cakey-backend:0.0.1
+    ports:
+      - "8080:8080"
+    environment:
+      spring.datasource.url: jdbc:mariadb://mariadb:3306/${MARIADB_DATABASE}
+      spring.datasource.username: ${MARIADB_USER}
+      spring.datasource.password: ${MARIADB_PASSWORD}
+    restart: unless-stopped
+    depends_on:
+      - mariadb

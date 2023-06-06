@@ -29,11 +29,12 @@ git add 후 다시 commit하면 성공~
 
 ## Docker
 
-*{tag}* 자리에 [SemVer](https://semver.org/) 형식을 따르는 버전 명시. ex) 0.0.1 \
-`git tag`로 빌드한 시점의 코드 상태를 추적할 수 있도록 한다.
+[Jib](https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin)을 사용해 빌드한다. \
+build.gradle의 jib.to.tags에 [SemVer](https://semver.org/) 형식을 따르는 버전 명시. ex) 0.0.1 \
+버전이 바뀐 경우 `git add build.gradle` 이후 커밋해서 빌드한 시점의 코드 상태를 추적할 수 있도록 한다.
 
 ```bash
-docker build -t cakey-backend:{tag} .
+./gradlew jibDockerBuild
 ```
 
 ## Docker compose
