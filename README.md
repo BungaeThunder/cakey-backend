@@ -27,7 +27,18 @@ git add 후 다시 commit하면 성공~
 ./gradlew spotlessApply
 ```
 
+## Docker
+
+*{tag}* 자리에 [SemVer](https://semver.org/) 형식을 따르는 버전 명시. ex) 0.0.1 \
+`git tag`로 빌드한 시점의 코드 상태를 추적할 수 있도록 한다.
+
+```bash
+docker build -t cakey-backend:{tag} .
+```
+
 ## Docker compose
+
+로컬 테스트용으로 pc 한 대에 배포하기 위한 환경.
 
 ### Quick start guide
 
