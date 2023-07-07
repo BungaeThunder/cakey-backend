@@ -14,7 +14,7 @@ services:
       MARIADB_PASSWORD: ${MARIADB_PASSWORD}
     restart: unless-stopped
   cakey-backend:
-    image: cakey-backend:0.0.1
+    image: haakjunlee/cakey-backend:0.0.1
     ports:
       - "8080:8080"
     environment:

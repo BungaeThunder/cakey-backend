@@ -85,8 +85,8 @@ jib {
     }
 
     to {
-        image = "cakey-backend"
-        tags = ["0.0.1"]
+        image = "haakjunlee/cakey-backend"
+        tags = ["0.0.1", "latest"]
     }
 
     container {
