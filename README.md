@@ -27,7 +27,20 @@ git add 후 다시 commit하면 성공~
 ./gradlew spotlessApply
 ```
 
+## Docker
+
+[Jib](https://github.com/GoogleContainerTools/jib/tree/master/jib-gradle-plugin)을 사용해 빌드한다. \
+build.gradle의 jib.to.tags에 [SemVer](https://semver.org/) 형식을 따르는 버전 명시. ex) 0.0.1 \
+버전이 바뀐 경우 `git add build.gradle` 이후 커밋해서 빌드한 시점의 코드 상태를 추적할 수 있도록 한다. \
+아래의 명령어 실행 시, docker image가 빌드되고 [dockerhub](https://hub.docker.com/repository/docker/haakjunlee/cakey-backend)에 push된다.
+
+```bash
+./gradlew jib
+```
+
 ## Docker compose
+
+로컬 테스트용으로 pc 한 대에 배포하기 위한 환경.
 
 ### Quick start guide
 

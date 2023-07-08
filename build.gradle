@@ -4,10 +4,11 @@ plugins {
 	id 'java'
 	id "io.freefair.lombok" version "6.5.1"
 	id "com.diffplug.spotless" version "6.12.0"
+    id 'com.google.cloud.tools.jib' version '3.3.2'
 }
 
 group = 'bungae.thunder'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
 sourceCompatibility = '11'
 
 repositories {
@@ -69,5 +70,30 @@ spotless {
 
         trimTrailingWhitespace()
         endWithNewline()
+    }
+}
+
+jib {
+    from {
+        image = "openjdk:11-jre-slim"
+        platforms {
+            platform {
+                architecture = "arm64"
+                os = "linux"
+            }
+            platform {
+                architecture = "amd64"
+                os = "linux"
+            }
+        }
+    }
+
+    to {
+        image = "haakjunlee/cakey-backend"
+        tags = ["0.0.1", "latest"]
+    }
+
+    container {
+        jvmFlags = ["-Xms128m", "-Xmx128m"]
     }
 }
