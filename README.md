@@ -33,7 +33,7 @@ git add 후 다시 commit하면 성공~
 
 ```bash
 cp .env.example .env
-./scripts/start.sh
+./scripts/start.sh (최초 한번만 실행해도 컨테이너 떠 있음)
 ```
 
 ### Scripts
