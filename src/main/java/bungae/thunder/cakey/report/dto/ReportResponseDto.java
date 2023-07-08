@@ -8,5 +8,5 @@ import lombok.Getter;
 public class ReportResponseDto {
     private long id;
     private String contents;
-    private long messageId;
+    private long letterId;
 }

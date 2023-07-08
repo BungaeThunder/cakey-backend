@@ -1,4 +1,4 @@
-package bungae.thunder.cakey.message.controller;
+package bungae.thunder.cakey.letter.controller;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
@@ -10,9 +10,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import bungae.thunder.cakey.cake.domain.Cake;
 import bungae.thunder.cakey.cake.service.CakeService;
-import bungae.thunder.cakey.message.converter.MessageResponseDtoConverter;
-import bungae.thunder.cakey.message.domain.Message;
-import bungae.thunder.cakey.message.service.MessageService;
+import bungae.thunder.cakey.letter.converter.LetterResponseDtoConverter;
+import bungae.thunder.cakey.letter.domain.Letter;
+import bungae.thunder.cakey.letter.service.LetterService;
 import bungae.thunder.cakey.user.domain.User;
 import bungae.thunder.cakey.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,21 +26,21 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-@WebMvcTest(controllers = MessageController.class)
-@Import(MessageResponseDtoConverter.class)
-public class MessageControllerTest {
-    @MockBean MessageService messageService;
+@WebMvcTest(controllers = LetterController.class)
+@Import(LetterResponseDtoConverter.class)
+public class LetterControllerTest {
+    @MockBean LetterService letterService;
     @MockBean UserService userService;
     @MockBean CakeService cakeService;
 
-    @Autowired MessageResponseDtoConverter messageResponseDtoConverter;
+    @Autowired LetterResponseDtoConverter letterResponseDtoConverter;
 
     @Autowired private MockMvc mvc;
     @Autowired private ObjectMapper objectMapper;
 
     @Test
-    @DisplayName("Should create a new message")
-    public void createMessage() throws Exception {
+    @DisplayName("Should create a new letter")
+    public void createLetter() throws Exception {
         // given
         String contents = "Happy birthday! Have a good day.";
         String audioUrl = "http://audio.url";
@@ -49,36 +49,35 @@ public class MessageControllerTest {
 
         Cake cake = mock(Cake.class);
         User user = mock(User.class);
-        Message message = mock(Message.class);
+        Letter letter = mock(Letter.class);
 
-        given(messageService.createMessage(contents, audioUrl, senderId, cakeId))
-                .willReturn(message);
-        given(message.getContents()).willReturn(contents);
-        given(message.getAudioUrl()).willReturn(audioUrl);
-        given(message.getCake()).willReturn(cake);
+        given(letterService.createLetter(contents, audioUrl, senderId, cakeId)).willReturn(letter);
+        given(letter.getContents()).willReturn(contents);
+        given(letter.getAudioUrl()).willReturn(audioUrl);
+        given(letter.getCake()).willReturn(cake);
         given(cake.getId()).willReturn(cakeId);
-        given(message.getSender()).willReturn(user);
+        given(letter.getSender()).willReturn(user);
         given(user.getId()).willReturn(senderId);
 
-        JSONObject newMessage = new JSONObject();
-        newMessage.put("senderId", senderId);
-        newMessage.put("cakeId", cakeId);
-        newMessage.put("contents", contents);
-        newMessage.put("audioUrl", audioUrl);
+        JSONObject newLetter = new JSONObject();
+        newLetter.put("senderId", senderId);
+        newLetter.put("cakeId", cakeId);
+        newLetter.put("contents", contents);
+        newLetter.put("audioUrl", audioUrl);
 
         // when & then
         mvc.perform(
-                        post("/messages")
-                                .content(newMessage.toString())
+                        post("/letters")
+                                .content(newLetter.toString())
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect(content().json(newMessage.toString()))
+                .andExpect(content().json(newLetter.toString()))
                 .andDo(print());
     }
 
     @Test
-    @DisplayName("Should get a proper message")
-    public void getMessage() throws Exception {
+    @DisplayName("Should get a proper letter")
+    public void getLetter() throws Exception {
         // given
         String contents = "Want some pizza?";
         String reply = "No.";
@@ -88,15 +87,15 @@ public class MessageControllerTest {
 
         Cake cake = mock(Cake.class);
         User user = mock(User.class);
-        Message message = mock(Message.class);
+        Letter letter = mock(Letter.class);
 
-        given(messageService.getMessage(0L)).willReturn(message);
-        given(message.getContents()).willReturn(contents);
-        given(message.getReply()).willReturn(reply);
-        given(message.getAudioUrl()).willReturn(audioUrl);
-        given(message.getCake()).willReturn(cake);
+        given(letterService.getLetter(0L)).willReturn(letter);
+        given(letter.getContents()).willReturn(contents);
+        given(letter.getReply()).willReturn(reply);
+        given(letter.getAudioUrl()).willReturn(audioUrl);
+        given(letter.getCake()).willReturn(cake);
         given(cake.getId()).willReturn(cakeId);
-        given(message.getSender()).willReturn(user);
+        given(letter.getSender()).willReturn(user);
         given(user.getId()).willReturn(senderId);
 
         JSONObject result = new JSONObject();
@@ -106,7 +105,7 @@ public class MessageControllerTest {
         result.put("audioUrl", audioUrl);
 
         // when & then
-        mvc.perform(get("/messages/{messageId}", 0L))
+        mvc.perform(get("/letters/{letterId}", 0L))
                 .andExpect(status().isOk())
                 .andExpect(content().json(result.toString()))
                 .andDo(print());

@@ -13,7 +13,7 @@ public class ReportResponseDtoConverter implements CommonConverter<Report, Repor
         return ReportResponseDto.builder()
                 .id(source.getId())
                 .contents(source.getContents())
-                .messageId(source.getMessage().getId())
+                .letterId(source.getLetter().getId())
                 .build();
     }
 }

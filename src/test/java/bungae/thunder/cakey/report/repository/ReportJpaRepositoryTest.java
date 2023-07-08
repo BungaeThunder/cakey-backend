@@ -2,8 +2,8 @@ package bungae.thunder.cakey.report.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import bungae.thunder.cakey.message.domain.Message;
-import bungae.thunder.cakey.message.repository.MessageJpaRepository;
+import bungae.thunder.cakey.letter.domain.Letter;
+import bungae.thunder.cakey.letter.repository.LetterJpaRepository;
 import bungae.thunder.cakey.report.domain.Report;
 import java.util.Optional;
 import org.junit.jupiter.api.Test;
@@ -18,17 +18,17 @@ class ReportJpaRepositoryTest {
 
     @Autowired ReportJpaRepository reportRepository;
 
-    @Autowired MessageJpaRepository messageRepository;
+    @Autowired LetterJpaRepository letterRepository;
 
     @Test
     @Rollback(value = false)
     public void TestReport() {
         // given
-        Message message = Message.builder().contents("hello").build();
-        Message savedMessage = messageRepository.save(message);
-        System.out.println("savedMessage = " + savedMessage);
+        Letter letter = Letter.builder().contents("hello").build();
+        Letter savedLetter = letterRepository.save(letter);
+        System.out.println("savedLetter = " + savedLetter);
 
-        Report report = Report.builder().message(savedMessage).contents("this is VERY bad").build();
+        Report report = Report.builder().letter(savedLetter).contents("this is VERY bad").build();
         Report savedReport = reportRepository.save(report);
 
         Optional<Report> findReport = reportRepository.findById(savedReport.getId());

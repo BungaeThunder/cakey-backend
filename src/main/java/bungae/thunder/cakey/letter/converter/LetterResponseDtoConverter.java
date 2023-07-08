@@ -1,16 +1,16 @@
-package bungae.thunder.cakey.message.converter;
+package bungae.thunder.cakey.letter.converter;
 
 import bungae.thunder.cakey.common.converter.CommonConverter;
-import bungae.thunder.cakey.message.domain.Message;
-import bungae.thunder.cakey.message.dto.MessageResponseDto;
+import bungae.thunder.cakey.letter.domain.Letter;
+import bungae.thunder.cakey.letter.dto.LetterResponseDto;
 import org.springframework.stereotype.Component;
 
 @Component
-public class MessageResponseDtoConverter implements CommonConverter<Message, MessageResponseDto> {
+public class LetterResponseDtoConverter implements CommonConverter<Letter, LetterResponseDto> {
 
     @Override
-    public MessageResponseDto convert(Message source) {
-        return MessageResponseDto.builder()
+    public LetterResponseDto convert(Letter source) {
+        return LetterResponseDto.builder()
                 .id(source.getId())
                 .contents(source.getContents())
                 .reply(source.getReply())

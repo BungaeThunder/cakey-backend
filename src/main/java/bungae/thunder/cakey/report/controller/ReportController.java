@@ -31,8 +31,7 @@ public class ReportController {
             @RequestBody CreateReportRequestDto createReportRequestDto) {
         Report report =
                 reportService.createReport(
-                        createReportRequestDto.getContents(),
-                        createReportRequestDto.getMessageId());
+                        createReportRequestDto.getContents(), createReportRequestDto.getLetterId());
         return ResponseEntity.ok(reportResponseDtoConverter.convert(report));
     }
 
@@ -46,11 +45,11 @@ public class ReportController {
     }
 
     /*
-    해당 메세지가 받은 모든 신고내역 조회하기
+    해당 편지가 받은 모든 신고내역 조회하기
      */
     @GetMapping()
-    public ResponseEntity<List<ReportResponseDto>> getAllReports(@RequestParam Long messageId) {
-        List<Report> reports = reportService.getAllReportsByMessageId(messageId);
+    public ResponseEntity<List<ReportResponseDto>> getAllReports(@RequestParam Long letterId) {
+        List<Report> reports = reportService.getAllReportsByLetterId(letterId);
         List<ReportResponseDto> responses =
                 reports.stream()
                         .map(reportResponseDtoConverter::convert)

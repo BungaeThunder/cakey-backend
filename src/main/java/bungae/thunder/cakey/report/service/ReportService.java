@@ -1,7 +1,7 @@
 package bungae.thunder.cakey.report.service;
 
-import bungae.thunder.cakey.message.domain.Message;
-import bungae.thunder.cakey.message.service.MessageService;
+import bungae.thunder.cakey.letter.domain.Letter;
+import bungae.thunder.cakey.letter.service.LetterService;
 import bungae.thunder.cakey.report.domain.Report;
 import bungae.thunder.cakey.report.exception.ReportNotFoundException;
 import bungae.thunder.cakey.report.repository.ReportJpaRepository;
@@ -13,18 +13,18 @@ import org.springframework.stereotype.Service;
 public class ReportService {
 
     private final ReportJpaRepository reportRepository;
-    private final MessageService messageService;
+    private final LetterService letterService;
 
     @Autowired
-    public ReportService(ReportJpaRepository reportRepository, MessageService messageService) {
+    public ReportService(ReportJpaRepository reportRepository, LetterService letterService) {
         this.reportRepository = reportRepository;
-        this.messageService = messageService;
+        this.letterService = letterService;
     }
 
-    /** message 신고 */
-    public Report createReport(String content, Long messageID) {
-        Message message = messageService.getMessage(messageID);
-        Report report = Report.builder().message(message).contents(content).build();
+    /** letter 신고 */
+    public Report createReport(String content, Long letterId) {
+        Letter letter = letterService.getLetter(letterId);
+        Report report = Report.builder().letter(letter).contents(content).build();
         return reportRepository.save(report);
     }
 
@@ -34,8 +34,8 @@ public class ReportService {
                 .orElseThrow(() -> new ReportNotFoundException("리포트가 존재하지 않습니다"));
     }
 
-    /** 특정 메세지 신고 내역 조회 */
-    public List<Report> getAllReportsByMessageId(Long messageId) {
-        return reportRepository.findByMessageId(messageId);
+    /** 특정 편지 신고 내역 조회 */
+    public List<Report> getAllReportsByLetterId(Long letterId) {
+        return reportRepository.findByLetterId(letterId);
     }
 }
