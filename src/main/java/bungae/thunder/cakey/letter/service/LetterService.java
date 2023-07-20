@@ -30,7 +30,13 @@ public class LetterService {
     public Letter createLetter(String contents, String audioUrl, Long senderId, Long cakeId) {
         User user = userService.getUser(senderId);
         Cake cake = cakeService.getCake(cakeId);
-        Letter letter = Letter.builder().contents(contents).audioUrl(audioUrl).build();
+        Letter letter =
+                Letter.builder()
+                        .contents(contents)
+                        .audioUrl(audioUrl)
+                        .bookmark(false)
+                        .isRead(false)
+                        .build();
         letter.setCake(cake);
         letter.setSender(user);
 

@@ -10,6 +10,8 @@ public class LetterResponseDto {
     private String contents;
     private String reply;
     private String audioUrl;
+    private Boolean bookmark;
+    private Boolean isRead;
     private Long cakeId;
     private Long senderId;
 }

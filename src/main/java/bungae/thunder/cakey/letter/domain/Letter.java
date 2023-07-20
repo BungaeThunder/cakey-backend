@@ -15,10 +15,13 @@ import lombok.NoArgsConstructor;
 public class Letter {
 
     @Builder
-    public Letter(String contents, String reply, String audioUrl) {
+    public Letter(
+            String contents, String reply, String audioUrl, Boolean bookmark, Boolean isRead) {
         this.contents = contents;
         this.reply = reply;
         this.audioUrl = audioUrl;
+        this.bookmark = bookmark;
+        this.isRead = isRead;
     }
 
     @Id @GeneratedValue private Long id;
@@ -26,6 +29,8 @@ public class Letter {
     private String contents;
     private String reply;
     private String audioUrl;
+    private Boolean bookmark;
+    private Boolean isRead;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdDate;
