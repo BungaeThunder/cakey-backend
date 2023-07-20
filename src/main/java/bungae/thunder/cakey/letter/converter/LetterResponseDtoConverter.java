@@ -15,6 +15,8 @@ public class LetterResponseDtoConverter implements CommonConverter<Letter, Lette
                 .contents(source.getContents())
                 .reply(source.getReply())
                 .audioUrl(source.getAudioUrl())
+                .bookmark(source.getBookmark())
+                .isRead(source.getIsRead())
                 .cakeId(source.getCake().getId())
                 .senderId(source.getSender().getId())
                 .build();
