@@ -1,4 +1,4 @@
-package bungae.thunder.cakey.message.domain;
+package bungae.thunder.cakey.letter.domain;
 
 import bungae.thunder.cakey.cake.domain.Cake;
 import bungae.thunder.cakey.user.domain.User;
@@ -12,10 +12,10 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class Message {
+public class Letter {
 
     @Builder
-    public Message(String contents, String reply, String audioUrl) {
+    public Letter(String contents, String reply, String audioUrl) {
         this.contents = contents;
         this.reply = reply;
         this.audioUrl = audioUrl;

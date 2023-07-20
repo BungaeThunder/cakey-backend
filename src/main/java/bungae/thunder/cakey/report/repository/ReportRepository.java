@@ -10,7 +10,7 @@ public interface ReportRepository {
 
     Report findById(Long id);
 
-    List<Report> findAllByMessageId(Long messageId);
+    List<Report> findAllByLetterId(Long letterId);
 
     List<Report> findAll();
 }

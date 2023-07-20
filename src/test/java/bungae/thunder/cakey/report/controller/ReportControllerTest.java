@@ -7,7 +7,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import bungae.thunder.cakey.message.domain.Message;
+import bungae.thunder.cakey.letter.domain.Letter;
 import bungae.thunder.cakey.report.converter.ReportResponseDtoConverter;
 import bungae.thunder.cakey.report.domain.Report;
 import bungae.thunder.cakey.report.service.ReportService;
@@ -38,17 +38,17 @@ class ReportControllerTest {
     @Test
     @DisplayName("create a report")
     public void createReport() throws Exception {
-        Message message = mock(Message.class);
+        Letter letter = mock(Letter.class);
         Report report = mock(Report.class);
 
         given(reportService.createReport(any(), any())).willReturn(report);
         given(report.getContents()).willReturn("this is very bad!");
-        given(report.getMessage()).willReturn(message);
+        given(report.getLetter()).willReturn(letter);
         given(report.getId()).willReturn(0L);
-        given(message.getId()).willReturn(0L);
+        given(letter.getId()).willReturn(0L);
 
         JSONObject createReportRequestDto = new JSONObject();
-        createReportRequestDto.put("messageId", 123L);
+        createReportRequestDto.put("letterId", 123L);
         createReportRequestDto.put("contents", "this is very bad!");
 
         mvc.perform(

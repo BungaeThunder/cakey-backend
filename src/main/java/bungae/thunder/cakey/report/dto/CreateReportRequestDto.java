@@ -5,5 +5,5 @@ import lombok.Getter;
 @Getter
 public class CreateReportRequestDto {
     private String contents;
-    private long messageId;
+    private long letterId;
 }
