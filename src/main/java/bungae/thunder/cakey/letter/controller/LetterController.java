@@ -2,9 +2,11 @@ package bungae.thunder.cakey.letter.controller;
 
 import bungae.thunder.cakey.cake.service.CakeService;
 import bungae.thunder.cakey.letter.converter.LetterResponseDtoConverter;
+import bungae.thunder.cakey.letter.converter.OwnerLetterResponseDtoConverter;
 import bungae.thunder.cakey.letter.domain.Letter;
 import bungae.thunder.cakey.letter.dto.CreateLetterRequestDto;
 import bungae.thunder.cakey.letter.dto.LetterResponseDto;
+import bungae.thunder.cakey.letter.dto.OwnerLetterResponseDto;
 import bungae.thunder.cakey.letter.service.LetterService;
 import bungae.thunder.cakey.user.service.UserService;
 import java.net.URI;
@@ -24,6 +26,7 @@ public class LetterController {
     private UserService userService;
     private CakeService cakeService;
     private LetterResponseDtoConverter letterResponseDtoConverter;
+    private OwnerLetterResponseDtoConverter ownerLetterResponseDtoConverter;
 
     @Autowired
     public LetterController(
@@ -53,12 +56,14 @@ public class LetterController {
 
     @GetMapping("/{letterId}")
     public ResponseEntity<LetterResponseDto> getLetter(@PathVariable Long letterId) {
+        // TODO: Owner or sender 인증/인가
         return ResponseEntity.ok(
                 letterResponseDtoConverter.convert(letterService.getLetter(letterId)));
     }
 
-    @GetMapping
-    public ResponseEntity<List<LetterResponseDto>> getLettersByCakeId(@RequestParam Long cakeId) {
+    @GetMapping("/by-cake")
+    public ResponseEntity<List<OwnerLetterResponseDto>> getLettersByCakeId(
+            @RequestParam Long cakeId) {
         /* TODO: request param validation
         if (cakeId.isEmpty()) {
             throw new BadRequestException("cakeId must be provided.");
@@ -66,6 +71,15 @@ public class LetterController {
          */
         return ResponseEntity.ok(
                 letterService.getAllLettersByCakeId(cakeId).stream()
+                        .map(letter -> ownerLetterResponseDtoConverter.convert(letter))
+                        .collect(Collectors.toList()));
+    }
+
+    @GetMapping("/by-sender")
+    public ResponseEntity<List<LetterResponseDto>> getLettersBySenderId(
+            @RequestParam Long senderId) {
+        return ResponseEntity.ok(
+                letterService.getAllLettersBySenderId(senderId).stream()
                         .map(letter -> letterResponseDtoConverter.convert(letter))
                         .collect(Collectors.toList()));
     }
