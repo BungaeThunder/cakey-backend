@@ -88,11 +88,13 @@ public class LetterController {
     @PatchMapping("/{letterId}")
     public ResponseEntity<LetterResponseDto> modifyLetter(
         @RequestBody ModifyLetterRequestDto modifyLetterRequestDto) {
-        Letter modifiedLetter = letterService.modifyLetter(modifyLetterRequestDto.getId(),
-            modifyLetterRequestDto.getContents(),
-            modifyLetterRequestDto.getAudioUrl(),
-            modifyLetterRequestDto.getCakeId(),
-            modifyLetterRequestDto.getSenderId());
+        Letter modifiedLetter =
+            letterService.modifyLetter(
+                modifyLetterRequestDto.getId(),
+                modifyLetterRequestDto.getContents(),
+                modifyLetterRequestDto.getAudioUrl(),
+                modifyLetterRequestDto.getCakeId(),
+                modifyLetterRequestDto.getSenderId());
 
         return ResponseEntity.ok(letterResponseDtoConverter.convert(modifiedLetter));
     }

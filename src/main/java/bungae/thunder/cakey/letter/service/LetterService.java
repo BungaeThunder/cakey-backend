@@ -64,14 +64,16 @@ public class LetterService {
         return letterJpaRepository.findAllBySenderId(senderId);
     }
 
-    public Letter modifyLetter(Long id, String contents, String audioUrl, Long cakeId,
-        Long senderId) {
+    public Letter modifyLetter(
+        Long id, String contents, String audioUrl, Long cakeId, Long senderId) {
 
-        Letter letter = letterJpaRepository.findById(id)
-            .orElseThrow(() -> new LetterNotFoundException("해당 편지가 존재하지 않습니다."));
+        Letter letter =
+            letterJpaRepository
+                .findById(id)
+                .orElseThrow(() -> new LetterNotFoundException("해당 편지가 존재하지 않습니다."));
 
-        if (Objects.equals(letter.getCake().getId(), cakeId) || Objects.equals(
-            letter.getSender().getId(), senderId)) {
+        if (Objects.equals(letter.getCake().getId(), cakeId)
+            || Objects.equals(letter.getSender().getId(), senderId)) {
             throw new InvalidLetterException("유효하지 않은 편지입니다.");
         }
 
