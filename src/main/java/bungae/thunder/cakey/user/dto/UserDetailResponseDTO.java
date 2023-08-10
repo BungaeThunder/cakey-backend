@@ -27,7 +27,7 @@ public class UserDetailResponseDTO {
     }
 
     @Getter
-    public static class CakeResponse {
+    private class CakeResponse {
         private Long id;
         private Integer year;
 
@@ -38,7 +38,7 @@ public class UserDetailResponseDTO {
     }
 
     @Getter
-    public static class LetterResponse {
+    private class LetterResponse {
         private Long id;
 
         public LetterResponse(Letter letter) {
