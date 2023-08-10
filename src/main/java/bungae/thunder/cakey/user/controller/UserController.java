@@ -6,7 +6,7 @@ import bungae.thunder.cakey.letter.domain.Letter;
 import bungae.thunder.cakey.letter.service.LetterService;
 import bungae.thunder.cakey.user.converter.UserResponseDtoConverter;
 import bungae.thunder.cakey.user.domain.User;
-import bungae.thunder.cakey.user.dto.UserDetailResponse;
+import bungae.thunder.cakey.user.dto.UserDetailResponseDTO;
 import bungae.thunder.cakey.user.dto.UserResponseDto;
 import bungae.thunder.cakey.user.dto.UserSignUpRequestDto;
 import bungae.thunder.cakey.user.service.UserService;
@@ -50,11 +50,11 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<UserDetailResponse> getUser(@PathVariable Long userId) {
+    public ResponseEntity<UserDetailResponseDTO> getUser(@PathVariable Long userId) {
         User user = userService.getUser(userId);
         List<Cake> cakes = cakeService.getAllCakes(userId);
         List<Letter> letters = letterService.getAllLettersBySenderId(userId);
-        UserDetailResponse response = new UserDetailResponse(user, cakes, letters);
+        UserDetailResponseDTO response = new UserDetailResponseDTO(user, cakes, letters);
         return ResponseEntity.ok(response);
     }
 

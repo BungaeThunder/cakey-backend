@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import lombok.Getter;
 
 @Getter
-public class UserDetailResponse {
+public class UserDetailResponseDTO {
     private Long userId;
     private String email;
     private String name;
@@ -17,7 +17,7 @@ public class UserDetailResponse {
     private List<CakeResponse> cakes;
     private List<LetterResponse> letters;
 
-    public UserDetailResponse(User user, List<Cake> cakes, List<Letter> letters) {
+    public UserDetailResponseDTO(User user, List<Cake> cakes, List<Letter> letters) {
         this.userId = user.getId();
         this.email = user.getEmail();
         this.name = user.getName();
