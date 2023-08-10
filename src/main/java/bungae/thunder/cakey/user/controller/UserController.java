@@ -55,8 +55,6 @@ public class UserController {
         List<Cake> cakes = cakeService.getAllCakes(userId);
         List<Letter> letters = letterService.getAllLettersBySenderId(userId);
         UserDetailResponse response = new UserDetailResponse(user, cakes, letters);
-        System.out.printf("cakes : %s", cakes);
-        System.out.printf("response : %s", response);
         return ResponseEntity.ok(response);
     }
 
