@@ -44,6 +44,14 @@ public class Letter {
     @ManyToOne(fetch = FetchType.LAZY)
     private User sender;
 
+    public void setContents(String contents) {
+        this.contents = contents;
+    }
+
+    public void setAudioUrl(String audioUrl) {
+        this.audioUrl = audioUrl;
+    }
+
     public void setCake(Cake cake) {
         this.cake = cake;
     }

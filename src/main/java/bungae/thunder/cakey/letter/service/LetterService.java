@@ -3,16 +3,19 @@ package bungae.thunder.cakey.letter.service;
 import bungae.thunder.cakey.cake.domain.Cake;
 import bungae.thunder.cakey.cake.service.CakeService;
 import bungae.thunder.cakey.letter.domain.Letter;
+import bungae.thunder.cakey.letter.exception.InvalidLetterException;
 import bungae.thunder.cakey.letter.exception.LetterNotFoundException;
 import bungae.thunder.cakey.letter.repository.LetterJpaRepository;
 import bungae.thunder.cakey.user.domain.User;
 import bungae.thunder.cakey.user.service.UserService;
 import java.util.List;
+import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LetterService {
+
     LetterJpaRepository letterJpaRepository;
     UserService userService;
     CakeService cakeService;
@@ -59,5 +62,22 @@ public class LetterService {
 
     public List<Letter> getAllLettersBySenderId(Long senderId) {
         return letterJpaRepository.findAllBySenderId(senderId);
+    }
+
+    public Letter modifyLetter(Long id, String contents, String audioUrl, Long cakeId,
+        Long senderId) {
+
+        Letter letter = letterJpaRepository.findById(id)
+            .orElseThrow(() -> new LetterNotFoundException("해당 편지가 존재하지 않습니다."));
+
+        if (Objects.equals(letter.getCake().getId(), cakeId) || Objects.equals(
+            letter.getSender().getId(), senderId)) {
+            throw new InvalidLetterException("유효하지 않은 편지입니다.");
+        }
+
+        letter.setContents(contents);
+        letter.setAudioUrl(audioUrl);
+
+        return letterJpaRepository.save(letter);
     }
 }

@@ -6,6 +6,7 @@ import bungae.thunder.cakey.letter.converter.OwnerLetterResponseDtoConverter;
 import bungae.thunder.cakey.letter.domain.Letter;
 import bungae.thunder.cakey.letter.dto.CreateLetterRequestDto;
 import bungae.thunder.cakey.letter.dto.LetterResponseDto;
+import bungae.thunder.cakey.letter.dto.ModifyLetterRequestDto;
 import bungae.thunder.cakey.letter.dto.OwnerLetterResponseDto;
 import bungae.thunder.cakey.letter.service.LetterService;
 import bungae.thunder.cakey.user.service.UserService;
@@ -77,10 +78,22 @@ public class LetterController {
 
     @GetMapping("/by-sender")
     public ResponseEntity<List<LetterResponseDto>> getLettersBySenderId(
-            @RequestParam Long senderId) {
+        @RequestParam Long senderId) {
         return ResponseEntity.ok(
-                letterService.getAllLettersBySenderId(senderId).stream()
-                        .map(letter -> letterResponseDtoConverter.convert(letter))
-                        .collect(Collectors.toList()));
+            letterService.getAllLettersBySenderId(senderId).stream()
+                .map(letter -> letterResponseDtoConverter.convert(letter))
+                .collect(Collectors.toList()));
+    }
+
+    @PatchMapping("/{letterId}")
+    public ResponseEntity<LetterResponseDto> modifyLetter(
+        @RequestBody ModifyLetterRequestDto modifyLetterRequestDto) {
+        Letter modifiedLetter = letterService.modifyLetter(modifyLetterRequestDto.getId(),
+            modifyLetterRequestDto.getContents(),
+            modifyLetterRequestDto.getAudioUrl(),
+            modifyLetterRequestDto.getCakeId(),
+            modifyLetterRequestDto.getSenderId());
+
+        return ResponseEntity.ok(letterResponseDtoConverter.convert(modifiedLetter));
     }
 }
