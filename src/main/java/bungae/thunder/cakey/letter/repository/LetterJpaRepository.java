@@ -13,4 +13,6 @@ public interface LetterJpaRepository extends JpaRepository<Letter, Long> {
 
     @Query("SELECT m FROM Letter m JOIN FETCH m.sender WHERE m.sender.id = :senderId")
     List<Letter> findAllBySenderId(Long senderId);
+
+    Letter findBySenderIdAndCakeId(Long senderId, Long cakeId);
 }
