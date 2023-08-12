@@ -6,6 +6,7 @@ import bungae.thunder.cakey.letter.domain.Letter;
 import bungae.thunder.cakey.letter.exception.LetterNotFoundException;
 import bungae.thunder.cakey.letter.repository.LetterJpaRepository;
 import bungae.thunder.cakey.user.domain.User;
+import bungae.thunder.cakey.user.exception.UserNotFoundException;
 import bungae.thunder.cakey.user.service.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,11 @@ public class LetterService {
     }
 
     public Letter createLetter(String contents, String audioUrl, Long senderId, Long cakeId) {
-        User user = userService.getUser(senderId);
+        User user =
+                userService
+                        .getUser(senderId)
+                        .orElseThrow(() -> new UserNotFoundException("유저가 존재하지 않습니다"));
+        ;
         Cake cake = cakeService.getCake(cakeId);
         Letter letter =
                 Letter.builder()

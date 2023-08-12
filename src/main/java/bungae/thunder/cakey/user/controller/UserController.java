@@ -1,9 +1,15 @@
 package bungae.thunder.cakey.user.controller;
 
+import bungae.thunder.cakey.cake.domain.Cake;
+import bungae.thunder.cakey.cake.service.CakeService;
+import bungae.thunder.cakey.letter.domain.Letter;
+import bungae.thunder.cakey.letter.service.LetterService;
 import bungae.thunder.cakey.user.converter.UserResponseDtoConverter;
 import bungae.thunder.cakey.user.domain.User;
+import bungae.thunder.cakey.user.dto.UserDetailResponseDto;
 import bungae.thunder.cakey.user.dto.UserResponseDto;
 import bungae.thunder.cakey.user.dto.UserSignUpRequestDto;
+import bungae.thunder.cakey.user.exception.UserNotFoundException;
 import bungae.thunder.cakey.user.service.UserService;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,14 +22,21 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    private final UserService userService;
+    private UserService userService;
+    private CakeService cakeService;
+    private LetterService letterService;
 
     private UserResponseDtoConverter UserResponseDtoConverter;
 
     @Autowired
     public UserController(
-            UserService userService, UserResponseDtoConverter UserResponseDtoConverter) {
+            UserService userService,
+            CakeService cakeService,
+            LetterService letterService,
+            UserResponseDtoConverter UserResponseDtoConverter) {
         this.userService = userService;
+        this.cakeService = cakeService;
+        this.letterService = letterService;
         this.UserResponseDtoConverter = UserResponseDtoConverter;
     }
 
@@ -38,8 +51,16 @@ public class UserController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<UserResponseDto> getUser(@PathVariable Long userId) {
-        return ResponseEntity.ok(UserResponseDtoConverter.convert(userService.getUser(userId)));
+    public ResponseEntity<UserDetailResponseDto> getUser(@PathVariable Long userId) {
+        User user =
+                userService
+                        .getUser(userId)
+                        .orElseThrow(() -> new UserNotFoundException("유저가 존재하지 않습니다"));
+        ;
+        List<Cake> cakes = cakeService.getAllCakes(userId);
+        List<Letter> letters = letterService.getAllLettersBySenderId(userId);
+        UserDetailResponseDto response = new UserDetailResponseDto(user, cakes, letters);
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/signUp")
