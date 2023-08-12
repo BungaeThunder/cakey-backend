@@ -42,7 +42,7 @@ public class LetterServiceTest {
         User user = User.builder().build();
         Cake cake = Cake.builder().build();
 
-        when(userService.getUser(0L)).thenReturn(user);
+        when(userService.getUser(0L)).thenReturn(Optional.ofNullable(user));
         when(cakeService.getCake(0L)).thenReturn(cake);
 
         // when

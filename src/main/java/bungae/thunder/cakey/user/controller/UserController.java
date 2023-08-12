@@ -9,6 +9,7 @@ import bungae.thunder.cakey.user.domain.User;
 import bungae.thunder.cakey.user.dto.UserDetailResponseDto;
 import bungae.thunder.cakey.user.dto.UserResponseDto;
 import bungae.thunder.cakey.user.dto.UserSignUpRequestDto;
+import bungae.thunder.cakey.user.exception.UserNotFoundException;
 import bungae.thunder.cakey.user.service.UserService;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,7 +52,11 @@ public class UserController {
 
     @GetMapping("/{userId}")
     public ResponseEntity<UserDetailResponseDto> getUser(@PathVariable Long userId) {
-        User user = userService.getUser(userId);
+        User user =
+                userService
+                        .getUser(userId)
+                        .orElseThrow(() -> new UserNotFoundException("유저가 존재하지 않습니다"));
+        ;
         List<Cake> cakes = cakeService.getAllCakes(userId);
         List<Letter> letters = letterService.getAllLettersBySenderId(userId);
         UserDetailResponseDto response = new UserDetailResponseDto(user, cakes, letters);

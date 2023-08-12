@@ -15,6 +15,7 @@ import bungae.thunder.cakey.user.service.UserService;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class CakeControllerTest {
         Cake cake = getCake1();
         CakeResponseDto cakeResponseDto = getCakeResponse1();
 
-        when(userService.getUser(userId)).thenReturn(user);
+        when(userService.getUser(userId)).thenReturn(Optional.ofNullable(user));
         when(cakeService.createCake(user)).thenReturn(cake);
         when(cakeResponseDtoConverter.convert(cake)).thenReturn(cakeResponseDto);
 

@@ -15,6 +15,7 @@ import bungae.thunder.cakey.user.service.UserService;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +87,7 @@ class UserControllerTest {
     @Test
     void getUser_withValidId_shouldReturnUser() throws Exception {
         User user = users.get(0);
-        given(userService.getUser(anyLong())).willReturn(user);
+        given(userService.getUser(anyLong())).willReturn(Optional.ofNullable(user));
         given(userResponseDtoConverter.convert(users.get(0))).willReturn(userResponseDtos.get(0));
 
         mockMvc.perform(MockMvcRequestBuilders.get("/users/1"))
