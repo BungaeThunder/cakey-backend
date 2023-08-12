@@ -8,6 +8,8 @@ import static org.mockito.MockitoAnnotations.openMocks;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import bungae.thunder.cakey.cake.service.CakeService;
+import bungae.thunder.cakey.letter.service.LetterService;
 import bungae.thunder.cakey.user.converter.UserResponseDtoConverter;
 import bungae.thunder.cakey.user.domain.User;
 import bungae.thunder.cakey.user.dto.UserResponseDto;
@@ -27,6 +29,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 @WebMvcTest(UserController.class)
 class UserControllerTest {
     @MockBean private UserService userService;
+    @MockBean private CakeService cakeService;
+    @MockBean private LetterService letterService;
     @MockBean private UserResponseDtoConverter userResponseDtoConverter;
 
     @Autowired private MockMvc mockMvc;
