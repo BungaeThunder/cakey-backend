@@ -8,6 +8,7 @@ import bungae.thunder.cakey.letter.repository.LetterJpaRepository;
 import bungae.thunder.cakey.user.domain.User;
 import bungae.thunder.cakey.user.service.UserService;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,5 +60,9 @@ public class LetterService {
 
     public List<Letter> getAllLettersBySenderId(Long senderId) {
         return letterJpaRepository.findAllBySenderId(senderId);
+    }
+
+    public Letter getLetterBySenderIdAndCakeId(Long senderId, Long cakeId) {
+        return letterJpaRepository.findBySenderIdAndCakeId(senderId, cakeId);
     }
 }
