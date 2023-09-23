@@ -63,11 +63,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
         User user = userService.getUserByEmail(attributes.getEmail());
         if (user == null) {
             User newUser =
-                    User.builder()
-                            .email(attributes.getEmail())
-                            .name(attributes.getName())
-                            .birthday(attributes.getBirthday())
-                            .build();
+                    User.builder().email(attributes.getEmail()).name(attributes.getName()).build();
             return userService.createUser(newUser);
         }
 
