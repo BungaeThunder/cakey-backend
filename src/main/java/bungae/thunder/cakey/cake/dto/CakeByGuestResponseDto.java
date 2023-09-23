@@ -7,23 +7,22 @@ import lombok.Getter;
 import lombok.ToString;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @ToString
 @Getter
-public class CakeByOwnerResponse {
+public class CakeByGuestResponseDto {
     private Long cakeId;
     private LocalDate birthday;
     private OwnerResponse owner;
-    private List<LetterResponse> letters;
+    private WriteLetterResponse writeLetter;
 
-    public CakeByOwnerResponse(Cake cake, User owner,List<Letter> letters){
+    public CakeByGuestResponseDto(Cake cake, User owner, Letter letter){
         this.cakeId = cake.getId();
         this.birthday = owner.getBirthday().withYear(cake.getYear());
         this.owner = new OwnerResponse(owner);
-        this.letters = letters.stream().map(LetterResponse::new).collect(Collectors.toList());
+        if (letter != null) {
+            this.writeLetter = new WriteLetterResponse(letter);
+        }
 
     }
 
@@ -39,11 +38,17 @@ public class CakeByOwnerResponse {
     }
 
     @Getter
-    private class LetterResponse{
+    private class WriteLetterResponse{
         private long id;
+        private String contents;
+        private String auidoUrl;
+        private String reply;
 
-        public LetterResponse(Letter letter){
-            this.id = letter.getId();
+        public WriteLetterResponse(Letter writeLetter){
+            this.id = writeLetter.getId();
+            this.contents = writeLetter.getContents();
+            this.auidoUrl = writeLetter.getAudioUrl();
+            this.reply = writeLetter.getReply();
         }
     }
 

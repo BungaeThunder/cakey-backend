@@ -2,8 +2,8 @@ package bungae.thunder.cakey.cake.controller;
 
 import bungae.thunder.cakey.cake.converter.CakeResponseDtoConverter;
 import bungae.thunder.cakey.cake.domain.Cake;
-import bungae.thunder.cakey.cake.dto.CakeByGuestResponse;
-import bungae.thunder.cakey.cake.dto.CakeByOwnerResponse;
+import bungae.thunder.cakey.cake.dto.CakeByGuestResponseDto;
+import bungae.thunder.cakey.cake.dto.CakeByOwnerResponseDto;
 import bungae.thunder.cakey.cake.dto.CakeResponseDto;
 import bungae.thunder.cakey.cake.service.CakeService;
 import bungae.thunder.cakey.letter.domain.Letter;
@@ -59,7 +59,7 @@ public class CakeController {
      + 편지를 얼마나 많이 받았는지 대략적인 정보 추가?
      */
     @GetMapping("/cake/guest/{cakeId}")
-    public ResponseEntity<CakeByGuestResponse> getCakeByGuest(@PathVariable Long cakeId) {
+    public ResponseEntity<CakeByGuestResponseDto> getCakeByGuest(@PathVariable Long cakeId) {
         //TODO: 이후 auth service 에서 사용자 정보를 가져오는것으로 변경
         Long userId = 1L;
 
@@ -67,7 +67,7 @@ public class CakeController {
         User owner = userService.getUser(cake.getUser().getId());
         Letter writeLetter = letterService.getLetterBySenderIdAndCakeId(userId, cakeId);
 
-        CakeByGuestResponse response = new CakeByGuestResponse(cake, owner, writeLetter);
+        CakeByGuestResponseDto response = new CakeByGuestResponseDto(cake, owner, writeLetter);
         return ResponseEntity.ok(response);
     }
 
@@ -76,7 +76,7 @@ public class CakeController {
      케이크가 받은 편지 id의 리스트를 함께 반환
      */
     @GetMapping("/cake/owner/{cakeId}")
-    public ResponseEntity<CakeByOwnerResponse> getCakeByOwner(@PathVariable Long cakeId) {
+    public ResponseEntity<CakeByOwnerResponseDto> getCakeByOwner(@PathVariable Long cakeId) {
         //TODO: 이후 auth service 에서 사용자 정보를 가져오는것으로 변경
         Long userId = 1L;
 
@@ -85,7 +85,7 @@ public class CakeController {
         User owner = userService.getUser(userId);
         List<Letter> receivedLetters = letterService.getAllLettersByCakeId(cakeId);
 
-        CakeByOwnerResponse response = new CakeByOwnerResponse(cake, owner, receivedLetters);
+        CakeByOwnerResponseDto response = new CakeByOwnerResponseDto(cake, owner, receivedLetters);
         return ResponseEntity.ok(response);
     }
 
