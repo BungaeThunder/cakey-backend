@@ -34,4 +34,8 @@ public class UserService {
                 .findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("유저가 존재하지 않습니다"));
     }
+
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 }

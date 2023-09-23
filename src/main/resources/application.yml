@@ -20,7 +20,7 @@ spring:
             client-secret: ${NAVER_CLIENT_SECRET}
             redirect-uri: http://localhost:3000/cake
             authorization-grant-type: authorization_code
-            scope: nickname,email,gender,age,profile_image
+            scope: email,name
             client-name: Naver
         provider:
           naver:
