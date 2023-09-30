@@ -19,7 +19,7 @@ spring:
           naver:
             client-id: ${NAVER_CLIENT_ID}
             client-secret: ${NAVER_CLIENT_SECRET}
-            redirect-uri: http://localhost:3000/cake
+            redirect-uri: http://127.0.0.1:8080/users
             authorization-grant-type: authorization_code
             scope: email,name
             client-name: Naver

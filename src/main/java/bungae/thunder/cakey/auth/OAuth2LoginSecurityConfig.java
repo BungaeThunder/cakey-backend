@@ -20,7 +20,7 @@ public class OAuth2LoginSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .anyRequest()
-                .permitAll()
+                .authenticated()
                 .and()
                 .oauth2Login()
                 .userInfoEndpoint()
